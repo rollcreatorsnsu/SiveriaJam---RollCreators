@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\RollCreators\Scripts\UI\GameMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\Menu.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Hacker/GameDev/SiveriaJam---RollCreators/RollCreators/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
