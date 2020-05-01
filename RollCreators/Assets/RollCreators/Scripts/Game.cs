@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
     [SerializeField] private Text agentsText;
     [SerializeField] private Text changeDayTimeText;
 
-    private DayTime dayTime = DayTime.DAY;
+    public DayTime dayTime = DayTime.DAY;
 
     void Update()
     {

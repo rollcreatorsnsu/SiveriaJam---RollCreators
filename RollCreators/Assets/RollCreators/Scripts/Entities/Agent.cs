@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public abstract class Agent : MonoBehaviour 
+public abstract class Agent : MonoBehaviour, IPointerClickHandler
 {
 
     public enum Skills
@@ -21,8 +22,11 @@ public abstract class Agent : MonoBehaviour
     public int level;
     public Dictionary<Skills, int> skills = new Dictionary<Skills, int>();
 
-    public Agent()
+    private AgentMenu agentMenu;
+
+    void Start()
     {
+        agentMenu = GameObject.Find("Game").GetComponent<AgentMenu>();
         SetNewAgent();
     }
 
@@ -33,4 +37,9 @@ public abstract class Agent : MonoBehaviour
         // TODO
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        agentMenu.currentAgent = this;
+        agentMenu.Show();
+    }
 }

@@ -34,4 +34,9 @@ public class Sinner : MonoBehaviour
     public bool wealthOpened = false;
     public bool sinsOpened = false;
 
+    void Start()
+    {
+        // TODO
+    }
+
 }
