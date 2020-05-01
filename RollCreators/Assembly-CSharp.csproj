@@ -55,6 +55,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\RollCreators\Scripts\Entities\Agent.cs" />
+     <Compile Include="Assets\RollCreators\Scripts\Entities\Sinner.cs" />
+     <Compile Include="Assets\RollCreators\Scripts\Game.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\GameMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\Menu.cs" />
  <Reference Include="Unity.Timeline.Editor">
