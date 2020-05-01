@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Agent : MonoBehaviour
+public abstract class Agent : MonoBehaviour 
 {
-    public enum AgentType
-    {
-        CLERGYMAN,
-        VILLAIN
-    }
 
     public enum Skills
     {
@@ -20,11 +15,22 @@ public class Agent : MonoBehaviour
         PERSUASIVENESS,
         PRESSURE
     }
-    
+
     public string name;
-    public AgentType type;
     public int experience;
     public int level;
     public Dictionary<Skills, int> skills = new Dictionary<Skills, int>();
+
+    public Agent()
+    {
+        SetNewAgent();
+    }
+
+    public abstract void DoTask(Game game);
+
+    public void SetNewAgent()
+    {
+        // TODO
+    }
 
 }

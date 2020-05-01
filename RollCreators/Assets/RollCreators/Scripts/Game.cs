@@ -16,16 +16,14 @@ public class Game : MonoBehaviour
     public int attention;
 
     [HideInInspector] public List<Sinner> sinners = new List<Sinner>();
-    [HideInInspector] public List<Agent> dayAgents = new List<Agent>();
-    [HideInInspector] public List<Agent> nightAgents = new List<Agent>();
+    [HideInInspector] public List<DayAgent> dayAgents = new List<DayAgent>();
+    [HideInInspector] public List<NightAgent> nightAgents = new List<NightAgent>();
     
     [SerializeField] private Text sinnersText;
     [SerializeField] private Text goldText;
     [SerializeField] private Text attentionText;
     [SerializeField] private Text agentsText;
     [SerializeField] private Text changeDayTimeText;
-    [SerializeField] private GameObject dayDoingsPanel;
-    [SerializeField] private GameObject nightDoingsPanel;
 
     private DayTime dayTime = DayTime.DAY;
 
@@ -41,11 +39,19 @@ public class Game : MonoBehaviour
     {
         if (dayTime == DayTime.DAY)
         {
+            foreach (DayAgent agent in dayAgents)
+            {
+                agent.DoTask(this);
+            }
             changeDayTimeText.text = "Change Day";
             dayTime = DayTime.NIGHT;
         }
         else
         {
+            foreach (NightAgent agent in nightAgents)
+            {
+                agent.DoTask(this);
+            }
             changeDayTimeText.text = "Change Night";
             dayTime = DayTime.DAY;
         }
