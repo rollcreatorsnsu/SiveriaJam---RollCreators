@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum AgentType
     {
-        
+        CLERGYMAN,
+        VILLAIN
     }
 
-    // Update is called once per frame
-    void Update()
+    public enum Skills
     {
-        
+        ELOQUENCE,
+        CUNNING,
+        WISDOM,
+        INSIGHT,
+        CHARM,
+        PERSUASIVENESS,
+        PRESSURE
     }
+    
+    public string name;
+    public AgentType type;
+    public int experience;
+    public int level;
+    public Dictionary<Skills, int> skills = new Dictionary<Skills, int>();
+
 }

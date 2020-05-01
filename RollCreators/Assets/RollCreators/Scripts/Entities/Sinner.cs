@@ -1,18 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Sinner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum SocialStatus
     {
-        
+        NOBLEMAN,
+        CITIZEN,
+        PEASANT,
+        GARBAGE
+    };
+
+    public enum Sins
+    {
+        VANITY,
+        ENVY,
+        ANGER,
+        GLOOM,
+        GREED,
+        GLUTTONY,
+        FORNICATION
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string name;
+    public SocialStatus socialStatus;
+    public int fearOfGod;
+    public int wealth;
+    public Dictionary<Sins, int> sins = new Dictionary<Sins, int>();
+
 }
