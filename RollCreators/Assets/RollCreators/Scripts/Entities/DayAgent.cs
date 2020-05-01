@@ -90,14 +90,14 @@ public class DayAgent : Agent
                 {
                     if (sinner.socialStatus == tempSocialStatus)
                     {
-                        sinner.strength++; // TODO
+                        sinner.strength += Random.Range(-10, 10);
                     }
                 }
                 break;
             }
             case (DayTask.SELL_INDULGENCE):
             {
-                int sum = 0;
+                float sum = 0;
                 foreach (Sinner sinner in game.sinners)
                 {
                     int sins = 0;
@@ -108,6 +108,8 @@ public class DayAgent : Agent
                     sum += sinner.strength * sinner.fearOfGod * sins * skills[Skills.PRESSURE] * sinner.wealth / 700000;
                     sinner.strength -= sinner.strength * sinner.fearOfGod / 100;
                 }
+
+                game.gold += sum;
                 break;
             }
             case (DayTask.CHANGE_AGENT):

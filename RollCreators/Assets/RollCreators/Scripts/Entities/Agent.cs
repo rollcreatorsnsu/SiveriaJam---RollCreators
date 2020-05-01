@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public abstract class Agent : MonoBehaviour, IPointerClickHandler
 {
+
+    private static int[] EXPERIENCE = {
+        0, 10, 25, 50
+    };
 
     public enum Skills
     {
@@ -34,12 +39,29 @@ public abstract class Agent : MonoBehaviour, IPointerClickHandler
 
     public void SetNewAgent()
     {
-        // TODO
+        level = 1;
+        skills[Skills.ELOQUENCE] = 4 + Random.Range(-2, 2);
+        skills[Skills.CUNNING] = 4 + Random.Range(-2, 2);
+        skills[Skills.WISDOM] = 4 + Random.Range(-2, 2);
+        skills[Skills.INSIGHT] = 4 + Random.Range(-2, 2);
+        skills[Skills.CHARM] = 4 + Random.Range(-2, 2);
+        skills[Skills.PERSUASIVENESS] = 4 + Random.Range(-2, 2);
+        skills[Skills.PRESSURE] = 4 + Random.Range(-2, 2);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         agentMenu.currentAgent = this;
         agentMenu.Show();
+    }
+
+    public void CheckNextLevel()
+    {
+        if (experience >= EXPERIENCE[level])
+        {
+            agentMenu.currentAgent = this;
+            agentMenu.ShowUpgradeMenu();
+            level++;
+        }
     }
 }

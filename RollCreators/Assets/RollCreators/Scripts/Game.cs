@@ -12,7 +12,7 @@ public class Game : MonoBehaviour
         NIGHT
     }
     
-    public int gold;
+    public float gold;
     public int attention;
 
     [HideInInspector] public List<Sinner> sinners = new List<Sinner>();
@@ -25,7 +25,21 @@ public class Game : MonoBehaviour
     [SerializeField] private Text agentsText;
     [SerializeField] private Text changeDayTimeText;
 
+    [SerializeField] private AgentMenu agentMenu;
+
+    [SerializeField] private GameObject dayAgentPrefab;
+    [SerializeField] private GameObject nightAgentPrefab;
+
     public DayTime dayTime = DayTime.DAY;
+
+    void Start()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            dayAgents.Add(Instantiate(dayAgentPrefab).GetComponent<DayAgent>());
+            nightAgents.Add(Instantiate(nightAgentPrefab).GetComponent<NightAgent>());
+        }
+    }
 
     void Update()
     {
@@ -39,6 +53,10 @@ public class Game : MonoBehaviour
     {
         if (dayTime == DayTime.DAY)
         {
+            foreach (Sinner sinner in sinners)
+            {
+                sinner.Hide();
+            }
             foreach (DayAgent agent in dayAgents)
             {
                 agent.DoTask(this);
@@ -54,6 +72,14 @@ public class Game : MonoBehaviour
             }
             changeDayTimeText.text = "Change Night";
             dayTime = DayTime.DAY;
+            foreach (Sinner sinner in sinners)
+            {
+                sinner.Update();
+            }
+            if (attention >= 100)
+            {
+                agentMenu.ShowIndulgenceDropDown();
+            }
         }
     }
     

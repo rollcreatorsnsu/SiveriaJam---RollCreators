@@ -14,6 +14,9 @@ public class AgentMenu : MonoBehaviour
     public Game game;
     public Dropdown dropdown;
     public Button dropDownButton;
+    public Text dropDownText;
+    public GameObject gameOver;
+    private int skillsToUpgrade;
 
     public void Show()
     {
@@ -30,7 +33,7 @@ public class AgentMenu : MonoBehaviour
     private void GetSocialStatusListener()
     {
         DayAgent agent = (DayAgent)currentAgent;
-        agent.tempSocialStatus = (Sinner.SocialStatus) System.Enum.Parse(typeof(Sinner.SocialStatus),
+        agent.tempSocialStatus = (Sinner.SocialStatus) Enum.Parse(typeof(Sinner.SocialStatus),
             dropdown.options[dropdown.value].text);
         dropdown.gameObject.SetActive(false);
     }
@@ -63,6 +66,17 @@ public class AgentMenu : MonoBehaviour
         }
     }
 
+    public void GetIndulgenceListener()
+    {
+        game.gold -= 5000 * (dropdown.value + 1);
+        game.attention -= 10 * (dropdown.value + 1);
+        dropdown.gameObject.SetActive(false);
+        if (game.attention >= 100)
+        {
+            gameOver.SetActive(true);
+        }
+    }
+
     private void ShowSocialStatusDropdown()
     {
         dropdown.ClearOptions();
@@ -76,6 +90,8 @@ public class AgentMenu : MonoBehaviour
         {
             dropDownButton.onClick.AddListener(GetNightSocialStatusListener);
         }
+
+        dropDownText.text = "Выберите социальную группу";
         dropdown.gameObject.SetActive(true);
     }
 
@@ -90,6 +106,7 @@ public class AgentMenu : MonoBehaviour
         dropdown.AddOptions(newOptions);
         dropDownButton.onClick.RemoveAllListeners();
         dropDownButton.onClick.AddListener(GetIntListener);
+        dropDownText.text = "Выберите количество";
         dropdown.gameObject.SetActive(true);
     }
 
@@ -104,7 +121,37 @@ public class AgentMenu : MonoBehaviour
         dropdown.AddOptions(sinners);
         dropDownButton.onClick.RemoveAllListeners();
         dropDownButton.onClick.AddListener(GetSinnerListener);
+        dropDownText.text = "Выберите грешника";
         dropdown.gameObject.SetActive(true);
+    }
+
+    public void ShowIndulgenceDropDown()
+    {
+        ShowIntDropdown();
+        dropDownButton.onClick.RemoveAllListeners();
+        dropDownButton.onClick.AddListener(GetIndulgenceListener);
+    }
+
+    private void GetUpgradeListener()
+    {
+        currentAgent.skills[(Agent.Skills) Enum.Parse(typeof(Agent.Skills),
+            dropdown.options[dropdown.value].text)]++;
+        skillsToUpgrade--;
+        if (skillsToUpgrade == 0)
+        {
+            dropdown.gameObject.SetActive(false);
+        }
+    }
+    
+    public void ShowUpgradeMenu()
+    {
+        skillsToUpgrade = 2;
+        dropdown.ClearOptions();
+        dropdown.AddOptions(new List<string>(Enum.GetNames(typeof(Agent.Skills))));
+        dropdown.gameObject.SetActive(true);
+        dropDownButton.onClick.RemoveAllListeners();
+        dropDownButton.onClick.AddListener(GetUpgradeListener);
+        dropDownText.text = "Выберите скилл для апгрейда";
     }
 
     public void ConductAService()
