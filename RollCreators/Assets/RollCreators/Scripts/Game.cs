@@ -23,6 +23,7 @@ public class Game : MonoBehaviour
     [SerializeField] private Text goldText;
     [SerializeField] private Text attentionText;
     [SerializeField] private Text agentsText;
+    [SerializeField] private Text changeDayTimeText;
     [SerializeField] private GameObject dayDoingsPanel;
     [SerializeField] private GameObject nightDoingsPanel;
 
@@ -40,14 +41,12 @@ public class Game : MonoBehaviour
     {
         if (dayTime == DayTime.DAY)
         {
-            dayDoingsPanel.SetActive(false);
-            nightDoingsPanel.SetActive(true);
+            changeDayTimeText.text = "Change Day";
             dayTime = DayTime.NIGHT;
         }
         else
         {
-            dayDoingsPanel.SetActive(true);
-            nightDoingsPanel.SetActive(false);
+            changeDayTimeText.text = "Change Night";
             dayTime = DayTime.DAY;
         }
     }
