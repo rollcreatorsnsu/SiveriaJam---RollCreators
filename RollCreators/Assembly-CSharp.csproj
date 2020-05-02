@@ -61,8 +61,12 @@
      <Compile Include="Assets\RollCreators\Scripts\Entities\Sinner.cs" />
      <Compile Include="Assets\RollCreators\Scripts\Game.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\AgentMenu.cs" />
+     <Compile Include="Assets\RollCreators\Scripts\UI\AgentsMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\GameMenu.cs" />
+     <Compile Include="Assets\RollCreators\Scripts\UI\IndulgenceMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\Menu.cs" />
+     <Compile Include="Assets\RollCreators\Scripts\UI\SettingsMenu.cs" />
+     <Compile Include="Assets\RollCreators\Scripts\UI\SinnersMenu.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Hacker/GameDev/SiveriaJam---RollCreators/RollCreators/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

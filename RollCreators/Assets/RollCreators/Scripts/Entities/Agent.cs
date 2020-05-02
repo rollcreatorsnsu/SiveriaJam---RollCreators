@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
-public abstract class Agent : MonoBehaviour, IPointerClickHandler
+public abstract class Agent : MonoBehaviour
 {
 
-    private static int[] EXPERIENCE = {
-        0, 10, 25, 50
+    public static int[] EXPERIENCE = {
+        0, 10, 15, 25
     };
 
     public enum Skills
@@ -22,10 +24,25 @@ public abstract class Agent : MonoBehaviour, IPointerClickHandler
         PRESSURE
     }
 
+    private int _experience;
     public string name;
-    public int experience;
+    public int experience { 
+        get => _experience; 
+        set
+        {
+            while (value >= EXPERIENCE[level])
+            {
+                level++;
+                skillPoints += 2;
+                experience = value - EXPERIENCE[level - 1];
+            }
+
+            _experience = value;
+        } 
+    }
     public int level;
     public Dictionary<Skills, int> skills = new Dictionary<Skills, int>();
+    public int skillPoints = 0;
 
     private AgentMenu agentMenu;
 
@@ -49,19 +66,4 @@ public abstract class Agent : MonoBehaviour, IPointerClickHandler
         skills[Skills.PRESSURE] = 4 + Random.Range(-2, 2);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        agentMenu.currentAgent = this;
-        agentMenu.Show();
-    }
-
-    public void CheckNextLevel()
-    {
-        if (experience >= EXPERIENCE[level])
-        {
-            agentMenu.currentAgent = this;
-            agentMenu.ShowUpgradeMenu();
-            level++;
-        }
-    }
 }

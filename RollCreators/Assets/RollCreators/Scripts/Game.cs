@@ -11,24 +11,41 @@ public class Game : MonoBehaviour
         DAY,
         NIGHT
     }
-    
-    public float gold;
-    public int attention;
 
-    [HideInInspector] public List<Sinner> sinners = new List<Sinner>();
+    private float _gold;
+
+    public float gold
+    {
+        get => _gold;
+        set
+        {
+            gameMenu.goldText.text = $"Золото {value}";
+            _gold = value;
+        }
+    }
+
+    private int _attention;
+
+    public int attention
+    {
+        get => _attention;
+        set
+        {
+            gameMenu.attentionText.text = $"Внимание {value}/100";
+            _attention = value;
+        }
+    }
+
+    [HideInInspector] public Dictionary<Sinner.SocialStatus, Sinner> sinners = new Dictionary<Sinner.SocialStatus, Sinner>();
     [HideInInspector] public List<DayAgent> dayAgents = new List<DayAgent>();
     [HideInInspector] public List<NightAgent> nightAgents = new List<NightAgent>();
-    
-    [SerializeField] private Text sinnersText;
-    [SerializeField] private Text goldText;
-    [SerializeField] private Text attentionText;
-    [SerializeField] private Text agentsText;
-    [SerializeField] private Text changeDayTimeText;
 
-    [SerializeField] private AgentMenu agentMenu;
+    [SerializeField] private GameMenu gameMenu;
+    [SerializeField] private IndulgenceMenu indulgenceMenu;
 
     [SerializeField] private GameObject dayAgentPrefab;
     [SerializeField] private GameObject nightAgentPrefab;
+    [SerializeField] private GameObject sinnerPrefab;
 
     public DayTime dayTime = DayTime.DAY;
 
@@ -39,21 +56,21 @@ public class Game : MonoBehaviour
             dayAgents.Add(Instantiate(dayAgentPrefab).GetComponent<DayAgent>());
             nightAgents.Add(Instantiate(nightAgentPrefab).GetComponent<NightAgent>());
         }
-    }
 
-    void Update()
-    {
-        sinnersText.text = $"Sinners: {sinners.Count}";
-        goldText.text = $"Gold: {gold}";
-        attentionText.text = $"Attention: {attention}";
-        agentsText.text = $"Agents: {(dayTime == DayTime.DAY ? dayAgents.Count : nightAgents.Count)}";
+        foreach (Sinner.SocialStatus status in Enum.GetValues(typeof(Sinner.SocialStatus)))
+        {
+            sinners.Add(status, Instantiate(sinnerPrefab).GetComponent<Sinner>());
+        }
+
+        attention = 0;
+        gold = 0;
     }
 
     public void ChangeDayTime()
     {
         if (dayTime == DayTime.DAY)
         {
-            foreach (Sinner sinner in sinners)
+            foreach (Sinner sinner in sinners.Values)
             {
                 sinner.Hide();
             }
@@ -61,7 +78,6 @@ public class Game : MonoBehaviour
             {
                 agent.DoTask(this);
             }
-            changeDayTimeText.text = "Change Day";
             dayTime = DayTime.NIGHT;
         }
         else
@@ -70,15 +86,14 @@ public class Game : MonoBehaviour
             {
                 agent.DoTask(this);
             }
-            changeDayTimeText.text = "Change Night";
             dayTime = DayTime.DAY;
-            foreach (Sinner sinner in sinners)
+            foreach (Sinner sinner in sinners.Values)
             {
                 sinner.Update();
             }
             if (attention >= 100)
             {
-                agentMenu.ShowIndulgenceDropDown();
+                indulgenceMenu.ShowIndulgenceDropDown();
             }
         }
     }

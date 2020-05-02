@@ -26,7 +26,6 @@ public class Sinner : MonoBehaviour
     }
 
     public string name;
-    public SocialStatus socialStatus;
     public int fearOfGod;
     public float wealth;
     public Dictionary<Sins, int> sins = new Dictionary<Sins, int>();

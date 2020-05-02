@@ -7,6 +7,7 @@ public class DayAgent : Agent
 {
     public enum DayTask
     {
+        IDLE,
         CONDUCT_A_SERVICE,
         GIVE_ALMS,
         CONFESS_SINNERS,
@@ -17,7 +18,7 @@ public class DayAgent : Agent
         CHANGE_AGENT,
         TRAIN_AGENT
     }
-    public DayTask task;
+    public DayTask task = DayTask.IDLE;
     public Sinner.SocialStatus tempSocialStatus;
     public int tempInt;
 
@@ -27,13 +28,7 @@ public class DayAgent : Agent
         {
             case (DayTask.CONDUCT_A_SERVICE):
             {
-                foreach (Sinner sinner in game.sinners)
-                {
-                    if (sinner.socialStatus == tempSocialStatus)
-                    {
-                        sinner.fearOfGod += Random.Range(-30, 0) + 5 * skills[Skills.ELOQUENCE];
-                    }
-                }
+                game.sinners[tempSocialStatus].fearOfGod += Random.Range(-30, 0) + 5 * skills[Skills.ELOQUENCE];
                 break;
             }
             case (DayTask.GIVE_ALMS):
@@ -44,66 +39,42 @@ public class DayAgent : Agent
             }
             case (DayTask.CONFESS_SINNERS):
             {
-                foreach (Sinner sinner in game.sinners)
+                if (Random.Range(0, 100) <= game.sinners[tempSocialStatus].fearOfGod - 20 + 5 * skills[Skills.INSIGHT])
                 {
-                    if (sinner.socialStatus == tempSocialStatus)
-                    {
-                        if (Random.Range(0, 100) <= sinner.fearOfGod - 20 + 5 * skills[Skills.INSIGHT])
-                        {
-                            sinner.sinsOpened = true;
-                        }
-                    }
+                    game.sinners[tempSocialStatus].sinsOpened = true;
                 }
                 break;
             }
             case (DayTask.INTERPRETING_SACRED_TEXTS):
             {
-                foreach (Sinner sinner in game.sinners)
+                if (Random.Range(0, 100) <= Random.Range(10, 50) + 5 * skills[Skills.WISDOM])
                 {
-                    if (sinner.socialStatus == tempSocialStatus)
-                    {
-                        if (Random.Range(0, 100) <= Random.Range(10, 50) + 5 * skills[Skills.WISDOM])
-                        {
-                            sinner.sinsOpened = true;
-                        }
-                    }
+                    game.sinners[tempSocialStatus].fearOfGodOpened = true;
                 }
                 break;
             }
             case (DayTask.LISTEN_TO_GOSSIP):
             {
-                foreach (Sinner sinner in game.sinners)
+                if (Random.Range(0, 100) <= Random.Range(10, 50) + 5 * skills[Skills.CHARM])
                 {
-                    if (sinner.socialStatus == tempSocialStatus)
-                    {
-                        if (Random.Range(0, 100) <= Random.Range(10, 50) + 5 * skills[Skills.CHARM])
-                        {
-                            sinner.sinsOpened = true;
-                        }
-                    }
+                    game.sinners[tempSocialStatus].wealthOpened = true;
                 }
                 break;
             }
             case (DayTask.PREACH_IN_THE_CITY):
             {
-                foreach (Sinner sinner in game.sinners)
-                {
-                    if (sinner.socialStatus == tempSocialStatus)
-                    {
-                        sinner.strength += Random.Range(-10, 10);
-                    }
-                }
+                game.sinners[tempSocialStatus].strength += Random.Range(-10, 10);
                 break;
             }
             case (DayTask.SELL_INDULGENCE):
             {
                 float sum = 0;
-                foreach (Sinner sinner in game.sinners)
+                foreach (Sinner sinner in game.sinners.Values)
                 {
                     int sins = 0;
-                    foreach (Sinner.Sins sin in Enum.GetValues(typeof(Sinner.Sins)))
+                    foreach (int sin in sinner.sins.Values)
                     {
-                        sins += sinner.sins[sin];
+                        sins += sin;
                     }
                     sum += sinner.strength * sinner.fearOfGod * sins * skills[Skills.PRESSURE] * sinner.wealth / 700000;
                     sinner.strength -= sinner.strength * sinner.fearOfGod / 100;

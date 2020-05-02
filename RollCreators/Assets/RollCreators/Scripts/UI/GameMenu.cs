@@ -1,39 +1,103 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
 {
-    public string menuSceneName = "Menu";
+    private static Dictionary<DayAgent.DayTask, string> DAY_TASKS = new Dictionary<DayAgent.DayTask, string>();
+    private static Dictionary<NightAgent.NightTask, string> NIGHT_TASKS = new Dictionary<NightAgent.NightTask, string>();
+
+    static GameMenu()
+    {
+        DAY_TASKS.Add(DayAgent.DayTask.IDLE, "бездействует");
+        DAY_TASKS.Add(DayAgent.DayTask.CONDUCT_A_SERVICE, "проводит службу");
+        DAY_TASKS.Add(DayAgent.DayTask.GIVE_ALMS, "раздает милостыню");
+        DAY_TASKS.Add(DayAgent.DayTask.CONFESS_SINNERS, "исповедует грешников");
+        DAY_TASKS.Add(DayAgent.DayTask.INTERPRETING_SACRED_TEXTS, "толкует священные тексты");
+        DAY_TASKS.Add(DayAgent.DayTask.LISTEN_TO_GOSSIP, "слушает сплетни");
+        DAY_TASKS.Add(DayAgent.DayTask.PREACH_IN_THE_CITY, "проповедует в городе");
+        DAY_TASKS.Add(DayAgent.DayTask.SELL_INDULGENCE, "продает индульгенцию");
+        DAY_TASKS.Add(DayAgent.DayTask.CHANGE_AGENT, "сменяет агента");
+        DAY_TASKS.Add(DayAgent.DayTask.TRAIN_AGENT, "обучает агента");
+        NIGHT_TASKS.Add(NightAgent.NightTask.IDLE, "бездействует");
+        NIGHT_TASKS.Add(NightAgent.NightTask.OPEN_FLAT, "неприкрыто льстит");
+        NIGHT_TASKS.Add(NightAgent.NightTask.MUCHLY_PRAISE, "ехидно похваляется");
+        NIGHT_TASKS.Add(NightAgent.NightTask.PROVOKE_TO_FIGHT, "провоцирует на драку");
+        NIGHT_TASKS.Add(NightAgent.NightTask.COMPLAINT_ON_JUSTICE, "жалуется на несправедливость");
+        NIGHT_TASKS.Add(NightAgent.NightTask.DICE, "играет в кости");
+        NIGHT_TASKS.Add(NightAgent.NightTask.TAKE_A_BREAK, "закатывает пирушку");
+        NIGHT_TASKS.Add(NightAgent.NightTask.DEVELOP, "развратничает");
+        NIGHT_TASKS.Add(NightAgent.NightTask.CHANGE_AGENT, "сменяет агента");
+        NIGHT_TASKS.Add(NightAgent.NightTask.TRAIN_AGENT, "обучает агента");
+    }
+    
+    public Game game;
     public GameObject settingsPanel;
+    public GameObject agentMenu;
+    public GameObject agentsMenu;
+    public GameObject sinnersMenu;
+    public Text changeDayText;
+    public List<Text> agentTexts;
+    public Text goldText;
+    public Text attentionText;
+
+    private AgentMenu agentMenuScript;
+
+    void Start()
+    {
+        agentMenuScript = agentMenu.GetComponent<AgentMenu>();
+    }
 
     public void ShowSettings()
     {
         settingsPanel.SetActive(true);
     }
-    
-    public void Mute(bool isOn)
+
+    public void ShowAgentMenu(int index)
     {
-        AudioListener.volume = isOn ? 1.0f : 0.0f;
+        agentMenuScript.Show(game.dayTime == Game.DayTime.DAY ? (Agent)game.dayAgents[index] : (Agent)game.nightAgents[index]);
     }
 
-    public void Restart()
+    public void ShowAgentsMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        agentsMenu.SetActive(true);
     }
 
-    public void ExitMenu()
+    public void ShowSinnerMenu()
     {
-        SceneManager.LoadScene(menuSceneName);
+        sinnersMenu.SetActive(true);
     }
 
-    public void ExitGame()
+    public void ChangeDayTime()
     {
-        Application.Quit();
+        game.ChangeDayTime();
+        if (game.dayTime == Game.DayTime.DAY)
+        {
+            changeDayText.text = "Завершить день";
+        }
+        else
+        {
+            changeDayText.text = "Завершить ночь";
+        }
+        UpdateAgentButtons();
+    }
+
+    public void UpdateAgentButtons()
+    {
+        if (game.dayTime == Game.DayTime.DAY)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                agentTexts[i].text = $"Агент {i + 1} - {DAY_TASKS[game.dayAgents[i].task]}";
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                agentTexts[i].text = $"Агент {i + 1} - {NIGHT_TASKS[game.nightAgents[i].task]}";
+            }
+        }
     }
 
 }

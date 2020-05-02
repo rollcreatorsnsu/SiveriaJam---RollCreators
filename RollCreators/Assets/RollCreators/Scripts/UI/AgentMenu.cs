@@ -1,289 +1,140 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AgentMenu : MonoBehaviour
 {
-    public Agent currentAgent;
+    private static string[] DAY_TASK_NAMES =
+    {
+        "Проводить службу", "Раздавать милостыню", "Исповедовать грешников", "Толковать священные тексты", "Слушать сплетни", "Проповедовать в городе", "Продавать индульгенцию"
+    };
+
+    private static string[] NIGHT_TASK_NAMES =
+    {
+        "Неприкрыто льстить", "Ехидно похваляться", "Провоцировать на драку", "Жаловаться на несправедливость", "Играть в кости", "Закатывать пирушку", "Разватничать"
+    };
+
+    private static DayAgent.DayTask[] DAY_TASKS =
+    {
+        DayAgent.DayTask.CONDUCT_A_SERVICE,
+        DayAgent.DayTask.GIVE_ALMS,
+        DayAgent.DayTask.CONFESS_SINNERS,
+        DayAgent.DayTask.INTERPRETING_SACRED_TEXTS,
+        DayAgent.DayTask.LISTEN_TO_GOSSIP,
+        DayAgent.DayTask.PREACH_IN_THE_CITY,
+        DayAgent.DayTask.SELL_INDULGENCE,
+        DayAgent.DayTask.CHANGE_AGENT,
+        DayAgent.DayTask.TRAIN_AGENT
+    };
+
+    private static NightAgent.NightTask[] NIGHT_TASKS =
+    {
+        NightAgent.NightTask.OPEN_FLAT,
+        NightAgent.NightTask.MUCHLY_PRAISE,
+        NightAgent.NightTask.PROVOKE_TO_FIGHT,
+        NightAgent.NightTask.COMPLAINT_ON_JUSTICE,
+        NightAgent.NightTask.DICE,
+        NightAgent.NightTask.TAKE_A_BREAK,
+        NightAgent.NightTask.DEVELOP,
+        NightAgent.NightTask.CHANGE_AGENT,
+        NightAgent.NightTask.TRAIN_AGENT
+    };
+    
+    [HideInInspector] public Agent currentAgent;
     public GameObject dayMenu;
     public GameObject nightMenu;
     public Game game;
-    public Dropdown dropdown;
-    public Button dropDownButton;
-    public Text dropDownText;
-    public GameObject gameOver;
-    private int skillsToUpgrade;
+    [HideInInspector] public DayAgent.DayTask dayTask;
+    [HideInInspector] public NightAgent.NightTask nightTask;
+    public Text nameText;
+    public Text eloquenceText;
+    public Text cunningText;
+    public Text wisdomText;
+    public Text insightText;
+    public Text charmText;
+    public Text persuasivenessText;
+    public Text pressureText;
+    public Text taskText;
+    public GameMenu gameMenu;
 
-    public void Show()
+    public GameObject dropDownPanel;
+    public Dropdown dropdown;
+
+    public GameObject sliderPanel;
+    public Slider slider;
+
+    public void Close()
     {
+        gameObject.SetActive(false);
+    }
+
+    public void Show(Agent agent)
+    {
+        currentAgent = agent;
+        gameObject.SetActive(true);
         if (game.dayTime == Game.DayTime.DAY)
         {
             dayMenu.SetActive(true);
+            nightMenu.SetActive(false);
+            ShowDayPanel(0);
         }
         else
         {
             nightMenu.SetActive(true);
+            dayMenu.SetActive(false);
+            ShowNightPanel(0);
         }
+        nameText.text = $"Имя: {currentAgent.name}";
+        eloquenceText.text = $"Красноречие {currentAgent.skills[Agent.Skills.ELOQUENCE]}";
+        cunningText.text = $"Хитрость {currentAgent.skills[Agent.Skills.CUNNING]}";
+        wisdomText.text = $"Мудрость {currentAgent.skills[Agent.Skills.WISDOM]}";
+        insightText.text = $"Проницательность {currentAgent.skills[Agent.Skills.INSIGHT]}";
+        charmText.text = $"Обаяние {currentAgent.skills[Agent.Skills.CHARM]}";
+        persuasivenessText.text = $"Убедительность {currentAgent.skills[Agent.Skills.PERSUASIVENESS]}";
+        pressureText.text = $"Напор {currentAgent.skills[Agent.Skills.PRESSURE]}";
+        gameMenu.UpdateAgentButtons();
     }
 
-    private void GetSocialStatusListener()
+    public void Apply()
     {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.tempSocialStatus = (Sinner.SocialStatus) Enum.Parse(typeof(Sinner.SocialStatus),
-            dropdown.options[dropdown.value].text);
-        dropdown.gameObject.SetActive(false);
-    }
-
-    private void GetIntListener()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.tempInt = dropdown.value + 1;
-        dropdown.gameObject.SetActive(false);
-    }
-
-    private void GetNightSocialStatusListener()
-    {
-        NightAgent agent = (NightAgent)currentAgent;
-        agent.tempSocialStatus = (Sinner.SocialStatus) System.Enum.Parse(typeof(Sinner.SocialStatus),
-            dropdown.options[dropdown.value].text);
-        dropdown.gameObject.SetActive(false);
-    }
-
-    private void GetSinnerListener()
-    {
-        NightAgent agent = (NightAgent)currentAgent;
-        foreach (Sinner sinner in game.sinners)
-        {
-            if (sinner.name == dropdown.options[dropdown.value].ToString())
-            {
-                agent.tempSinner = sinner;
-                dropdown.gameObject.SetActive(false);
-            }
-        }
-    }
-
-    public void GetIndulgenceListener()
-    {
-        game.gold -= 5000 * (dropdown.value + 1);
-        game.attention -= 10 * (dropdown.value + 1);
-        dropdown.gameObject.SetActive(false);
-        if (game.attention >= 100)
-        {
-            gameOver.SetActive(true);
-        }
-    }
-
-    private void ShowSocialStatusDropdown()
-    {
-        dropdown.ClearOptions();
-        dropdown.AddOptions(new List<string>(Enum.GetNames(typeof(Sinner.SocialStatus))));
-        dropDownButton.onClick.RemoveAllListeners();
         if (game.dayTime == Game.DayTime.DAY)
         {
-            dropDownButton.onClick.AddListener(GetSocialStatusListener);
+            DayAgent agent = (DayAgent) currentAgent;
+            agent.task = dayTask;
+            if (dayTask == DayAgent.DayTask.GIVE_ALMS)
+            {
+                agent.tempInt = (int)slider.value;
+            }
+            else if (dayTask != DayAgent.DayTask.SELL_INDULGENCE)
+            {
+                agent.tempSocialStatus = (Sinner.SocialStatus) Enum.Parse(typeof(Sinner.SocialStatus),
+                    dropdown.options[dropdown.value].text);
+            }
         }
         else
         {
-            dropDownButton.onClick.AddListener(GetNightSocialStatusListener);
+            NightAgent agent = (NightAgent) currentAgent;
+            agent.task = nightTask;
+            agent.tempSocialStatus = (Sinner.SocialStatus) Enum.Parse(typeof(Sinner.SocialStatus),
+                dropdown.options[dropdown.value].text);
         }
-
-        dropDownText.text = "Выберите социальную группу";
-        dropdown.gameObject.SetActive(true);
+        gameMenu.UpdateAgentButtons();
     }
 
-    private void ShowIntDropdown()
+    public void ShowDayPanel(int index)
     {
-        dropdown.ClearOptions();
-        List<string> newOptions = new List<string>();
-        for (int i = 1; i <= 10; i++)
-        {
-            newOptions.Add(i.ToString());
-        }
-        dropdown.AddOptions(newOptions);
-        dropDownButton.onClick.RemoveAllListeners();
-        dropDownButton.onClick.AddListener(GetIntListener);
-        dropDownText.text = "Выберите количество";
-        dropdown.gameObject.SetActive(true);
+        taskText.text = DAY_TASK_NAMES[index];
+        dayTask = DAY_TASKS[index];
+        sliderPanel.SetActive(index == 1);
+        dropDownPanel.SetActive(index != 1 && index != 6);
     }
 
-    private void ShowSinnersDropDown()
+    public void ShowNightPanel(int index)
     {
-        dropdown.ClearOptions();
-        List<string> sinners = new List<string>();
-        foreach (Sinner sinner in game.sinners)
-        {
-            sinners.Add(sinner.name);
-        }
-        dropdown.AddOptions(sinners);
-        dropDownButton.onClick.RemoveAllListeners();
-        dropDownButton.onClick.AddListener(GetSinnerListener);
-        dropDownText.text = "Выберите грешника";
-        dropdown.gameObject.SetActive(true);
-    }
-
-    public void ShowIndulgenceDropDown()
-    {
-        ShowIntDropdown();
-        dropDownButton.onClick.RemoveAllListeners();
-        dropDownButton.onClick.AddListener(GetIndulgenceListener);
-    }
-
-    private void GetUpgradeListener()
-    {
-        currentAgent.skills[(Agent.Skills) Enum.Parse(typeof(Agent.Skills),
-            dropdown.options[dropdown.value].text)]++;
-        skillsToUpgrade--;
-        if (skillsToUpgrade == 0)
-        {
-            dropdown.gameObject.SetActive(false);
-        }
-    }
-    
-    public void ShowUpgradeMenu()
-    {
-        skillsToUpgrade = 2;
-        dropdown.ClearOptions();
-        dropdown.AddOptions(new List<string>(Enum.GetNames(typeof(Agent.Skills))));
-        dropdown.gameObject.SetActive(true);
-        dropDownButton.onClick.RemoveAllListeners();
-        dropDownButton.onClick.AddListener(GetUpgradeListener);
-        dropDownText.text = "Выберите скилл для апгрейда";
-    }
-
-    public void ConductAService()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.CONDUCT_A_SERVICE;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-
-    public void GiveAlms()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.GIVE_ALMS;
-        gameObject.SetActive(false);
-        ShowIntDropdown();
-    }
-    
-    public void ConfessSinners()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.CONFESS_SINNERS;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-    
-    public void InterpretingSacred()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.INTERPRETING_SACRED_TEXTS;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-
-    public void ListenToGossip()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.LISTEN_TO_GOSSIP;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-    
-    public void PreachInTheCity()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.PREACH_IN_THE_CITY;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-    
-    public void SellIndulgence()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.SELL_INDULGENCE;
-        gameObject.SetActive(false);
-    }
-    
-    public void ChangeAgent()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.CHANGE_AGENT;
-        gameObject.SetActive(false);
-    }
-
-    public void TrainAgent()
-    {
-        DayAgent agent = (DayAgent)currentAgent;
-        agent.task = DayAgent.DayTask.TRAIN_AGENT;
-        gameObject.SetActive(false);
-    }
-
-    public void OpenFlat()
-    {
-        NightAgent agent = (NightAgent) currentAgent;
-        agent.task = NightAgent.NightTask.OPEN_FLAT;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-    
-    public void MuchlyPraise()
-    {
-        NightAgent agent = (NightAgent) currentAgent;
-        agent.task = NightAgent.NightTask.MUCHLY_PRAISE;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-    
-    public void ProvokeToFight()
-    {
-        NightAgent agent = (NightAgent) currentAgent;
-        agent.task = NightAgent.NightTask.PROVOKE_TO_FIGHT;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-    
-    public void ComplaintOnJustice()
-    {
-        NightAgent agent = (NightAgent) currentAgent;
-        agent.task = NightAgent.NightTask.COMPLAINT_ON_JUSTICE;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-
-    public void Dice()
-    {
-        NightAgent agent = (NightAgent) currentAgent;
-        agent.task = NightAgent.NightTask.DICE;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-    
-    public void TakeABreak()
-    {
-        NightAgent agent = (NightAgent) currentAgent;
-        agent.task = NightAgent.NightTask.TAKE_A_BREAK;
-        gameObject.SetActive(false);
-        ShowSocialStatusDropdown();
-    }
-    
-    public void Develop()
-    {
-        NightAgent agent = (NightAgent) currentAgent;
-        agent.task = NightAgent.NightTask.DEVELOP;
-        gameObject.SetActive(false);
-        ShowSinnersDropDown();
-    }
-    
-    public void ChangeNightAgent()
-    {
-        NightAgent agent = (NightAgent) currentAgent;
-        agent.task = NightAgent.NightTask.CHANGE_AGENT;
-        gameObject.SetActive(false);
+        taskText.text = NIGHT_TASK_NAMES[index];
+        nightTask = NIGHT_TASKS[index];
+        sliderPanel.SetActive(false);
+        dropDownPanel.SetActive(true);
     }
     
 }
