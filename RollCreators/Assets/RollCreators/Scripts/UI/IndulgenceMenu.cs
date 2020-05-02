@@ -12,8 +12,8 @@ public class IndulgenceMenu : MonoBehaviour
     
     public void GetIndulgenceListener()
     {
-        game.gold -= 5000 * (slider.value + 1);
-        game.attention -= 10 * ((int)slider.value + 1);
+        game.gold -= 5000 * (slider.value);
+        game.attention -= 10 * ((int)slider.value);
         gameObject.SetActive(false);
         if (game.attention >= 100)
         {
@@ -23,7 +23,7 @@ public class IndulgenceMenu : MonoBehaviour
 
     public void TextUpdate()
     {
-        text.text = $"Убрать {10 * (slider.value + 1)} внимания за {5000 * (slider.value + 1)} золота";
+        text.text = $"Убрать {10 * (slider.value)} внимания за {5000 * (slider.value)} золота";
     }
     public void ShowIndulgenceDropDown()
     {
