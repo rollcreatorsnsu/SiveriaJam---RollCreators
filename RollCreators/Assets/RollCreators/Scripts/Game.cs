@@ -19,7 +19,7 @@ public class Game : MonoBehaviour
         get => _gold;
         set
         {
-            gameMenu.goldText.text = $"Золото {value}";
+            gameMenu.goldText.text = $"Золото {Mathf.Floor(value)}";
             _gold = value;
         }
     }
@@ -95,6 +95,7 @@ public class Game : MonoBehaviour
             }
             if (attention >= 100)
             {
+                attention = 100;
                 indulgenceMenu.ShowIndulgenceDropDown();
             }
         }
