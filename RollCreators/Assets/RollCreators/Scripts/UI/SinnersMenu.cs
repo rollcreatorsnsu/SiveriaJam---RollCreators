@@ -23,10 +23,8 @@ public class SinnersMenu : MonoBehaviour
     public Text gluttony;
     public Text fornication;
     public List<Button> buttons;
-    public Sprite activeDayButton;
-    public Sprite inactiveDayButton;
-    public Sprite activeNightButton;
-    public Sprite inactiveNightButton;
+    public Sprite activeButton;
+    public Sprite inactiveButton;
     
     public void Close()
     {
@@ -35,36 +33,17 @@ public class SinnersMenu : MonoBehaviour
 
     public void ChangeSocialStatus(int index)
     {
-        if (game.dayTime == Game.DayTime.DAY)
+        for (int i = 0; i < buttons.Count; i++)
         {
-            for (int i = 0; i < buttons.Count; i++)
+            if (i == index)
             {
-                if (i == index)
-                {
-                    buttons[i].image.sprite = activeDayButton;
-                    buttons[i].transform.localScale = new Vector3(1.5f, 1, 1);
-                }
-                else
-                {
-                    buttons[i].image.sprite = inactiveDayButton;
-                    buttons[i].transform.localScale = new Vector3(1, 1, 1);
-                }
+                buttons[i].image.sprite = activeButton;
+                buttons[i].transform.localScale = new Vector3(1.5f, 1, 1);
             }
-        }
-        else
-        {
-            for (int i = 0; i < buttons.Count; i++)
+            else
             {
-                if (i == index)
-                {
-                    buttons[i].image.sprite = activeNightButton;
-                    buttons[i].transform.localScale = new Vector3(1.5f, 1, 1);
-                }
-                else
-                {
-                    buttons[i].image.sprite = inactiveNightButton;
-                    buttons[i].transform.localScale = new Vector3(1, 1, 1);
-                }
+                buttons[i].image.sprite = inactiveButton;
+                buttons[i].transform.localScale = new Vector3(1, 1, 1);
             }
         }
         Sinner sinner = game.sinners[STATUSES[index]];
