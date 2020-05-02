@@ -89,7 +89,7 @@ public class Game : MonoBehaviour
             dayTime = DayTime.DAY;
             foreach (Sinner sinner in sinners.Values)
             {
-                sinner.Update();
+                sinner.MorningUpdate();
             }
             if (attention >= 100)
             {

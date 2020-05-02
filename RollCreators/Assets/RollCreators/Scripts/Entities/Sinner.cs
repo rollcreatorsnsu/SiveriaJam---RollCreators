@@ -55,7 +55,7 @@ public class Sinner : MonoBehaviour
         sinsOpened = false;
     }
 
-    public void Update()
+    public void MorningUpdate()
     {
         sins[Sins.VANITY] += Random.Range(-5, 10);
         sins[Sins.ENVY] += Random.Range(-5, 5);
