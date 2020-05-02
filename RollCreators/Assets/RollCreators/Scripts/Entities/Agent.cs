@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
-public abstract class Agent : MonoBehaviour
+public abstract class Agent
 {
 
     public static int[] EXPERIENCE = {
@@ -46,7 +42,7 @@ public abstract class Agent : MonoBehaviour
 
     private AgentMenu agentMenu;
 
-    void Start()
+    public Agent()
     {
         agentMenu = GameObject.Find("Game").GetComponent<AgentMenu>();
         SetNewAgent();

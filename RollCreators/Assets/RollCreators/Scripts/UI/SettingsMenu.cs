@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
@@ -30,5 +28,10 @@ public class SettingsMenu : MonoBehaviour
     public void ReturnToGame()
     {
         gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
     }
 }

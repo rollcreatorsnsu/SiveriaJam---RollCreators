@@ -32,40 +32,33 @@ public class GameMenu : MonoBehaviour
     }
     
     public Game game;
-    public GameObject settingsPanel;
-    public GameObject agentMenu;
-    public GameObject agentsMenu;
-    public GameObject sinnersMenu;
+    public SettingsMenu settingsPanel;
+    public AgentMenu agentMenu;
+    public AgentsMenu agentsMenu;
+    public SinnersMenu sinnersMenu;
     public Text changeDayText;
     public List<Text> agentTexts;
     public Text goldText;
     public Text attentionText;
-
-    private AgentMenu agentMenuScript;
-
-    void Start()
-    {
-        agentMenuScript = agentMenu.GetComponent<AgentMenu>();
-    }
-
+    
     public void ShowSettings()
     {
-        settingsPanel.SetActive(true);
+        settingsPanel.Show();
     }
 
     public void ShowAgentMenu(int index)
     {
-        agentMenuScript.Show(game.dayTime == Game.DayTime.DAY ? (Agent)game.dayAgents[index] : (Agent)game.nightAgents[index]);
+        agentMenu.Show(game.dayTime == Game.DayTime.DAY ? (Agent)game.dayAgents[index] : (Agent)game.nightAgents[index]);
     }
 
     public void ShowAgentsMenu()
     {
-        agentsMenu.SetActive(true);
+        agentsMenu.Show();
     }
 
     public void ShowSinnerMenu()
     {
-        sinnersMenu.SetActive(true);
+        sinnersMenu.Show();
     }
 
     public void ChangeDayTime()

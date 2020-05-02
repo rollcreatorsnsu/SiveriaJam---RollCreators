@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -43,23 +41,19 @@ public class Game : MonoBehaviour
     [SerializeField] private GameMenu gameMenu;
     [SerializeField] private IndulgenceMenu indulgenceMenu;
 
-    [SerializeField] private GameObject dayAgentPrefab;
-    [SerializeField] private GameObject nightAgentPrefab;
-    [SerializeField] private GameObject sinnerPrefab;
-
     public DayTime dayTime = DayTime.DAY;
 
     void Start()
     {
         for (int i = 0; i < 4; i++)
         {
-            dayAgents.Add(Instantiate(dayAgentPrefab).GetComponent<DayAgent>());
-            nightAgents.Add(Instantiate(nightAgentPrefab).GetComponent<NightAgent>());
+            dayAgents.Add(new DayAgent());
+            nightAgents.Add(new NightAgent());
         }
 
         foreach (Sinner.SocialStatus status in Enum.GetValues(typeof(Sinner.SocialStatus)))
         {
-            sinners.Add(status, Instantiate(sinnerPrefab).GetComponent<Sinner>());
+            sinners.Add(status, new Sinner());
         }
 
         attention = 0;
