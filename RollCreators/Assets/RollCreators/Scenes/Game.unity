@@ -4803,10 +4803,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game: {fileID: 122533612}
-  settingsPanel: {fileID: 1517626654}
-  agentMenu: {fileID: 1734827520}
-  agentsMenu: {fileID: 647302309}
-  sinnersMenu: {fileID: 815445862}
+  settingsPanel: {fileID: 1517626659}
+  agentMenu: {fileID: 1734827525}
+  agentsMenu: {fileID: 647302313}
+  sinnersMenu: {fileID: 815445867}
   changeDayText: {fileID: 328440976}
   agentTexts:
   - {fileID: 739113326}

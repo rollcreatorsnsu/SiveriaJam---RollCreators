@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SinnersMenu : MonoBehaviour
@@ -43,9 +40,10 @@ public class SinnersMenu : MonoBehaviour
         gluttony.text = $"Чревоугодие: {(sinner.sinsOpened ? sinner.sins[Sinner.Sins.GLUTTONY].ToString() : "???")}/100";
         fornication.text = $"Блуд: {(sinner.sinsOpened ? sinner.sins[Sinner.Sins.FORNICATION].ToString() : "???")}/100";
     }
-    
-    private void OnEnable()
+
+    public void Show()
     {
+        gameObject.SetActive(true);
         ChangeSocialStatus(0);
     }
 }

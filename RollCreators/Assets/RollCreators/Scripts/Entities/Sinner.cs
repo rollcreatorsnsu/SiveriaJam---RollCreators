@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Sinner : MonoBehaviour
+public class Sinner
 {
     public enum SocialStatus
     {
@@ -34,7 +33,7 @@ public class Sinner : MonoBehaviour
     public bool wealthOpened = false;
     public bool sinsOpened = false;
 
-    void Start()
+    public Sinner()
     {
         sins.Add(Sins.VANITY, 40);
         sins.Add(Sins.ENVY, 30);

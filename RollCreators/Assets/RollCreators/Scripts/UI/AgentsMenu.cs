@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class AgentsMenu : MonoBehaviour
@@ -112,8 +111,9 @@ public class AgentsMenu : MonoBehaviour
         gameMenu.UpdateAgentButtons();
     }
 
-    private void OnEnable()
+    public void Show()
     {
+        gameObject.SetActive(true);
         ChangeAgent(0);
     }
 }
