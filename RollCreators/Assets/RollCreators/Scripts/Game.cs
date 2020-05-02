@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
         get => _attention;
         set
         {
-            gameMenu.attentionText.text = $"Внимание {value}/100";
+            gameMenu.attentionText.text = $"{value}%\nвнимание инквизиции";
             _attention = value;
         }
     }

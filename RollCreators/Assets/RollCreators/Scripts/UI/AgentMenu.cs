@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,6 +63,13 @@ public class AgentMenu : MonoBehaviour
 
     public GameObject sliderPanel;
     public Slider slider;
+
+    public List<Button> dayButtons;
+    public Sprite activeDayButton;
+    public Sprite inactiveDayButton;
+    public List<Button> nightButtons;
+    public Sprite activeNightButton;
+    public Sprite inactiveNightButton;
 
     public void Close()
     {
@@ -127,6 +135,20 @@ public class AgentMenu : MonoBehaviour
         dayTask = DAY_TASKS[index];
         sliderPanel.SetActive(index == 1);
         dropDownPanel.SetActive(index != 1 && index != 6);
+        for (var i = 0; i < dayButtons.Count; i++)
+        {
+            if (i == index)
+            {
+                dayButtons[i].image.sprite = activeDayButton;
+                dayButtons[i].transform.localScale = new Vector3(1.5f, 1, 1);
+            }
+            else
+            {
+                dayButtons[i].image.sprite = inactiveDayButton;
+                dayButtons[i].transform.localScale = new Vector3(1, 1, 1);
+            }
+
+        }
     }
 
     public void ShowNightPanel(int index)
@@ -135,6 +157,19 @@ public class AgentMenu : MonoBehaviour
         nightTask = NIGHT_TASKS[index];
         sliderPanel.SetActive(false);
         dropDownPanel.SetActive(true);
+        for (var i = 0; i < nightButtons.Count; i++)
+        {
+            if (i == index)
+            {
+                nightButtons[i].image.sprite = activeNightButton;
+                nightButtons[i].transform.localScale = new Vector3(1.5f, 1, 1);
+            }
+            else
+            {
+                nightButtons[i].image.sprite = inactiveNightButton;
+                nightButtons[i].transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
     }
     
 }
