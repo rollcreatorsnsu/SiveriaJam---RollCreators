@@ -12,9 +12,13 @@ public class IndulgenceMenu : MonoBehaviour
     
     public void GetIndulgenceListener()
     {
-        game.gold -= 5000 * (slider.value);
-        game.attention -= 10 * ((int)slider.value);
-        gameObject.SetActive(false);
+        if (game.gold >= 5000 * (slider.value))
+        {
+            game.gold -= 5000 * (slider.value);
+            game.attention -= 10 * ((int) slider.value);
+            gameObject.SetActive(false);
+        }
+
         if (game.attention >= 100)
         {
             gameOverPanel.SetActive(true);

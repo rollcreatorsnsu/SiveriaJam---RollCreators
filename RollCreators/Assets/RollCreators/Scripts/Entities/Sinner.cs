@@ -67,6 +67,17 @@ public class Sinner : MonoBehaviour
         fearOfGod += Random.Range(-5, 5);
         wealth += Random.Range(-0.5f, 0.5f);
         strength += Random.Range(-10, 10);
+        Clamp();
+    }
+
+    public void Clamp()
+    {
+        foreach (Sins sin in Enum.GetValues(typeof(Sins)))
+        {
+            sins[sin] = Mathf.Clamp(sins[sin], 0, 100);
+        }
+
+        fearOfGod = Mathf.Clamp(fearOfGod, 0, 100);
     }
 
 }

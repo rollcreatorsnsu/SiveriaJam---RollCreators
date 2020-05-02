@@ -29,10 +29,12 @@ public class DayAgent : Agent
             case (DayTask.CONDUCT_A_SERVICE):
             {
                 game.sinners[tempSocialStatus].fearOfGod += Random.Range(-30, 0) + 5 * skills[Skills.ELOQUENCE];
+                game.sinners[tempSocialStatus].Clamp();
                 break;
             }
             case (DayTask.GIVE_ALMS):
             {
+                if (game.gold < 10 * tempInt) return;
                 game.gold -= 10 * tempInt;
                 game.attention += Random.Range(0, 10) - 3 * skills[Skills.CUNNING];
                 break;
@@ -85,12 +87,14 @@ public class DayAgent : Agent
             }
             case (DayTask.CHANGE_AGENT):
             {
+                if (game.gold < 200) return;
                 game.gold -= 200;
                 SetNewAgent();
                 break;
             }
             case (DayTask.TRAIN_AGENT):
             {
+                if (game.gold < 50 * tempInt) return;
                 game.gold -= 50 * tempInt;
                 experience += tempInt;
                 break;

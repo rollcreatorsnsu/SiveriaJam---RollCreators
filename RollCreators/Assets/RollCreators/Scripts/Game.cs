@@ -77,6 +77,7 @@ public class Game : MonoBehaviour
             foreach (DayAgent agent in dayAgents)
             {
                 agent.DoTask(this);
+                agent.task = DayAgent.DayTask.IDLE;
             }
             dayTime = DayTime.NIGHT;
         }
@@ -85,6 +86,7 @@ public class Game : MonoBehaviour
             foreach (NightAgent agent in nightAgents)
             {
                 agent.DoTask(this);
+                agent.task = NightAgent.NightTask.IDLE;
             }
             dayTime = DayTime.DAY;
             foreach (Sinner sinner in sinners.Values)

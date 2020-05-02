@@ -30,7 +30,7 @@ public abstract class Agent : MonoBehaviour
         get => _experience; 
         set
         {
-            while (value >= EXPERIENCE[level])
+            while (value >= EXPERIENCE[level] && level <= 3)
             {
                 level++;
                 skillPoints += 2;

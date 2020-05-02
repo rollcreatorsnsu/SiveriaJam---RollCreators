@@ -5762,7 +5762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game: {fileID: 122533612}
-  gameMenu: {fileID: 0}
+  gameMenu: {fileID: 543951323}
   nameText: {fileID: 448129207}
   typeText: {fileID: 431347109}
   levelText: {fileID: 70987361}

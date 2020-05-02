@@ -74,6 +74,7 @@ public class AgentsMenu : MonoBehaviour
 
     public void ImproveSkill(int index)
     {
+        if (currentAgent.skillPoints == 0 || currentAgent.skills[SKILLS_INDEX[index]] == 10) return;
         currentAgent.skillPoints--;
         currentAgent.skills[SKILLS_INDEX[index]]++;
         UpdateText(currentAgent is DayAgent ? Game.DayTime.DAY : Game.DayTime.NIGHT);
