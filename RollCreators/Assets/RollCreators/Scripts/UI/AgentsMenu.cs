@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class AgentsMenu : MonoBehaviour
@@ -33,6 +34,11 @@ public class AgentsMenu : MonoBehaviour
     public Text persuasivenessText;
     public Text pressureText;
     public Text trainButtonText;
+    public List<Button> buttons;
+    public Sprite activeDayButton;
+    public Sprite inactiveDayButton;
+    public Sprite activeNightButton;
+    public Sprite inactiveNightButton;
     private Agent currentAgent;
 
     public void Close()
@@ -58,13 +64,27 @@ public class AgentsMenu : MonoBehaviour
     
     public void ChangeAgent(int index)
     {
+        for (int i = 0; i < 4; i++)
+        {
+            buttons[i].image.sprite = inactiveDayButton;
+            buttons[i].transform.localScale = new Vector3(1, 1, 1);
+        }
+        for (int i = 4; i < 8; i++)
+        {
+            buttons[i].image.sprite = inactiveNightButton;
+            buttons[i].transform.localScale = new Vector3(1, 1, 1);
+        }
         if (index < 4)
         {
+            buttons[index].image.sprite = activeDayButton;
+            buttons[index].transform.localScale = new Vector3(1.5f, 1, 1);
             currentAgent = game.dayAgents[index];
             UpdateText(Game.DayTime.DAY);
         }
         else
         {
+            buttons[index].image.sprite = activeNightButton;
+            buttons[index].transform.localScale = new Vector3(1.5f, 1, 1);
             currentAgent = game.nightAgents[index - 4];
             UpdateText(Game.DayTime.NIGHT);
         }
