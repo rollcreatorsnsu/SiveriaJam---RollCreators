@@ -68,24 +68,24 @@ public class AgentsMenu : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             buttons[i].image.sprite = inactiveDayButton;
-            buttons[i].transform.localScale = new Vector3(1, 1, 1);
+            buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
         for (int i = 4; i < 8; i++)
         {
             buttons[i].image.sprite = inactiveNightButton;
-            buttons[i].transform.localScale = new Vector3(1, 1, 1);
+            buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
         if (index < 4)
         {
             buttons[index].image.sprite = activeDayButton;
-            buttons[index].transform.localScale = new Vector3(1.5f, 1, 1);
+            buttons[index].GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1, 1);
             currentAgent = game.dayAgents[index];
             UpdateText(Game.DayTime.DAY);
         }
         else
         {
             buttons[index].image.sprite = activeNightButton;
-            buttons[index].transform.localScale = new Vector3(1.5f, 1, 1);
+            buttons[index].GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1, 1);
             currentAgent = game.nightAgents[index - 4];
             UpdateText(Game.DayTime.NIGHT);
         }

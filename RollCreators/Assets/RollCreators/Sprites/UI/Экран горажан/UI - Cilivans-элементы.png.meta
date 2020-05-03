@@ -1,5 +1,4 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: d843439c68180244296c6e354fefe34b
 TextureImporter:
   internalIDToNameTable:
@@ -14,13 +13,6 @@ TextureImporter:
     second: "UI - Cilivans-\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_2"
   externalObjects: {}
   serializedVersion: 10
-=======
-guid: a8fa9d7d952e1af48864c44cc17e28c5
-TextureImporter:
-  internalIDToNameTable: []
-  externalObjects: {}
-  serializedVersion: 11
->>>>>>> origin/Art_parallel
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -57,11 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-<<<<<<< HEAD
   spriteMode: 2
-=======
-  spriteMode: 1
->>>>>>> origin/Art_parallel
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -78,10 +66,6 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-<<<<<<< HEAD
-=======
-  applyGammaDecoding: 0
->>>>>>> origin/Art_parallel
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -95,7 +79,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -198,11 +181,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-=======
-  spriteSheet:
-    serializedVersion: 2
-    sprites: []
->>>>>>> origin/Art_parallel
     outline: []
     physicsShape: []
     bones: []
