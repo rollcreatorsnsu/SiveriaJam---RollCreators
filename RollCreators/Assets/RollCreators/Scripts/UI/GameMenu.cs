@@ -148,7 +148,7 @@ public class GameMenu : MonoBehaviour
 
     public void BeginTutorial()
     {
-        tutorialConfirmation.Show("Хотите пройти обучение?", TutorialCallback);
+        tutorialConfirmation.Show("Желаете ли пройти обучение и узнать как работает игра?", TutorialCallback);
         __needTutorial = false;
     }
 
