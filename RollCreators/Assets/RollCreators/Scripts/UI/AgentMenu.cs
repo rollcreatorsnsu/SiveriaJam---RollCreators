@@ -124,6 +124,31 @@ public class AgentMenu : MonoBehaviour
     public Sprite activeNightButton;
     public Sprite inactiveNightButton;
 
+    public Color dayColor;
+    public Color nightColor;
+    public Color defaultColor;
+    
+    private Dictionary<DayAgent.DayTask, Agent.Skills> daySkills = new Dictionary<DayAgent.DayTask, Agent.Skills>();
+    private Dictionary<NightAgent.NightTask, Agent.Skills> nightSkills = new Dictionary<NightAgent.NightTask, Agent.Skills>();
+
+    void Awake()
+    {
+        daySkills.Add(DayAgent.DayTask.CONDUCT_A_SERVICE, Agent.Skills.ELOQUENCE);
+        daySkills.Add(DayAgent.DayTask.GIVE_ALMS, Agent.Skills.CUNNING);
+        daySkills.Add(DayAgent.DayTask.CONFESS_SINNERS, Agent.Skills.INSIGHT);
+        daySkills.Add(DayAgent.DayTask.INTERPRETING_SACRED_TEXTS, Agent.Skills.WISDOM);
+        daySkills.Add(DayAgent.DayTask.LISTEN_TO_GOSSIP, Agent.Skills.CHARM);
+        daySkills.Add(DayAgent.DayTask.PREACH_IN_THE_CITY, Agent.Skills.PERSUASIVENESS);
+        daySkills.Add(DayAgent.DayTask.SELL_INDULGENCE, Agent.Skills.PRESSURE);
+        nightSkills.Add(NightAgent.NightTask.OPEN_FLAT, Agent.Skills.ELOQUENCE);
+        nightSkills.Add(NightAgent.NightTask.MUCHLY_PRAISE, Agent.Skills.WISDOM);
+        nightSkills.Add(NightAgent.NightTask.PROVOKE_TO_FIGHT, Agent.Skills.PRESSURE);
+        nightSkills.Add(NightAgent.NightTask.COMPLAINT_ON_JUSTICE, Agent.Skills.PERSUASIVENESS);
+        nightSkills.Add(NightAgent.NightTask.DICE, Agent.Skills.CUNNING);
+        nightSkills.Add(NightAgent.NightTask.TAKE_A_BREAK, Agent.Skills.INSIGHT);
+        nightSkills.Add(NightAgent.NightTask.DEVELOP, Agent.Skills.CHARM);
+    }
+
     public void Close()
     {
         gameObject.SetActive(false);
@@ -201,8 +226,14 @@ public class AgentMenu : MonoBehaviour
                 dayButtons[i].image.sprite = inactiveDayButton;
                 dayButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             }
-
         }
+        eloquenceText.color = daySkills[dayTask] == Agent.Skills.ELOQUENCE ? dayColor : defaultColor;
+        cunningText.color = daySkills[dayTask] == Agent.Skills.CUNNING ? dayColor : defaultColor;
+        wisdomText.color = daySkills[dayTask] == Agent.Skills.WISDOM ? dayColor : defaultColor;
+        insightText.color = daySkills[dayTask] == Agent.Skills.INSIGHT ? dayColor : defaultColor;
+        charmText.color = daySkills[dayTask] == Agent.Skills.CHARM ? dayColor : defaultColor;
+        persuasivenessText.color = daySkills[dayTask] == Agent.Skills.PERSUASIVENESS ? dayColor : defaultColor;
+        pressureText.color = daySkills[dayTask] == Agent.Skills.PRESSURE ? dayColor : defaultColor;
     }
 
     public void ShowNightPanel(int index)
@@ -226,6 +257,13 @@ public class AgentMenu : MonoBehaviour
                 nightButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             }
         }
+        eloquenceText.color = nightSkills[nightTask] == Agent.Skills.ELOQUENCE ? nightColor : defaultColor;
+        cunningText.color = nightSkills[nightTask] == Agent.Skills.CUNNING ? nightColor : defaultColor;
+        wisdomText.color = nightSkills[nightTask] == Agent.Skills.WISDOM ? nightColor : defaultColor;
+        insightText.color = nightSkills[nightTask] == Agent.Skills.INSIGHT ? nightColor : defaultColor;
+        charmText.color = nightSkills[nightTask] == Agent.Skills.CHARM ? nightColor : defaultColor;
+        persuasivenessText.color = nightSkills[nightTask] == Agent.Skills.PERSUASIVENESS ? nightColor : defaultColor;
+        pressureText.color = nightSkills[nightTask] == Agent.Skills.PRESSURE ? nightColor : defaultColor;
     }
 
     public void UpdateSliderText()
