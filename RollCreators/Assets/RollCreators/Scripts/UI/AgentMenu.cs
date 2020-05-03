@@ -141,12 +141,12 @@ public class AgentMenu : MonoBehaviour
             if (i == index)
             {
                 dayButtons[i].image.sprite = activeDayButton;
-                dayButtons[i].transform.localScale = new Vector3(1.5f, 1, 1);
+                dayButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1, 1);
             }
             else
             {
                 dayButtons[i].image.sprite = inactiveDayButton;
-                dayButtons[i].transform.localScale = new Vector3(1, 1, 1);
+                dayButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             }
 
         }
@@ -163,12 +163,12 @@ public class AgentMenu : MonoBehaviour
             if (i == index)
             {
                 nightButtons[i].image.sprite = activeNightButton;
-                nightButtons[i].transform.localScale = new Vector3(1.5f, 1, 1);
+                nightButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1, 1);
             }
             else
             {
                 nightButtons[i].image.sprite = inactiveNightButton;
-                nightButtons[i].transform.localScale = new Vector3(1, 1, 1);
+                nightButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             }
         }
     }

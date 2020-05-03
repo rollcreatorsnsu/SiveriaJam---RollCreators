@@ -38,12 +38,12 @@ public class SinnersMenu : MonoBehaviour
             if (i == index)
             {
                 buttons[i].image.sprite = activeButton;
-                buttons[i].transform.localScale = new Vector3(1.5f, 1, 1);
+                buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1, 1);
             }
             else
             {
                 buttons[i].image.sprite = inactiveButton;
-                buttons[i].transform.localScale = new Vector3(1, 1, 1);
+                buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             }
         }
         Sinner sinner = game.sinners[STATUSES[index]];
