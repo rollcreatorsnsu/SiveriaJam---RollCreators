@@ -40,6 +40,16 @@ public class GameMenu : MonoBehaviour
     public List<Text> agentTexts;
     public Text goldText;
     public Text attentionText;
+    public Text daysRemainedText;
+    public List<Button> agentButtons;
+    public Sprite dayButtonSprite;
+    public Sprite nightButtonSprite;
+    public Image clock;
+    public Sprite dayClockSprite;
+    public Sprite nightClockSprite;
+    public Image background;
+    public Sprite dayBackground;
+    public Sprite nightBackground;
     
     public void ShowSettings()
     {
@@ -90,6 +100,30 @@ public class GameMenu : MonoBehaviour
             {
                 agentTexts[i].text = $"Агент {i + 1} - {NIGHT_TASKS[game.nightAgents[i].task]}";
             }
+        }
+    }
+
+    public void UpdateDayTime()
+    {
+        if (game.dayTime == Game.DayTime.DAY)
+        {
+            foreach (Button button in agentButtons)
+            {
+                button.image.sprite = dayButtonSprite;
+            }
+
+            clock.sprite = dayClockSprite;
+            background.sprite = dayBackground;
+        }
+        else
+        {
+            foreach (Button button in agentButtons)
+            {
+                button.image.sprite = nightButtonSprite;
+            }
+
+            clock.sprite = nightClockSprite;
+            background.sprite = nightBackground;
         }
     }
 

@@ -34,12 +34,31 @@ public class Game : MonoBehaviour
         }
     }
 
+    private int _daysRemained;
+
+    public int daysRemained
+    {
+        get => _daysRemained;
+        set
+        {
+            if (value < 0)
+            {
+                gameOverPanel.SetActive(true);
+                return;
+            }
+            gameMenu.daysRemainedText.text = $"Осталось {value} дней";
+            _daysRemained = value;
+        }
+    }
+
     [HideInInspector] public Dictionary<Sinner.SocialStatus, Sinner> sinners = new Dictionary<Sinner.SocialStatus, Sinner>();
     [HideInInspector] public List<DayAgent> dayAgents = new List<DayAgent>();
     [HideInInspector] public List<NightAgent> nightAgents = new List<NightAgent>();
 
     [SerializeField] private GameMenu gameMenu;
     [SerializeField] private IndulgenceMenu indulgenceMenu;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private AudioSource audioSource;
 
     public DayTime dayTime = DayTime.DAY;
 
@@ -58,6 +77,7 @@ public class Game : MonoBehaviour
 
         attention = 0;
         gold = 0;
+        daysRemained = 14;
     }
 
     public void ChangeDayTime()
@@ -87,12 +107,16 @@ public class Game : MonoBehaviour
             {
                 sinner.MorningUpdate();
             }
+
+            daysRemained--;
             if (attention >= 100)
             {
                 attention = 100;
                 indulgenceMenu.ShowIndulgenceDropDown();
             }
         }
+        gameMenu.UpdateDayTime();
+        audioSource.Play();
     }
     
 }

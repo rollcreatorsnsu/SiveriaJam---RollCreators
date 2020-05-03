@@ -40,6 +40,50 @@ public class AgentMenu : MonoBehaviour
         NightAgent.NightTask.CHANGE_AGENT,
         NightAgent.NightTask.TRAIN_AGENT
     };
+
+    private static string[] DESCRIPTIONS1_DAY =
+    {
+        "Страх рождает в людях веру",
+        "Малая цена за спасение своей шкуры",
+        "Пусть поведают о своих пороках",
+        "Насколько сильна их вера?",
+        "Даже у стен храма есть уши",
+        "Больше паства, больше грешников",
+        "Кто же не жаждет искупления?"
+    };
+
+    private static string[] DESCRIPTIONS2_DAY =
+    {
+        "Увеличить богобоязненность выбранной группы Грешников",
+        "Снизить подозрение инквизиции, потратив немного золота",
+        "Узнать величину грехов выбранной группы Грешников",
+        "Узнать о богобоязненности выбранной группы Грешников",
+        "Узнать о богатстве выбранной группы Грешников",
+        "Увеличить численность выбранной группы Грешников",
+        "Отпустить людям грехи в обмен на золото"
+    };
+
+    private static string[] DESCRIPTIONS1_NIGHT =
+    {
+        "\"Ох, я спутал вас с маркизом\"",
+        "\"Смотри что я прикупил на днях\"",
+        "\"А ну иди сюда, ублюдок!\"",
+        "\"Опять долгоносик сожрал посевы!\"",
+        "\"Ещё партию и точно по домам!\"",
+        "\"Садись к столу, давай выпьем!\"",
+        "\"Девочки тебя уже заждались!\""
+    };
+
+    private static string[] DESCRIPTIONS2_NIGHT =
+    {
+        "Повысить тщеславие у выбранной группы Грешников",
+        "Повысить зависть у выбранной группы Грешников",
+        "Повысить гнев у выбранной группы Грешников",
+        "Повысить уныние у выбранной группы Грешников",
+        "Повысить алчность у выбранной группы Грешников",
+        "Повысить чревоугодие у выбранной группы Грешников",
+        "Повысить блуд у выбранной группы Грешников"
+    };
     
     [HideInInspector] public Agent currentAgent;
     public GameObject dayMenu;
@@ -56,6 +100,8 @@ public class AgentMenu : MonoBehaviour
     public Text persuasivenessText;
     public Text pressureText;
     public Text taskText;
+    public Text description1;
+    public Text description2;
     public GameMenu gameMenu;
 
     public GameObject dropDownPanel;
@@ -132,6 +178,8 @@ public class AgentMenu : MonoBehaviour
 
     public void ShowDayPanel(int index)
     {
+        description1.text = DESCRIPTIONS1_DAY[index];
+        description2.text = DESCRIPTIONS2_DAY[index];
         taskText.text = DAY_TASK_NAMES[index];
         dayTask = DAY_TASKS[index];
         sliderPanel.SetActive(index == 1);
@@ -154,6 +202,8 @@ public class AgentMenu : MonoBehaviour
 
     public void ShowNightPanel(int index)
     {
+        description1.text = DESCRIPTIONS1_NIGHT[index];
+        description2.text = DESCRIPTIONS2_NIGHT[index];
         taskText.text = NIGHT_TASK_NAMES[index];
         nightTask = NIGHT_TASKS[index];
         sliderPanel.SetActive(false);
