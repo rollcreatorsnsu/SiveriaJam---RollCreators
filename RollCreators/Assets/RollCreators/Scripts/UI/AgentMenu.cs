@@ -128,6 +128,14 @@ public class AgentMenu : MonoBehaviour
     public Color nightColor;
     public Color defaultColor;
     
+    public Image eloquenceBackground;
+    public Image cunningBackground;
+    public Image wisdomBackground;
+    public Image insightBackground;
+    public Image charmBackground;
+    public Image persuasivenessBackground;
+    public Image pressureBackground;
+    
     private Dictionary<DayAgent.DayTask, Agent.Skills> daySkills = new Dictionary<DayAgent.DayTask, Agent.Skills>();
     private Dictionary<NightAgent.NightTask, Agent.Skills> nightSkills = new Dictionary<NightAgent.NightTask, Agent.Skills>();
 
@@ -227,13 +235,13 @@ public class AgentMenu : MonoBehaviour
                 dayButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             }
         }
-        eloquenceText.color = daySkills[dayTask] == Agent.Skills.ELOQUENCE ? dayColor : defaultColor;
-        cunningText.color = daySkills[dayTask] == Agent.Skills.CUNNING ? dayColor : defaultColor;
-        wisdomText.color = daySkills[dayTask] == Agent.Skills.WISDOM ? dayColor : defaultColor;
-        insightText.color = daySkills[dayTask] == Agent.Skills.INSIGHT ? dayColor : defaultColor;
-        charmText.color = daySkills[dayTask] == Agent.Skills.CHARM ? dayColor : defaultColor;
-        persuasivenessText.color = daySkills[dayTask] == Agent.Skills.PERSUASIVENESS ? dayColor : defaultColor;
-        pressureText.color = daySkills[dayTask] == Agent.Skills.PRESSURE ? dayColor : defaultColor;
+        eloquenceBackground.color = daySkills[dayTask] == Agent.Skills.ELOQUENCE ? dayColor : defaultColor;
+        cunningBackground.color = daySkills[dayTask] == Agent.Skills.CUNNING ? dayColor : defaultColor;
+        wisdomBackground.color = daySkills[dayTask] == Agent.Skills.WISDOM ? dayColor : defaultColor;
+        insightBackground.color = daySkills[dayTask] == Agent.Skills.INSIGHT ? dayColor : defaultColor;
+        charmBackground.color = daySkills[dayTask] == Agent.Skills.CHARM ? dayColor : defaultColor;
+        persuasivenessBackground.color = daySkills[dayTask] == Agent.Skills.PERSUASIVENESS ? dayColor : defaultColor;
+        pressureBackground.color = daySkills[dayTask] == Agent.Skills.PRESSURE ? dayColor : defaultColor;
     }
 
     public void ShowNightPanel(int index)
@@ -257,13 +265,13 @@ public class AgentMenu : MonoBehaviour
                 nightButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
             }
         }
-        eloquenceText.color = nightSkills[nightTask] == Agent.Skills.ELOQUENCE ? nightColor : defaultColor;
-        cunningText.color = nightSkills[nightTask] == Agent.Skills.CUNNING ? nightColor : defaultColor;
-        wisdomText.color = nightSkills[nightTask] == Agent.Skills.WISDOM ? nightColor : defaultColor;
-        insightText.color = nightSkills[nightTask] == Agent.Skills.INSIGHT ? nightColor : defaultColor;
-        charmText.color = nightSkills[nightTask] == Agent.Skills.CHARM ? nightColor : defaultColor;
-        persuasivenessText.color = nightSkills[nightTask] == Agent.Skills.PERSUASIVENESS ? nightColor : defaultColor;
-        pressureText.color = nightSkills[nightTask] == Agent.Skills.PRESSURE ? nightColor : defaultColor;
+        eloquenceBackground.color = nightSkills[nightTask] == Agent.Skills.ELOQUENCE ? nightColor : defaultColor;
+        cunningBackground.color = nightSkills[nightTask] == Agent.Skills.CUNNING ? nightColor : defaultColor;
+        wisdomBackground.color = nightSkills[nightTask] == Agent.Skills.WISDOM ? nightColor : defaultColor;
+        insightBackground.color = nightSkills[nightTask] == Agent.Skills.INSIGHT ? nightColor : defaultColor;
+        charmBackground.color = nightSkills[nightTask] == Agent.Skills.CHARM ? nightColor : defaultColor;
+        persuasivenessBackground.color = nightSkills[nightTask] == Agent.Skills.PERSUASIVENESS ? nightColor : defaultColor;
+        pressureBackground.color = nightSkills[nightTask] == Agent.Skills.PRESSURE ? nightColor : defaultColor;
     }
 
     public void UpdateSliderText()
