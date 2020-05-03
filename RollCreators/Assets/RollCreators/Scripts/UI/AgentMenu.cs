@@ -127,6 +127,7 @@ public class AgentMenu : MonoBehaviour
                 dropdown.options[dropdown.value].text);
         }
         gameMenu.UpdateAgentButtons();
+        Close();
     }
 
     public void ShowDayPanel(int index)
