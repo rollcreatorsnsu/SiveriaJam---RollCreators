@@ -84,7 +84,17 @@ public class AgentMenu : MonoBehaviour
         "Повысить чревоугодие у выбранной группы Грешников",
         "Повысить блуд у выбранной группы Грешников"
     };
-    
+
+    private static Dictionary<string, Sinner.SocialStatus> __statusMap = new Dictionary<string, Sinner.SocialStatus>();
+
+    static AgentMenu()
+    {
+        __statusMap.Add("Дворяне", Sinner.SocialStatus.NOBLEMAN);
+        __statusMap.Add("Горожане", Sinner.SocialStatus.CITIZEN);
+        __statusMap.Add("Крестьяне", Sinner.SocialStatus.PEASANT);
+        __statusMap.Add("Отбросы", Sinner.SocialStatus.GARBAGE);
+    }
+
     [HideInInspector] public Agent currentAgent;
     public GameObject dayMenu;
     public GameObject nightMenu;
@@ -162,8 +172,7 @@ public class AgentMenu : MonoBehaviour
             }
             else if (dayTask != DayAgent.DayTask.SELL_INDULGENCE)
             {
-                agent.tempSocialStatus = (Sinner.SocialStatus) Enum.Parse(typeof(Sinner.SocialStatus),
-                    dropdown.options[dropdown.value].text);
+                agent.tempSocialStatus = __statusMap[dropdown.options[dropdown.value].text];
             }
         }
         else

@@ -92,14 +92,18 @@ public class Game : MonoBehaviour
         daysRemained = 14;
     }
 
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            gameMenu.ShowSettings();
+        }
+    }
+
     public void ChangeDayTime()
     {
         if (dayTime == DayTime.DAY)
         {
-            foreach (Sinner sinner in sinners.Values)
-            {
-                sinner.Hide();
-            }
             foreach (DayAgent agent in dayAgents)
             {
                 agent.DoTask(this);
@@ -109,6 +113,10 @@ public class Game : MonoBehaviour
         }
         else
         {
+            foreach (Sinner sinner in sinners.Values)
+            {
+                sinner.Hide();
+            }
             foreach (NightAgent agent in nightAgents)
             {
                 agent.DoTask(this);

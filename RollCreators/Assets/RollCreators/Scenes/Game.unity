@@ -2660,8 +2660,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 111.636604, y: -15}
-  m_SizeDelta: {x: 223.27321, y: 30}
+  m_AnchoredPosition: {x: 111.636604, y: -0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144051624
 MonoBehaviour:
@@ -7160,7 +7160,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: NOBLEMAN
+  m_Text: "\u0414\u0432\u043E\u0440\u044F\u043D\u0435"
 --- !u!222 &534281779
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24116,13 +24116,13 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: NOBLEMAN
+    - m_Text: "\u0414\u0432\u043E\u0440\u044F\u043D\u0435"
       m_Image: {fileID: 0}
-    - m_Text: CITIZEN
+    - m_Text: "\u0413\u043E\u0440\u043E\u0436\u0430\u043D\u0435"
       m_Image: {fileID: 0}
-    - m_Text: PEASANT
+    - m_Text: "\u041A\u0440\u0435\u0441\u0442\u044C\u044F\u043D\u0435"
       m_Image: {fileID: 0}
-    - m_Text: GARBAGE
+    - m_Text: "\u041E\u0442\u0431\u0440\u043E\u0441\u044B"
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
