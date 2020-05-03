@@ -10628,6 +10628,7 @@ MonoBehaviour:
   greed: {fileID: 1854492329}
   gluttony: {fileID: 652072075}
   fornication: {fileID: 1469911217}
+  description: {fileID: 866217290}
   buttons:
   - {fileID: 1389986809}
   - {fileID: 1370710051}
@@ -19364,6 +19365,8 @@ MonoBehaviour:
   persuasivenessText: {fileID: 1661325074}
   pressureText: {fileID: 378162577}
   taskText: {fileID: 64470175}
+  description1: {fileID: 1443464178}
+  description2: {fileID: 1410758281}
   gameMenu: {fileID: 543951323}
   dropDownPanel: {fileID: 144051622}
   dropdown: {fileID: 1927217718}
