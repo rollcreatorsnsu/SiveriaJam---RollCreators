@@ -102,17 +102,9 @@ public class AgentsMenu : MonoBehaviour
     
     private void NewAgentCallback()
     {
-        if (currentAgent is DayAgent)
-        {
-            DayAgent agent = (DayAgent) currentAgent;
-            agent.task = DayAgent.DayTask.CHANGE_AGENT;
-        }
-        else
-        {
-            NightAgent agent = (NightAgent) currentAgent;
-            agent.task = NightAgent.NightTask.CHANGE_AGENT;
-        }
+        currentAgent.NewAgent(game);
         gameMenu.UpdateAgentButtons();
+        UpdateText(game.dayTime);
     }
 
     public void NewAgent()
@@ -122,19 +114,9 @@ public class AgentsMenu : MonoBehaviour
 
     private void TrainAgentCallback()
     {
-        if (currentAgent is DayAgent)
-        {
-            DayAgent agent = (DayAgent) currentAgent;
-            agent.task = DayAgent.DayTask.TRAIN_AGENT;
-            agent.tempInt = Agent.EXPERIENCE[agent.level];
-        }
-        else
-        {
-            NightAgent agent = (NightAgent) currentAgent;
-            agent.task = NightAgent.NightTask.TRAIN_AGENT;
-            agent.tempInt = Agent.EXPERIENCE[agent.level];
-        }
+        currentAgent.TrainAgent(game, Agent.EXPERIENCE[currentAgent.level]);
         gameMenu.UpdateAgentButtons();
+        UpdateText(game.dayTime);
     }
 
     public void TrainAgent()

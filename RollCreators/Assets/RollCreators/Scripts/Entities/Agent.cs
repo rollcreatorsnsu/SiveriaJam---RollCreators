@@ -26,14 +26,15 @@ public abstract class Agent
         get => _experience; 
         set
         {
-            while (value >= EXPERIENCE[level] && level <= 3)
+            int tmp = value;
+            while (tmp >= EXPERIENCE[level] && level <= 3)
             {
                 level++;
                 skillPoints += 2;
-                experience = value - EXPERIENCE[level - 1];
+                tmp -= EXPERIENCE[level - 1];
             }
 
-            _experience = value;
+            _experience = tmp;
         } 
     }
     public int level;
@@ -60,6 +61,20 @@ public abstract class Agent
         skills[Skills.CHARM] = 4 + Random.Range(-2, 2);
         skills[Skills.PERSUASIVENESS] = 4 + Random.Range(-2, 2);
         skills[Skills.PRESSURE] = 4 + Random.Range(-2, 2);
+    }
+
+    public void TrainAgent(Game game, int tempInt)
+    {
+        if (game.gold < 50 * tempInt) return;
+        game.gold -= 50 * tempInt;
+        experience += tempInt;
+    }
+
+    public void NewAgent(Game game)
+    {
+        if (game.gold < 200) return;
+        game.gold -= 200;
+        SetNewAgent();
     }
 
 }

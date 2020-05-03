@@ -11,9 +11,7 @@ public class NightAgent : Agent
         COMPLAINT_ON_JUSTICE,
         DICE,
         TAKE_A_BREAK,
-        DEVELOP,
-        CHANGE_AGENT,
-        TRAIN_AGENT
+        DEVELOP
     }
     public NightTask task = NightTask.IDLE;
     public Sinner.SocialStatus tempSocialStatus;
@@ -76,20 +74,6 @@ public class NightAgent : Agent
                 game.attention += Random.Range(0, 1);
                 game.gold -= 50;
                 game.sinners[tempSocialStatus].Clamp();
-                break;
-            }
-            case (NightTask.CHANGE_AGENT):
-            {
-                if (game.gold < 200) return;
-                game.gold -= 200;
-                SetNewAgent();
-                break;
-            }
-            case (NightTask.TRAIN_AGENT):
-            {
-                if (game.gold < 50 * tempInt) return;
-                game.gold -= 50 * tempInt;
-                experience += tempInt;
                 break;
             }
         }

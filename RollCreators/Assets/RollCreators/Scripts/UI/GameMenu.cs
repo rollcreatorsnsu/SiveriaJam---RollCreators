@@ -18,8 +18,6 @@ public class GameMenu : MonoBehaviour
         DAY_TASKS.Add(DayAgent.DayTask.LISTEN_TO_GOSSIP, "слушает сплетни");
         DAY_TASKS.Add(DayAgent.DayTask.PREACH_IN_THE_CITY, "проповедует в городе");
         DAY_TASKS.Add(DayAgent.DayTask.SELL_INDULGENCE, "продает индульгенцию");
-        DAY_TASKS.Add(DayAgent.DayTask.CHANGE_AGENT, "сменяет агента");
-        DAY_TASKS.Add(DayAgent.DayTask.TRAIN_AGENT, "обучает агента");
         NIGHT_TASKS.Add(NightAgent.NightTask.IDLE, "бездействует");
         NIGHT_TASKS.Add(NightAgent.NightTask.OPEN_FLAT, "неприкрыто льстит");
         NIGHT_TASKS.Add(NightAgent.NightTask.MUCHLY_PRAISE, "ехидно похваляется");
@@ -28,8 +26,6 @@ public class GameMenu : MonoBehaviour
         NIGHT_TASKS.Add(NightAgent.NightTask.DICE, "играет в кости");
         NIGHT_TASKS.Add(NightAgent.NightTask.TAKE_A_BREAK, "закатывает пирушку");
         NIGHT_TASKS.Add(NightAgent.NightTask.DEVELOP, "развратничает");
-        NIGHT_TASKS.Add(NightAgent.NightTask.CHANGE_AGENT, "сменяет агента");
-        NIGHT_TASKS.Add(NightAgent.NightTask.TRAIN_AGENT, "обучает агента");
     }
     
     public Game game;

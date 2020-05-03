@@ -11,9 +11,7 @@ public class DayAgent : Agent
         INTERPRETING_SACRED_TEXTS,
         LISTEN_TO_GOSSIP,
         PREACH_IN_THE_CITY,
-        SELL_INDULGENCE,
-        CHANGE_AGENT,
-        TRAIN_AGENT
+        SELL_INDULGENCE
     }
     public DayTask task = DayTask.IDLE;
     public Sinner.SocialStatus tempSocialStatus;
@@ -80,20 +78,6 @@ public class DayAgent : Agent
                 }
 
                 game.gold += sum;
-                break;
-            }
-            case (DayTask.CHANGE_AGENT):
-            {
-                if (game.gold < 200) return;
-                game.gold -= 200;
-                SetNewAgent();
-                break;
-            }
-            case (DayTask.TRAIN_AGENT):
-            {
-                if (game.gold < 50 * tempInt) return;
-                game.gold -= 50 * tempInt;
-                experience += tempInt;
                 break;
             }
         }

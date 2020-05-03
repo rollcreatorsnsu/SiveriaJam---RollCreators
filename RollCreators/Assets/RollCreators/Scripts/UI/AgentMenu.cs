@@ -23,9 +23,7 @@ public class AgentMenu : MonoBehaviour
         DayAgent.DayTask.INTERPRETING_SACRED_TEXTS,
         DayAgent.DayTask.LISTEN_TO_GOSSIP,
         DayAgent.DayTask.PREACH_IN_THE_CITY,
-        DayAgent.DayTask.SELL_INDULGENCE,
-        DayAgent.DayTask.CHANGE_AGENT,
-        DayAgent.DayTask.TRAIN_AGENT
+        DayAgent.DayTask.SELL_INDULGENCE
     };
 
     private static NightAgent.NightTask[] NIGHT_TASKS =
@@ -36,9 +34,7 @@ public class AgentMenu : MonoBehaviour
         NightAgent.NightTask.COMPLAINT_ON_JUSTICE,
         NightAgent.NightTask.DICE,
         NightAgent.NightTask.TAKE_A_BREAK,
-        NightAgent.NightTask.DEVELOP,
-        NightAgent.NightTask.CHANGE_AGENT,
-        NightAgent.NightTask.TRAIN_AGENT
+        NightAgent.NightTask.DEVELOP
     };
 
     private static string[] DESCRIPTIONS1_DAY =
@@ -179,8 +175,7 @@ public class AgentMenu : MonoBehaviour
         {
             NightAgent agent = (NightAgent) currentAgent;
             agent.task = nightTask;
-            agent.tempSocialStatus = (Sinner.SocialStatus) Enum.Parse(typeof(Sinner.SocialStatus),
-                dropdown.options[dropdown.value].text);
+            agent.tempSocialStatus = __statusMap[dropdown.options[dropdown.value].text];
         }
         gameMenu.UpdateAgentButtons();
         Close();
