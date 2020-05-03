@@ -1,14 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
     public string menuSceneName = "Menu";
     public ConfirmationMenu confirmationMenu;
+    public Text muteText;
 
-    public void Mute(bool isOn)
+    public void Mute()
     {
-        AudioListener.volume = isOn ? 1.0f : 0.0f;
+        if (AudioListener.volume == 0)
+        {
+            AudioListener.volume = 1;
+            muteText.text = "Выключить звук";
+        }
+        else
+        {
+            AudioListener.volume = 0;
+            muteText.text = "Включить звук";
+        }
     }
 
     public void Restart()
