@@ -6,6 +6,7 @@ public class GameMenu : MonoBehaviour
 {
     private static Dictionary<DayAgent.DayTask, string> DAY_TASKS = new Dictionary<DayAgent.DayTask, string>();
     private static Dictionary<NightAgent.NightTask, string> NIGHT_TASKS = new Dictionary<NightAgent.NightTask, string>();
+    private static bool __needTutorial = true;
 
     static GameMenu()
     {
@@ -49,6 +50,16 @@ public class GameMenu : MonoBehaviour
     public Sprite nightClockSprite;
     public GameObject dayPrefabs;
     public GameObject nightPrefabs;
+    public ConfirmationMenu tutorialConfirmation;
+    public Tutorial tutorial;
+
+    void Start()
+    {
+        if (__needTutorial)
+        {
+            BeginTutorial();
+        }
+    }
     
     public void ShowSettings()
     {
@@ -126,6 +137,17 @@ public class GameMenu : MonoBehaviour
             dayPrefabs.SetActive(false);
             nightPrefabs.SetActive(true);
         }
+    }
+
+    public void TutorialCallback()
+    {
+        tutorial._Start();
+    }
+
+    public void BeginTutorial()
+    {
+        tutorialConfirmation.Show("Хотите пройти обучение?", TutorialCallback);
+        __needTutorial = false;
     }
 
 }
