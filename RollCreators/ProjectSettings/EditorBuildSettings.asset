@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/RollCreators/Scenes/Game.unity
     guid: 6c7637527c97c51409174616b4374b15
+  - enabled: 1
+    path: Assets/RollCreators/Scenes/Outro_bad_1.unity
+    guid: 7e37f62976e5618478e69f77db68b79d
+  - enabled: 1
+    path: Assets/RollCreators/Scenes/Outro_bad_2.unity
+    guid: 761894a357545db4198c788a4e71c84b
   m_configObjects: {}
