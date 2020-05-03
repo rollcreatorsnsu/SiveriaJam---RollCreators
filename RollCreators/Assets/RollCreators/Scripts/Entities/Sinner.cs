@@ -24,7 +24,6 @@ public class Sinner
         FORNICATION
     }
 
-    public string name;
     public int fearOfGod;
     public float wealth;
     public Dictionary<Sins, int> sins = new Dictionary<Sins, int>();

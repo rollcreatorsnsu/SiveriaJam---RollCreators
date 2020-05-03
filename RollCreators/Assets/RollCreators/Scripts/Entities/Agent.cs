@@ -6,6 +6,16 @@ using Random = UnityEngine.Random;
 public abstract class Agent
 {
 
+    private static string[] __pullNames =
+    {
+        "Анна Беспалова",
+        "Мария Воробьева",
+        "Станислав Тренин",
+        "Вячеслав Журавлев",
+        "Егор Савенко",
+        "Андрей Елисафенко"
+    };
+
     public static int[] EXPERIENCE = {
         0, 10, 15, 25
     };
@@ -55,6 +65,7 @@ public abstract class Agent
 
     public void SetNewAgent()
     {
+        name = __pullNames[Random.Range(0, __pullNames.Length)];
         level = 1;
         skills[Skills.ELOQUENCE] = 4 + Random.Range(-2, 2);
         skills[Skills.CUNNING] = 4 + Random.Range(-2, 2);
