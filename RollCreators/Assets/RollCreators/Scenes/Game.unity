@@ -1304,7 +1304,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 853696959}
-        m_MethodName: ChangeAgent
+        m_MethodName: ImproveSkill
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
