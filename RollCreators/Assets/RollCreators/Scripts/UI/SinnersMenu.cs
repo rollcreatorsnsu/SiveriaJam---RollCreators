@@ -21,6 +21,7 @@ public class SinnersMenu : MonoBehaviour
     };
 
     public Game game;
+    public Text strength;
     public Text wealth;
     public Text fearOfGod;
     public Text vanity;
@@ -56,6 +57,7 @@ public class SinnersMenu : MonoBehaviour
             }
         }
         Sinner sinner = game.sinners[STATUSES[index]];
+        strength.text = $"Численность: {sinner.strength}";
         wealth.text = $"Богатство: {(sinner.wealthOpened ? sinner.wealth.ToString() : "???")}";
         fearOfGod.text = $"Богобоязненность: {(sinner.fearOfGodOpened ? sinner.fearOfGod.ToString() : "???")}";
         vanity.text = $"Гордыня: {(sinner.sinsOpened ? sinner.sins[Sinner.Sins.VANITY].ToString() : "???")}%";

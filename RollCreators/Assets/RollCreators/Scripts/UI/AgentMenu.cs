@@ -23,9 +23,7 @@ public class AgentMenu : MonoBehaviour
         DayAgent.DayTask.INTERPRETING_SACRED_TEXTS,
         DayAgent.DayTask.LISTEN_TO_GOSSIP,
         DayAgent.DayTask.PREACH_IN_THE_CITY,
-        DayAgent.DayTask.SELL_INDULGENCE,
-        DayAgent.DayTask.CHANGE_AGENT,
-        DayAgent.DayTask.TRAIN_AGENT
+        DayAgent.DayTask.SELL_INDULGENCE
     };
 
     private static NightAgent.NightTask[] NIGHT_TASKS =
@@ -36,9 +34,7 @@ public class AgentMenu : MonoBehaviour
         NightAgent.NightTask.COMPLAINT_ON_JUSTICE,
         NightAgent.NightTask.DICE,
         NightAgent.NightTask.TAKE_A_BREAK,
-        NightAgent.NightTask.DEVELOP,
-        NightAgent.NightTask.CHANGE_AGENT,
-        NightAgent.NightTask.TRAIN_AGENT
+        NightAgent.NightTask.DEVELOP
     };
 
     private static string[] DESCRIPTIONS1_DAY =
@@ -84,7 +80,17 @@ public class AgentMenu : MonoBehaviour
         "Повысить чревоугодие у выбранной группы Грешников",
         "Повысить блуд у выбранной группы Грешников"
     };
-    
+
+    private static Dictionary<string, Sinner.SocialStatus> __statusMap = new Dictionary<string, Sinner.SocialStatus>();
+
+    static AgentMenu()
+    {
+        __statusMap.Add("Дворяне", Sinner.SocialStatus.NOBLEMAN);
+        __statusMap.Add("Горожане", Sinner.SocialStatus.CITIZEN);
+        __statusMap.Add("Крестьяне", Sinner.SocialStatus.PEASANT);
+        __statusMap.Add("Отбросы", Sinner.SocialStatus.GARBAGE);
+    }
+
     [HideInInspector] public Agent currentAgent;
     public GameObject dayMenu;
     public GameObject nightMenu;
@@ -162,16 +168,14 @@ public class AgentMenu : MonoBehaviour
             }
             else if (dayTask != DayAgent.DayTask.SELL_INDULGENCE)
             {
-                agent.tempSocialStatus = (Sinner.SocialStatus) Enum.Parse(typeof(Sinner.SocialStatus),
-                    dropdown.options[dropdown.value].text);
+                agent.tempSocialStatus = __statusMap[dropdown.options[dropdown.value].text];
             }
         }
         else
         {
             NightAgent agent = (NightAgent) currentAgent;
             agent.task = nightTask;
-            agent.tempSocialStatus = (Sinner.SocialStatus) Enum.Parse(typeof(Sinner.SocialStatus),
-                dropdown.options[dropdown.value].text);
+            agent.tempSocialStatus = __statusMap[dropdown.options[dropdown.value].text];
         }
         gameMenu.UpdateAgentButtons();
         Close();
