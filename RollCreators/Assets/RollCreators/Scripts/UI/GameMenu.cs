@@ -52,6 +52,8 @@ public class GameMenu : MonoBehaviour
     public GameObject nightPrefabs;
     public ConfirmationMenu tutorialConfirmation;
     public Tutorial tutorial;
+    public Text aimText;
+    public Slider progressSlider;
 
     void Start()
     {
@@ -148,6 +150,16 @@ public class GameMenu : MonoBehaviour
     {
         tutorialConfirmation.Show("Хотите пройти обучение?", TutorialCallback);
         __needTutorial = false;
+    }
+
+    public void UpdateAimBar(float progress)
+    {
+        progressSlider.value = progress;
+    }
+
+    public void UpdateAimText(string text)
+    {
+        aimText.text = $"Цель - {text}";
     }
 
 }

@@ -62,8 +62,20 @@ public class Game : MonoBehaviour
 
     public DayTime dayTime = DayTime.DAY;
 
+    private delegate float Aim();
+
+    private string[] aimsTexts =
+    {
+        "накопить 1000 золота",
+        "накопить 2000 золота"
+    };
+    private List<Aim> aims = new List<Aim>();
+    private int currentAim = 0;
+
     void Start()
     {
+        aims.Add(Aim1);
+        aims.Add(Aim2);
         for (int i = 0; i < 4; i++)
         {
             dayAgents.Add(new DayAgent());
@@ -117,6 +129,37 @@ public class Game : MonoBehaviour
         }
         gameMenu.UpdateDayTime();
         audioSource.Play();
+        if (currentAim < aims.Count)
+        {
+            UpdateAim();
+        }
+    }
+
+    private void UpdateAim()
+    {
+        float progress = aims[currentAim]();
+        if (progress >= 1f)
+        {
+            currentAim++;
+            if (currentAim == aims.Count)
+            {
+                gameMenu.UpdateAimText("Вы достигли всех целей!");
+                gameMenu.UpdateAimBar(1);
+                return;
+            }
+            gameMenu.UpdateAimText(aimsTexts[currentAim]);
+        }
+        gameMenu.UpdateAimBar(aims[currentAim]());
+    }
+
+    private float Aim1()
+    {
+        return gold / 1000f;
+    }
+
+    private float Aim2()
+    {
+        return gold / 2000f;
     }
     
 }

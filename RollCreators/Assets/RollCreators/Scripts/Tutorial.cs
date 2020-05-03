@@ -36,7 +36,7 @@ public class Tutorial : MonoBehaviour
         {
             gameObjects[currentStep - 1].SetActive(false);
         }
-        if (currentStep == NUMBER_OF_STEPS)
+        if (currentStep == gameObjects.Count)
         {
             gameObject.SetActive(false);
         }
