@@ -107,9 +107,12 @@ public class Game : MonoBehaviour
             foreach (DayAgent agent in dayAgents)
             {
                 agent.DoTask(this);
-                agent.task = DayAgent.DayTask.IDLE;
             }
             gameMenu.ShowResults();
+            foreach (DayAgent agent in dayAgents)
+            {
+                agent.task = DayAgent.DayTask.IDLE;
+            }
             dayTime = DayTime.NIGHT;
         }
         else
@@ -121,9 +124,12 @@ public class Game : MonoBehaviour
             foreach (NightAgent agent in nightAgents)
             {
                 agent.DoTask(this);
-                agent.task = NightAgent.NightTask.IDLE;
             }
             gameMenu.ShowResults();
+            foreach (NightAgent agent in nightAgents)
+            {
+                agent.task = NightAgent.NightTask.IDLE;
+            }
             dayTime = DayTime.DAY;
             foreach (Sinner sinner in sinners.Values)
             {
