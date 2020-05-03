@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class SettingsMenu : MonoBehaviour
 {
     public string menuSceneName = "Menu";
+    public ConfirmationMenu confirmationMenu;
 
     public void Mute(bool isOn)
     {
@@ -15,14 +16,24 @@ public class SettingsMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void ExitMenu()
+    private void ExitMenuCallback()
     {
         SceneManager.LoadScene(menuSceneName);
     }
 
-    public void ExitGame()
+    public void ExitMenu()
+    {
+        confirmationMenu.Show("Вы действительно хотите выйти в меню?", ExitMenuCallback);
+    }
+
+    private void ExitGameCallback()
     {
         Application.Quit();
+    }
+
+    public void ExitGame()
+    {
+        confirmationMenu.Show("Вы действительно хотите выйти из игры?", ExitGameCallback);
     }
 
     public void ReturnToGame()

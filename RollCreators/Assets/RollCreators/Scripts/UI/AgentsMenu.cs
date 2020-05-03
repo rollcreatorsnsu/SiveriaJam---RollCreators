@@ -21,6 +21,7 @@ public class AgentsMenu : MonoBehaviour
 
     public Game game;
     public GameMenu gameMenu;
+    public ConfirmationMenu confirmationMenu;
     public Text nameText;
     public Text typeText;
     public Text levelText;
@@ -99,7 +100,7 @@ public class AgentsMenu : MonoBehaviour
         UpdateText(currentAgent is DayAgent ? Game.DayTime.DAY : Game.DayTime.NIGHT);
     }
     
-    public void NewAgent()
+    private void NewAgentCallback()
     {
         if (currentAgent is DayAgent)
         {
@@ -114,7 +115,12 @@ public class AgentsMenu : MonoBehaviour
         gameMenu.UpdateAgentButtons();
     }
 
-    public void TrainAgent()
+    public void NewAgent()
+    {
+        confirmationMenu.Show("Вы действительно хотите нанять нового агента за 200 монет?", NewAgentCallback);
+    }
+
+    private void TrainAgentCallback()
     {
         if (currentAgent is DayAgent)
         {
@@ -129,6 +135,11 @@ public class AgentsMenu : MonoBehaviour
             agent.tempInt = Agent.EXPERIENCE[agent.level];
         }
         gameMenu.UpdateAgentButtons();
+    }
+
+    public void TrainAgent()
+    {
+        confirmationMenu.Show($"Вы действительно хотите {trainButtonText.text}?", TrainAgentCallback);
     }
 
     public void Show()
