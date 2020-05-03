@@ -5667,6 +5667,9 @@ MonoBehaviour:
     type: 3}
   nightClockSprite: {fileID: -6238791888901656850, guid: dbaa4c7070d1df44aa6b0a6831fd3333,
     type: 3}
+  background: {fileID: 1134220176}
+  dayBackground: {fileID: 21300000, guid: dbd12440542a9bd418b65ccec57ac651, type: 3}
+  nightBackground: {fileID: 21300000, guid: c4da2dd5f6c05c345869dd98ce67d58d, type: 3}
 --- !u!1 &546756803
 GameObject:
   m_ObjectHideFlags: 0
@@ -11891,7 +11894,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 771d9b49f2a610b469e972cc010e75b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dbd12440542a9bd418b65ccec57ac651, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

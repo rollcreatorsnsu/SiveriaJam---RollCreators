@@ -47,6 +47,9 @@ public class GameMenu : MonoBehaviour
     public Image clock;
     public Sprite dayClockSprite;
     public Sprite nightClockSprite;
+    public Image background;
+    public Sprite dayBackground;
+    public Sprite nightBackground;
     
     public void ShowSettings()
     {
@@ -110,6 +113,7 @@ public class GameMenu : MonoBehaviour
             }
 
             clock.sprite = dayClockSprite;
+            background.sprite = dayBackground;
         }
         else
         {
@@ -119,6 +123,7 @@ public class GameMenu : MonoBehaviour
             }
 
             clock.sprite = nightClockSprite;
+            background.sprite = nightBackground;
         }
     }
 
