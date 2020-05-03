@@ -50,6 +50,8 @@ public class GameMenu : MonoBehaviour
     public Image background;
     public Sprite dayBackground;
     public Sprite nightBackground;
+    public GameObject dayPrefabs;
+    public GameObject nightPrefabs;
     
     public void ShowSettings()
     {
@@ -114,6 +116,8 @@ public class GameMenu : MonoBehaviour
 
             clock.sprite = dayClockSprite;
             background.sprite = dayBackground;
+            dayPrefabs.SetActive(true);
+            nightPrefabs.SetActive(false);
         }
         else
         {
@@ -124,6 +128,8 @@ public class GameMenu : MonoBehaviour
 
             clock.sprite = nightClockSprite;
             background.sprite = nightBackground;
+            dayPrefabs.SetActive(false);
+            nightPrefabs.SetActive(true);
         }
     }
 
