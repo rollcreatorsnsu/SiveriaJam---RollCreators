@@ -7,6 +7,14 @@ public class Intro : MonoBehaviour
 {
     public string menuSceneName = "Menu";
     public AudioSource story;
+
+    public void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            GoToMenu();
+        }
+    }
     
     public void BeginStory()
     {
