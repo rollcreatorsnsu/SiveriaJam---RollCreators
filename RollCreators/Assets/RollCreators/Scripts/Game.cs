@@ -109,6 +109,7 @@ public class Game : MonoBehaviour
                 agent.DoTask(this);
                 agent.task = DayAgent.DayTask.IDLE;
             }
+            gameMenu.ShowResults();
             dayTime = DayTime.NIGHT;
         }
         else
@@ -122,6 +123,7 @@ public class Game : MonoBehaviour
                 agent.DoTask(this);
                 agent.task = NightAgent.NightTask.IDLE;
             }
+            gameMenu.ShowResults();
             dayTime = DayTime.DAY;
             foreach (Sinner sinner in sinners.Values)
             {

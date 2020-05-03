@@ -68,6 +68,7 @@
      <Compile Include="Assets\RollCreators\Scripts\UI\IndulgenceMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\Intro.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\Menu.cs" />
+     <Compile Include="Assets\RollCreators\Scripts\UI\Results.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\SettingsMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\SinnersMenu.cs" />
      <Compile Include="Assets\Spriter2UnityDX\Runtime\EntityRenderer.cs" />

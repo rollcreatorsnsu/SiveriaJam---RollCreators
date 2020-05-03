@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -22,6 +23,7 @@ public abstract class Agent
 
     private int _experience;
     public string name;
+    public int lastResult = Int32.MinValue;
     public int experience { 
         get => _experience; 
         set

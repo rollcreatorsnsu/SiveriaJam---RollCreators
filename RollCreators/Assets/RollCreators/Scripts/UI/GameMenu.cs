@@ -33,6 +33,7 @@ public class GameMenu : MonoBehaviour
     public AgentMenu agentMenu;
     public AgentsMenu agentsMenu;
     public SinnersMenu sinnersMenu;
+    public Results results;
     public Text changeDayText;
     public List<Text> agentTexts;
     public Text goldText;
@@ -156,6 +157,11 @@ public class GameMenu : MonoBehaviour
     public void UpdateAimText(string text)
     {
         aimText.text = $"Цель - {text}";
+    }
+
+    public void ShowResults()
+    {
+        results.Show();
     }
 
 }
