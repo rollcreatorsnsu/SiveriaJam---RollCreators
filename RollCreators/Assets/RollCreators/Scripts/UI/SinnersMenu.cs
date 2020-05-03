@@ -12,6 +12,14 @@ public class SinnersMenu : MonoBehaviour
         Sinner.SocialStatus.GARBAGE
     };
 
+    private static string[] DESCRIPTIONS =
+    {
+        "Неприлично богатые и непомерно развращённые дворяне - самый лакомый кусок. Впрочем, как правило, этим пресытившемся снобам нет никакого дела до спасения своей бессмертной души.",
+        "Ремесленники, торгаши, студенты и ростовщики. Все они погрязли в грехах, но ещё не утратили надежду на избавление от вечных мук ада за пригоршню золота.",
+        "Усердные, недалёкие и многочисленные. Эти несчастные готовы отдать вам последние гроши, лишь бы спасти свою душу от адского пламени на том свете.",
+        "Всё разношёрстное городское дно, от жалких бродяга с дырой в кармане, калек и попрошаек до совестливых головорезов с тугим кошельком. Никогда наверняка не знаешь, чего от них ждать."
+    };
+
     public Game game;
     public Text wealth;
     public Text fearOfGod;
@@ -22,6 +30,7 @@ public class SinnersMenu : MonoBehaviour
     public Text greed;
     public Text gluttony;
     public Text fornication;
+    public Text description;
     public List<Button> buttons;
     public Sprite activeButton;
     public Sprite inactiveButton;
@@ -56,6 +65,7 @@ public class SinnersMenu : MonoBehaviour
         greed.text = $"Алчность: {(sinner.sinsOpened ? sinner.sins[Sinner.Sins.GREED].ToString() : "???")}/100";
         gluttony.text = $"Чревоугодие: {(sinner.sinsOpened ? sinner.sins[Sinner.Sins.GLUTTONY].ToString() : "???")}/100";
         fornication.text = $"Блуд: {(sinner.sinsOpened ? sinner.sins[Sinner.Sins.FORNICATION].ToString() : "???")}/100";
+        description.text = DESCRIPTIONS[index];
     }
 
     public void Show()
