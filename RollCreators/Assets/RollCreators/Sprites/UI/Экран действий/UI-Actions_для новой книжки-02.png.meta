@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: f54204411f9f689439fa72c301f37a84
+guid: fbb410944d3ad4d4fa599ed672ca50f8
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7074756947023245863
+    second: "UI-Actions_\u0434\u043B\u044F \u043D\u043E\u0432\u043E\u0439 \u043A\u043D\u0438\u0436\u043A\u0438-02_0"
+  - first:
+      213: 5931912811805376786
+    second: "UI-Actions_\u0434\u043B\u044F \u043D\u043E\u0432\u043E\u0439 \u043A\u043D\u0438\u0436\u043A\u0438-02_1"
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -20,7 +26,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
@@ -32,7 +38,7 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: -1
-    aniso: 1
+    aniso: -1
     mipBias: -100
     wrapU: 1
     wrapV: 1
@@ -40,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,9 +55,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 7
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   maxTextureSizeSet: 0
@@ -108,7 +114,49 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "UI-Actions_\u0434\u043B\u044F \u043D\u043E\u0432\u043E\u0439 \u043A\u043D\u0438\u0436\u043A\u0438-02_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 153
+        width: 232
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ddc3745a0a61dd90800000000000000
+      internalID: -7074756947023245863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UI-Actions_\u0434\u043B\u044F \u043D\u043E\u0432\u043E\u0439 \u043A\u043D\u0438\u0436\u043A\u0438-02_1"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 232
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2118f321643625250800000000000000
+      internalID: 5931912811805376786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
