@@ -58,6 +58,7 @@ public class Game : MonoBehaviour
     [SerializeField] private GameMenu gameMenu;
     [SerializeField] private IndulgenceMenu indulgenceMenu;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private AudioSource audioSource;
 
     public DayTime dayTime = DayTime.DAY;
 
@@ -115,6 +116,7 @@ public class Game : MonoBehaviour
             }
         }
         gameMenu.UpdateDayTime();
+        audioSource.Play();
     }
     
 }
