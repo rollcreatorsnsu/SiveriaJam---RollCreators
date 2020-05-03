@@ -1589,6 +1589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMenu: {fileID: 543951323}
   indulgenceMenu: {fileID: 870099934}
+  gameOverPanel: {fileID: 134112243}
   dayTime: 0
 --- !u!4 &122533613
 Transform:
@@ -5396,6 +5397,7 @@ MonoBehaviour:
   - {fileID: 1388626677}
   goldText: {fileID: 67407637}
   attentionText: {fileID: 1889419110}
+  daysRemainedText: {fileID: 1260248124}
 --- !u!1 &546756803
 GameObject:
   m_ObjectHideFlags: 0
@@ -8932,7 +8934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 128.43803, y: -7.8195724}
+  m_AnchoredPosition: {x: 128.43803, y: -7.81958}
   m_SizeDelta: {x: 236.87607, y: 15.639145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &865062177
@@ -16420,7 +16422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.14, y: 0.14467666}
   m_AnchorMax: {x: 0.79039, y: 0.827}
-  m_AnchoredPosition: {x: 0.41999817, y: 0.62306976}
+  m_AnchoredPosition: {x: 0.41999817, y: 0.6230774}
   m_SizeDelta: {x: -0.6899986, y: -1.5200005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1647151483

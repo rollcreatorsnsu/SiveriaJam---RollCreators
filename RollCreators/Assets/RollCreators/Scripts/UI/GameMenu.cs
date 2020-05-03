@@ -40,6 +40,7 @@ public class GameMenu : MonoBehaviour
     public List<Text> agentTexts;
     public Text goldText;
     public Text attentionText;
+    public Text daysRemainedText;
     
     public void ShowSettings()
     {
