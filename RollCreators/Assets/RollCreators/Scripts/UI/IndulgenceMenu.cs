@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class IndulgenceMenu : MonoBehaviour
@@ -6,7 +7,7 @@ public class IndulgenceMenu : MonoBehaviour
     public Slider slider;
     public Text text;
     public Game game;
-    public GameObject gameOverPanel;
+    public string badOutroSceneName = "Outro_bad_1";
     
     public void GetIndulgenceListener()
     {
@@ -19,7 +20,7 @@ public class IndulgenceMenu : MonoBehaviour
 
         if (game.attention >= 100)
         {
-            gameOverPanel.SetActive(true);
+            SceneManager.LoadScene(badOutroSceneName);
         }
     }
 

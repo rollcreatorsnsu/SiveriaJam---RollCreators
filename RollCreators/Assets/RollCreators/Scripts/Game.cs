@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class Game : MonoBehaviour
         {
             if (value < 0)
             {
-                gameOverPanel.SetActive(true);
+                SceneManager.LoadScene(badOutroSceneName);
                 return;
             }
             gameMenu.daysRemainedText.text = $"Осталось {value} дней";
@@ -57,10 +58,10 @@ public class Game : MonoBehaviour
 
     [SerializeField] private GameMenu gameMenu;
     [SerializeField] private IndulgenceMenu indulgenceMenu;
-    [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private AudioSource audioSource;
 
     public DayTime dayTime = DayTime.DAY;
+    public string badOutroSceneName = "Outro_bad_2";
 
     private delegate float Aim();
 
