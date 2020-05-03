@@ -102,6 +102,7 @@ public class AgentMenu : MonoBehaviour
     public Text taskText;
     public Text description1;
     public Text description2;
+    public Text sliderText;
     public GameMenu gameMenu;
 
     public GameObject dropDownPanel;
@@ -222,5 +223,9 @@ public class AgentMenu : MonoBehaviour
             }
         }
     }
-    
+
+    public void UpdateSliderText()
+    {
+        sliderText.text = $"Пожертвовать {slider.value} золота";
+    }
 }
