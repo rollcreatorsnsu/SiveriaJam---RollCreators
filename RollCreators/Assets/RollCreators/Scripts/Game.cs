@@ -114,6 +114,7 @@ public class Game : MonoBehaviour
                 indulgenceMenu.ShowIndulgenceDropDown();
             }
         }
+        gameMenu.UpdateDayTime();
     }
     
 }
