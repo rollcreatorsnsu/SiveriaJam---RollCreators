@@ -62,7 +62,7 @@ public class Game : MonoBehaviour
 
     public DayTime dayTime = DayTime.DAY;
     public string badOutroSceneName = "Outro_bad_2";
-
+    public string goodOutoSceneName = "Outro_good";
     private delegate float Aim();
 
     private string[] aimsTexts =
@@ -161,8 +161,7 @@ public class Game : MonoBehaviour
             currentAim++;
             if (currentAim == aims.Count)
             {
-                gameMenu.UpdateAimText("Вы достигли всех целей!");
-                gameMenu.UpdateAimBar(1);
+                SceneManager.LoadScene(goodOutoSceneName);
                 return;
             }
             gameMenu.UpdateAimText(aimsTexts[currentAim]);
