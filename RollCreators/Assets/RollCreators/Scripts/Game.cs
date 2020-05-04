@@ -77,6 +77,7 @@ public class Game : MonoBehaviour
     {
         aims.Add(Aim1);
         aims.Add(Aim2);
+        Agent.ClearBusyNames();
         for (int i = 0; i < 4; i++)
         {
             dayAgents.Add(new DayAgent());
@@ -85,7 +86,7 @@ public class Game : MonoBehaviour
 
         foreach (Sinner.SocialStatus status in Enum.GetValues(typeof(Sinner.SocialStatus)))
         {
-            sinners.Add(status, new Sinner());
+            sinners.Add(status, new Sinner(status));
         }
 
         attention = 0;

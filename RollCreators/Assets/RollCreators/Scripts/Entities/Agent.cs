@@ -6,6 +6,25 @@ using Random = UnityEngine.Random;
 public abstract class Agent
 {
 
+    public static void ClearBusyNames()
+    {
+        __busyNames.Clear();
+    }
+    
+    private static HashSet<string> __busyNames = new HashSet<string>();
+    private static string[] __pullNames =
+    {
+        "Стас Барецкий",
+        "Анна Беспалова",
+        "Мария Воробьева",
+        "Станислав Тренин",
+        "Вячеслав Журавлев",
+        "Егор Савенко",
+        "Андрей Елисафенко",
+        "Андрей Зыкин",
+        "Андрей Терехин"
+    };
+
     public static int[] EXPERIENCE = {
         0, 10, 15, 25
     };
@@ -43,11 +62,8 @@ public abstract class Agent
     public Dictionary<Skills, int> skills = new Dictionary<Skills, int>();
     public int skillPoints = 0;
 
-    private AgentMenu agentMenu;
-
     public Agent()
     {
-        agentMenu = GameObject.Find("Game").GetComponent<AgentMenu>();
         SetNewAgent();
     }
 
@@ -55,6 +71,15 @@ public abstract class Agent
 
     public void SetNewAgent()
     {
+        string newName = __pullNames[Random.Range(0, __pullNames.Length)];
+        while (__busyNames.Contains(newName))
+        {
+            newName = __pullNames[Random.Range(0, __pullNames.Length)];
+        }
+
+        __busyNames.Remove(name);
+        name = newName;
+        __busyNames.Add(name);
         level = 1;
         skills[Skills.ELOQUENCE] = 4 + Random.Range(-2, 2);
         skills[Skills.CUNNING] = 4 + Random.Range(-2, 2);
