@@ -100,6 +100,10 @@ public class Game : MonoBehaviour
         {
             gameMenu.ShowSettings();
         }
+        if (currentAim < aims.Count)
+        {
+            UpdateAim();
+        }
     }
 
     public void ChangeDayTime()
@@ -147,10 +151,6 @@ public class Game : MonoBehaviour
         }
         gameMenu.UpdateDayTime();
         audioSource.Play();
-        if (currentAim < aims.Count)
-        {
-            UpdateAim();
-        }
     }
 
     private void UpdateAim()
