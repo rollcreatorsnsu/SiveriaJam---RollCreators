@@ -91,7 +91,7 @@ public class DayAgent : Agent
             }
             case (DayTask.PREACH_IN_THE_CITY):
             {
-                lastResult = game.sinners[tempSocialStatus].strength * 5 * skills[Skills.PERSUASIVENESS] / 100;
+                lastResult = game.sinners[tempSocialStatus].strength * 15 * skills[Skills.PERSUASIVENESS] / 100;
                 game.sinners[tempSocialStatus].strength += lastResult;
                 break;
             }
