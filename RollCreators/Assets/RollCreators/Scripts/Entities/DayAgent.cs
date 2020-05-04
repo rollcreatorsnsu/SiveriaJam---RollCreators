@@ -52,7 +52,7 @@ public class DayAgent : Agent
             }
             case (DayTask.CONFESS_SINNERS):
             {
-                if (Random.Range(0, 100) <= game.sinners[tempSocialStatus].fearOfGod - 40 + 5 * skills[Skills.INSIGHT])
+                if (Random.Range(0, 100) <= game.sinners[tempSocialStatus].fearOfGod + 40 + 5 * skills[Skills.INSIGHT])
                 {
                     game.sinners[tempSocialStatus].sinsOpened = true;
                     lastResult = Int32.MaxValue;
