@@ -160,6 +160,8 @@ public class Sinner
         }
 
         fearOfGod = Mathf.Clamp(fearOfGod, 0, 100);
+        wealth = Mathf.Clamp(wealth, 0, Int32.MaxValue);
+        strength = Mathf.Clamp(strength, 0, Int32.MaxValue);
     }
 
 }
