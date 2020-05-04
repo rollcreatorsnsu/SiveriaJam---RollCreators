@@ -47,7 +47,7 @@ public class DayAgent : Agent
                 game.attention += Random.Range(0, 10) - 3 * skills[Skills.CUNNING];
                 game.attention = Mathf.Clamp(game.attention, 0, 100);
                 int newValue = game.attention;
-                lastResult = oldValue - newValue;
+                lastResult = newValue - oldValue;
                 break;
             }
             case (DayTask.CONFESS_SINNERS):
