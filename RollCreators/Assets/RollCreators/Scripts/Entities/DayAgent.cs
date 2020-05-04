@@ -29,7 +29,7 @@ public class DayAgent : Agent
             case (DayTask.CONDUCT_A_SERVICE):
             {
                 int oldValue = game.sinners[tempSocialStatus].fearOfGod;
-                game.sinners[tempSocialStatus].fearOfGod += Random.Range(-30, 0) + 5 * skills[Skills.ELOQUENCE];
+                game.sinners[tempSocialStatus].fearOfGod += Random.Range(-20, 0) + 5 * skills[Skills.ELOQUENCE];
                 game.sinners[tempSocialStatus].Clamp();
                 int newValue = game.sinners[tempSocialStatus].fearOfGod;
                 lastResult = newValue - oldValue;
@@ -52,7 +52,7 @@ public class DayAgent : Agent
             }
             case (DayTask.CONFESS_SINNERS):
             {
-                if (Random.Range(0, 100) <= game.sinners[tempSocialStatus].fearOfGod - 20 + 5 * skills[Skills.INSIGHT])
+                if (Random.Range(0, 100) <= game.sinners[tempSocialStatus].fearOfGod - 40 + 5 * skills[Skills.INSIGHT])
                 {
                     game.sinners[tempSocialStatus].sinsOpened = true;
                     lastResult = Int32.MaxValue;
@@ -65,7 +65,7 @@ public class DayAgent : Agent
             }
             case (DayTask.INTERPRETING_SACRED_TEXTS):
             {
-                if (Random.Range(0, 100) <= Random.Range(10, 50) + 5 * skills[Skills.WISDOM])
+                if (Random.Range(0, 100) <= 40 + 5 * skills[Skills.WISDOM])
                 {
                     game.sinners[tempSocialStatus].fearOfGodOpened = true;
                     lastResult = Int32.MaxValue;
@@ -78,7 +78,7 @@ public class DayAgent : Agent
             }
             case (DayTask.LISTEN_TO_GOSSIP):
             {
-                if (Random.Range(0, 100) <= Random.Range(10, 50) + 5 * skills[Skills.CHARM])
+                if (Random.Range(0, 100) <= 40 + 5 * skills[Skills.CHARM])
                 {
                     game.sinners[tempSocialStatus].wealthOpened = true;
                     lastResult = Int32.MaxValue;
@@ -91,7 +91,7 @@ public class DayAgent : Agent
             }
             case (DayTask.PREACH_IN_THE_CITY):
             {
-                lastResult = Random.Range(-10, 10) + 5 * skills[Skills.PERSUASIVENESS];
+                lastResult = game.sinners[tempSocialStatus].strength * 5 * skills[Skills.PERSUASIVENESS] / 100;
                 game.sinners[tempSocialStatus].strength += lastResult;
                 break;
             }
@@ -107,6 +107,8 @@ public class DayAgent : Agent
                     }
                     sum += sinner.strength * sinner.fearOfGod * sins * skills[Skills.PRESSURE] * sinner.wealth / 700000;
                     sinner.strength -= sinner.strength * sinner.fearOfGod / 100;
+                    sinner.Clamp();
+                    sinner.Reset();
                 }
 
                 lastResult = (int)sum;

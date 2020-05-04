@@ -164,4 +164,51 @@ public class Sinner
         strength = Mathf.Clamp(strength, 0, Int32.MaxValue);
     }
 
+    public void Reset()
+    {
+        switch (status)
+        {
+            case SocialStatus.NOBLEMAN:
+                sins.Add(Sins.VANITY, 40);
+                sins.Add(Sins.ENVY, 30);
+                sins.Add(Sins.ANGER, 30);
+                sins.Add(Sins.GLOOM, 5);
+                sins.Add(Sins.GREED, 40);
+                sins.Add(Sins.GLUTTONY, 40);
+                sins.Add(Sins.FORNICATION, 30);
+                fearOfGod = 10;
+                break;
+            case SocialStatus.CITIZEN:
+                sins.Add(Sins.VANITY, 20);
+                sins.Add(Sins.ENVY, 40);
+                sins.Add(Sins.ANGER, 20);
+                sins.Add(Sins.GLOOM, 15);
+                sins.Add(Sins.GREED, 30);
+                sins.Add(Sins.GLUTTONY, 30);
+                sins.Add(Sins.FORNICATION, 40);
+                fearOfGod = 20;
+                break;
+            case SocialStatus.PEASANT:
+                sins.Add(Sins.VANITY, 10);
+                sins.Add(Sins.ENVY, 30);
+                sins.Add(Sins.ANGER, 20);
+                sins.Add(Sins.GLOOM, 30);
+                sins.Add(Sins.GREED, 40);
+                sins.Add(Sins.GLUTTONY, 20);
+                sins.Add(Sins.FORNICATION, 30);
+                fearOfGod = 35;
+                break;
+            case SocialStatus.GARBAGE:
+                sins.Add(Sins.VANITY, 5);
+                sins.Add(Sins.ENVY, 30);
+                sins.Add(Sins.ANGER, 30);
+                sins.Add(Sins.GLOOM, 40);
+                sins.Add(Sins.GREED, 20);
+                sins.Add(Sins.GLUTTONY, 10);
+                sins.Add(Sins.FORNICATION, 30);
+                fearOfGod = 35;
+                break;
+        }
+    }
+
 }
