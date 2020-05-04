@@ -86,7 +86,7 @@ public class Game : MonoBehaviour
 
         foreach (Sinner.SocialStatus status in Enum.GetValues(typeof(Sinner.SocialStatus)))
         {
-            sinners.Add(status, new Sinner());
+            sinners.Add(status, new Sinner(status));
         }
 
         attention = 0;

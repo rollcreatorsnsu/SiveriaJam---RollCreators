@@ -31,19 +31,62 @@ public class Sinner
     public bool fearOfGodOpened = false;
     public bool wealthOpened = false;
     public bool sinsOpened = false;
+    private SocialStatus status;
 
-    public Sinner()
+    public Sinner(SocialStatus status)
     {
-        sins.Add(Sins.VANITY, 40);
-        sins.Add(Sins.ENVY, 30);
-        sins.Add(Sins.ANGER, 30);
-        sins.Add(Sins.GLOOM, 5);
-        sins.Add(Sins.GREED, 40);
-        sins.Add(Sins.GLUTTONY, 40);
-        sins.Add(Sins.FORNICATION, 30);
-        fearOfGod = 10;
-        wealth = 2;
-        strength = 100;
+        this.status = status;
+        switch (status)
+        {
+            case SocialStatus.NOBLEMAN:
+                sins.Add(Sins.VANITY, 40);
+                sins.Add(Sins.ENVY, 30);
+                sins.Add(Sins.ANGER, 30);
+                sins.Add(Sins.GLOOM, 5);
+                sins.Add(Sins.GREED, 40);
+                sins.Add(Sins.GLUTTONY, 40);
+                sins.Add(Sins.FORNICATION, 30);
+                fearOfGod = 10;
+                wealth = 2;
+                strength = 100;
+                break;
+            case SocialStatus.CITIZEN:
+                sins.Add(Sins.VANITY, 20);
+                sins.Add(Sins.ENVY, 40);
+                sins.Add(Sins.ANGER, 20);
+                sins.Add(Sins.GLOOM, 15);
+                sins.Add(Sins.GREED, 30);
+                sins.Add(Sins.GLUTTONY, 30);
+                sins.Add(Sins.FORNICATION, 40);
+                fearOfGod = 20;
+                wealth = 0.25f;
+                strength = 400;
+                break;
+            case SocialStatus.PEASANT:
+                sins.Add(Sins.VANITY, 10);
+                sins.Add(Sins.ENVY, 30);
+                sins.Add(Sins.ANGER, 20);
+                sins.Add(Sins.GLOOM, 30);
+                sins.Add(Sins.GREED, 40);
+                sins.Add(Sins.GLUTTONY, 20);
+                sins.Add(Sins.FORNICATION, 30);
+                fearOfGod = 35;
+                wealth = 1;
+                strength = 1200;
+                break;
+            case SocialStatus.GARBAGE:
+                sins.Add(Sins.VANITY, 5);
+                sins.Add(Sins.ENVY, 30);
+                sins.Add(Sins.ANGER, 30);
+                sins.Add(Sins.GLOOM, 40);
+                sins.Add(Sins.GREED, 20);
+                sins.Add(Sins.GLUTTONY, 10);
+                sins.Add(Sins.FORNICATION, 30);
+                fearOfGod = 35;
+                wealth = 0.5f;
+                strength = 2000;
+                break;
+        }
     }
 
     public void Hide()
@@ -55,16 +98,57 @@ public class Sinner
 
     public void MorningUpdate()
     {
-        sins[Sins.VANITY] += Random.Range(-5, 10);
-        sins[Sins.ENVY] += Random.Range(-5, 5);
-        sins[Sins.ANGER] += Random.Range(-5, 5);
-        sins[Sins.GLOOM] += Random.Range(-5, 5);
-        sins[Sins.GREED] += Random.Range(-5, 10);
-        sins[Sins.GLUTTONY] += Random.Range(-5, 5);
-        sins[Sins.FORNICATION] += Random.Range(-5, 5);
-        fearOfGod += Random.Range(-5, 5);
-        wealth += Random.Range(-0.5f, 0.5f);
-        strength += Random.Range(-10, 10);
+        switch (status)
+        {
+            case SocialStatus.NOBLEMAN:
+                sins[Sins.VANITY] += Random.Range(-5, 10);
+                sins[Sins.ENVY] += Random.Range(-5, 5);
+                sins[Sins.ANGER] += Random.Range(-5, 5);
+                sins[Sins.GLOOM] += Random.Range(-5, 5);
+                sins[Sins.GREED] += Random.Range(-5, 10);
+                sins[Sins.GLUTTONY] += Random.Range(-5, 5);
+                sins[Sins.FORNICATION] += Random.Range(-5, 5);
+                fearOfGod += Random.Range(-5, 5);
+                wealth += Random.Range(-0.5f, 0.5f);
+                strength += Random.Range(-10, 10);
+                break;
+            case SocialStatus.CITIZEN:
+                sins[Sins.VANITY] += Random.Range(-5, 10);
+                sins[Sins.ENVY] += Random.Range(-5, 10);
+                sins[Sins.ANGER] += Random.Range(-5, 5);
+                sins[Sins.GLOOM] += Random.Range(-5, 5);
+                sins[Sins.GREED] += Random.Range(-5, 5);
+                sins[Sins.GLUTTONY] += Random.Range(-5, 10);
+                sins[Sins.FORNICATION] += Random.Range(-5, 5);
+                fearOfGod += Random.Range(-5, 5);
+                wealth += Random.Range(-0.25f, 0.25f);
+                strength += Random.Range(-30, 30);
+                break;
+            case SocialStatus.PEASANT:
+                sins[Sins.VANITY] += Random.Range(-5, 5);
+                sins[Sins.ENVY] += Random.Range(-5, 10);
+                sins[Sins.ANGER] += Random.Range(-5, 5);
+                sins[Sins.GLOOM] += Random.Range(-5, 10);
+                sins[Sins.GREED] += Random.Range(-5, 10);
+                sins[Sins.GLUTTONY] += Random.Range(-5, 5);
+                sins[Sins.FORNICATION] += Random.Range(-5, 5);
+                fearOfGod += Random.Range(-5, 10);
+                wealth += Random.Range(-0.25f, 0.25f);
+                strength += Random.Range(-50, 50);
+                break;
+            case SocialStatus.GARBAGE:
+                sins[Sins.VANITY] += Random.Range(-5, 5);
+                sins[Sins.ENVY] += Random.Range(-5, 10);
+                sins[Sins.ANGER] += Random.Range(-5, 5);
+                sins[Sins.GLOOM] += Random.Range(-5, 10);
+                sins[Sins.GREED] += Random.Range(-5, 5);
+                sins[Sins.GLUTTONY] += Random.Range(-5, 5);
+                sins[Sins.FORNICATION] += Random.Range(-5, 10);
+                fearOfGod += Random.Range(-5, 10);
+                wealth += Random.Range(-0.25f, 0.25f);
+                strength += Random.Range(-100, 100);
+                break;
+        }
         Clamp();
     }
 
