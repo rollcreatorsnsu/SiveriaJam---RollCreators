@@ -105,7 +105,7 @@ public class DayAgent : Agent
                     {
                         sins += sin;
                     }
-                    sum += sinner.strength * sinner.fearOfGod * sins * skills[Skills.PRESSURE] * sinner.wealth / 700000;
+                    sum += sinner.wealth * sinner.strength * sinner.fearOfGod * sins * skills[Skills.PRESSURE] / 700000;
                     sinner.strength -= sinner.strength * sinner.fearOfGod / 100;
                     sinner.Clamp();
                     sinner.Reset();
