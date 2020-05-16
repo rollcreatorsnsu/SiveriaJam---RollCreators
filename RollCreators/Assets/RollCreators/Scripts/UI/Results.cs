@@ -40,11 +40,11 @@ public class Results : MonoBehaviour
         {
             if (game.dayTime == Game.DayTime.DAY)
             {
-                texts[i].text = $"Агент {i + 1} - {resultsDay[game.dayAgents[i].task]} - {(game.dayAgents[i].lastResult > 0 ? "успешно" : "провалено")} {(game.dayAgents[i].lastResult != Int32.MinValue && game.dayAgents[i].lastResult != Int32.MaxValue ? $"({Math.Abs(game.dayAgents[i].lastResult).ToString()})" : "")}";
+                texts[i].text = $"Агент {i + 1} - {resultsDay[game.dayAgents[i].task]} - {(game.dayAgents[i].lastResult != Int32.MinValue && game.dayAgents[i].lastResult != Int32.MaxValue ? $"({game.dayAgents[i].lastResult.ToString()})" : game.dayAgents[i].lastResult > 0 ? "успешно" : "провалено")}";
             }
             else
             {
-                texts[i].text = $"Агент {i + 1} - {resultsNight[game.nightAgents[i].task]} - {(game.nightAgents[i].lastResult > 0 ? "успешно" : "провалено")} {(game.nightAgents[i].lastResult != Int32.MinValue && game.nightAgents[i].lastResult != Int32.MaxValue ? $"({Math.Abs(game.nightAgents[i].lastResult).ToString()})" : "")}";
+                texts[i].text = $"Агент {i + 1} - {resultsNight[game.nightAgents[i].task]} - {(game.nightAgents[i].lastResult != Int32.MinValue && game.nightAgents[i].lastResult != Int32.MaxValue ? $"({game.nightAgents[i].lastResult.ToString()})" : game.nightAgents[i].lastResult > 0 ? "успешно" : "провалено")}";
             }
         }
     }
