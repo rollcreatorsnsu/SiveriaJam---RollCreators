@@ -18,11 +18,11 @@ public class Game : MonoBehaviour
         get => _gold;
         set
         {
-            gameMenu.goldText.text = $"Золото {Mathf.Floor(value)}";
+            gameMenu.goldText.text = $"{Mathf.FloorToInt(value)}/{(currentAim == 0 ? 1000 : 2000)}";
             _gold = value;
         }
     }
-
+    
     private int _attention;
 
     public int attention
@@ -30,7 +30,8 @@ public class Game : MonoBehaviour
         get => _attention;
         set
         {
-            gameMenu.attentionText.text = $"{value}%\nвнимание инквизиции";
+            gameMenu.attentionText.text = $"{value}%";
+            gameMenu.attentionSlider.value = value / 100f;
             _attention = value;
         }
     }
