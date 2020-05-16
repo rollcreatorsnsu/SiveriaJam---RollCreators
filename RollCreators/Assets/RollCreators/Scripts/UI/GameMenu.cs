@@ -31,7 +31,6 @@ public class GameMenu : MonoBehaviour
     public Game game;
     public SettingsMenu settingsPanel;
     public AgentMenu agentMenu;
-    public AgentsMenu agentsMenu;
     public SinnersMenu sinnersMenu;
     public Results results;
     public List<Text> agentTexts;
@@ -73,11 +72,6 @@ public class GameMenu : MonoBehaviour
     public void ShowAgentMenu(int index)
     {
         agentMenu.Show(game.dayTime == Game.DayTime.DAY ? (Agent)game.dayAgents[index] : (Agent)game.nightAgents[index]);
-    }
-
-    public void ShowAgentsMenu()
-    {
-        agentsMenu.Show();
     }
 
     public void ShowSinnerMenu()

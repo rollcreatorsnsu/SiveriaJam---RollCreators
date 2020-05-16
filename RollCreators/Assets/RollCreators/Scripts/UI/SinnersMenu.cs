@@ -35,7 +35,8 @@ public class SinnersMenu : MonoBehaviour
     public List<Button> buttons;
     public Sprite activeButton;
     public Sprite inactiveButton;
-    
+    public AgentMenu agentMenu;
+
     public void Close()
     {
         gameObject.SetActive(false);
@@ -74,5 +75,11 @@ public class SinnersMenu : MonoBehaviour
     {
         gameObject.SetActive(true);
         ChangeSocialStatus(0);
+    }
+    
+    public void ShowAgentsMenu()
+    {
+        agentMenu.Show();
+        Close();
     }
 }

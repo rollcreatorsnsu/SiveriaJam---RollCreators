@@ -62,7 +62,6 @@
      <Compile Include="Assets\RollCreators\Scripts\Game.cs" />
      <Compile Include="Assets\RollCreators\Scripts\Tutorial.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\AgentMenu.cs" />
-     <Compile Include="Assets\RollCreators\Scripts\UI\AgentsMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\ConfirmationMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\GameMenu.cs" />
      <Compile Include="Assets\RollCreators\Scripts\UI\IndulgenceMenu.cs" />
