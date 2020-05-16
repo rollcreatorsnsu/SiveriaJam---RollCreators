@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AgentMenu : MonoBehaviour
@@ -138,10 +139,17 @@ public class AgentMenu : MonoBehaviour
     public Text trainButtonText;
     public ConfirmationMenu confirmationMenu;
     public SinnersMenu sinnersMenu;
-    public List<Image> ticks;
+    public List<Image> sinnersTicks;
     public Sprite dayTick;
     public Sprite nightTick;
     public List<Text> buttonsTexts;
+    public GameObject sinnersPanel;
+    public Slider slider;
+    public Text sliderButtonText;
+    public Image sliderTick;
+    public GameObject sliderPanel;
+    public Image applyTick;
+    public GameObject applyPanel;
     
     private Dictionary<DayAgent.DayTask, Agent.Skills> daySkills = new Dictionary<DayAgent.DayTask, Agent.Skills>();
     private Dictionary<NightAgent.NightTask, Agent.Skills> nightSkills = new Dictionary<NightAgent.NightTask, Agent.Skills>();
@@ -193,6 +201,7 @@ public class AgentMenu : MonoBehaviour
         }
         UpdateText();
         UpdateTicks();
+        UpdateSliderText();
     }
 
     public void Apply(int index)
@@ -203,7 +212,7 @@ public class AgentMenu : MonoBehaviour
             agent.task = dayTask;
             if (dayTask == DayAgent.DayTask.GIVE_ALMS)
             {
-                agent.tempInt = 0;//TODO
+                agent.tempInt = (int)slider.value;
             }
             else if (dayTask != DayAgent.DayTask.SELL_INDULGENCE)
             {
@@ -281,6 +290,24 @@ public class AgentMenu : MonoBehaviour
         }
         agentPanel.SetActive(true);
         agentsPanel.SetActive(false);
+        if (index == 2)
+        {
+            sliderPanel.SetActive(true);
+            sinnersPanel.SetActive(false);
+            applyPanel.SetActive(false);
+        }
+        else if (index == 7)
+        {
+            applyPanel.SetActive(true);
+            sliderPanel.SetActive(false);
+            sinnersPanel.SetActive(false);
+        }
+        else
+        {
+            sinnersPanel.SetActive(true);
+            applyPanel.SetActive(false);
+            sliderPanel.SetActive(false);
+        }
         description1.text = DESCRIPTIONS1_DAY[index - 1];
         taskText.text = DAY_TASK_NAMES[index - 1];
         dayTask = DAY_TASKS[index - 1];
@@ -337,6 +364,9 @@ public class AgentMenu : MonoBehaviour
 
     public void ShowNightPanel(int index)
     {
+        sinnersPanel.SetActive(true);
+        sliderPanel.SetActive(false);
+        applyPanel.SetActive(false);
         currentMark = 0;
         for (var i = 0; i < nightButtons.Count; i++)
         {
@@ -382,15 +412,33 @@ public class AgentMenu : MonoBehaviour
             DayAgent agent = (DayAgent) currentAgent;
             for (int i = 0; i < 4; i++)
             {
-                if (agent.tempSocialStatus == __statusMap[i])
+                if (agent.tempSocialStatus == __statusMap[i] && agent.task != DayAgent.DayTask.IDLE && agent.task != DayAgent.DayTask.GIVE_ALMS && agent.task != DayAgent.DayTask.SELL_INDULGENCE)
                 {
-                    ticks[i].sprite = dayTick;
-                    ticks[i].gameObject.SetActive(true);
+                    sinnersTicks[i].sprite = dayTick;
+                    sinnersTicks[i].gameObject.SetActive(true);
                 }
                 else
                 {
-                    ticks[i].gameObject.SetActive(false);
+                    sinnersTicks[i].gameObject.SetActive(false);
                 }
+            }
+
+            if (agent.task == DayAgent.DayTask.GIVE_ALMS)
+            {
+                sliderTick.gameObject.SetActive(true);
+            }
+            else
+            {
+                sliderTick.gameObject.SetActive(false);
+            }
+
+            if (agent.task == DayAgent.DayTask.SELL_INDULGENCE)
+            {
+                applyTick.gameObject.SetActive(true);
+            }
+            else
+            {
+                applyTick.gameObject.SetActive(false);
             }
         }
         else
@@ -398,14 +446,14 @@ public class AgentMenu : MonoBehaviour
             NightAgent agent = (NightAgent) currentAgent;
             for (int i = 0; i < 4; i++)
             {
-                if (agent.tempSocialStatus == __statusMap[i])
+                if (agent.tempSocialStatus == __statusMap[i] && agent.task != NightAgent.NightTask.IDLE)
                 {
-                    ticks[i].sprite = nightTick;
-                    ticks[i].gameObject.SetActive(true);
+                    sinnersTicks[i].sprite = nightTick;
+                    sinnersTicks[i].gameObject.SetActive(true);
                 }
                 else
                 {
-                    ticks[i].gameObject.SetActive(false);
+                    sinnersTicks[i].gameObject.SetActive(false);
                 }
             }
         }
@@ -493,5 +541,10 @@ public class AgentMenu : MonoBehaviour
             UpdateText();
             UpdateTicks();
         }
+    }
+
+    public void UpdateSliderText()
+    {
+        sliderButtonText.text = $"Раздавать милостыню\n{slider.value * 10} золота";
     }
 }
