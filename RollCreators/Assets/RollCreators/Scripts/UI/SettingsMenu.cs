@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.Remoting.Services;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class SettingsMenu : MonoBehaviour
     public string menuSceneName = "Menu";
     public ConfirmationMenu confirmationMenu;
     public Text muteText;
+    public Tutorial tutorial;
 
     public void Mute()
     {
@@ -56,4 +58,11 @@ public class SettingsMenu : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
+    
+    public void BeginTutorial()
+    {
+        ReturnToGame();
+        tutorial._Start();
+    }
+
 }
