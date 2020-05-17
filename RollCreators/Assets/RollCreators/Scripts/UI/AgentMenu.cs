@@ -200,7 +200,6 @@ public class AgentMenu : MonoBehaviour
             ShowNightPanel(0);
         }
         UpdateText();
-        UpdateTicks();
         UpdateSliderText();
     }
 
@@ -315,6 +314,7 @@ public class AgentMenu : MonoBehaviour
         {
             buttonsTexts[i].text = $"{__socialStatus[i]}\n{__dayParameter[index - 1]}: {CheckDayValues(index - 1, __statusMap[i])}";
         }
+        UpdateTicks();
     }
 
     private void UpdateText()
@@ -367,7 +367,7 @@ public class AgentMenu : MonoBehaviour
         sinnersPanel.SetActive(true);
         sliderPanel.SetActive(false);
         applyPanel.SetActive(false);
-        currentMark = 0;
+        currentMark = index;
         for (var i = 0; i < nightButtons.Count; i++)
         {
             if (i == index)
@@ -397,6 +397,7 @@ public class AgentMenu : MonoBehaviour
         {
             buttonsTexts[i].text = $"{__socialStatus[i]}\n{__nightParameter[index - 1]}: {CheckNightValues(index - 1, __statusMap[i])}";
         }
+        UpdateTicks();
     }
 
     public void ShowSinners()
@@ -412,7 +413,7 @@ public class AgentMenu : MonoBehaviour
             DayAgent agent = (DayAgent) currentAgent;
             for (int i = 0; i < 4; i++)
             {
-                if (agent.tempSocialStatus == __statusMap[i] && agent.task != DayAgent.DayTask.IDLE && agent.task != DayAgent.DayTask.GIVE_ALMS && agent.task != DayAgent.DayTask.SELL_INDULGENCE)
+                if (agent.tempSocialStatus == __statusMap[i] && agent.task != DayAgent.DayTask.IDLE && agent.task != DayAgent.DayTask.GIVE_ALMS && agent.task != DayAgent.DayTask.SELL_INDULGENCE && agent.task == DAY_TASKS[currentMark - 1])
                 {
                     sinnersTicks[i].sprite = dayTick;
                     sinnersTicks[i].gameObject.SetActive(true);
@@ -446,7 +447,7 @@ public class AgentMenu : MonoBehaviour
             NightAgent agent = (NightAgent) currentAgent;
             for (int i = 0; i < 4; i++)
             {
-                if (agent.tempSocialStatus == __statusMap[i] && agent.task != NightAgent.NightTask.IDLE)
+                if (agent.tempSocialStatus == __statusMap[i] && agent.task != NightAgent.NightTask.IDLE && agent.task == NIGHT_TASKS[currentMark - 1])
                 {
                     sinnersTicks[i].sprite = nightTick;
                     sinnersTicks[i].gameObject.SetActive(true);
@@ -470,7 +471,6 @@ public class AgentMenu : MonoBehaviour
                     currentAgent = game.dayAgents[i];
                     ShowDayPanel(currentMark);
                     UpdateText();
-                    UpdateTicks();
                     return;
                 }
             }
@@ -478,7 +478,6 @@ public class AgentMenu : MonoBehaviour
             currentAgent = game.dayAgents[game.dayAgents.Count - 1];
             ShowDayPanel(currentMark);
             UpdateText();
-            UpdateTicks();
         }
         else
         {
@@ -489,7 +488,6 @@ public class AgentMenu : MonoBehaviour
                     currentAgent = game.nightAgents[i];
                     ShowNightPanel(currentMark);
                     UpdateText();
-                    UpdateTicks();
                     return;
                 }
             }
@@ -497,7 +495,6 @@ public class AgentMenu : MonoBehaviour
             currentAgent = game.nightAgents[game.nightAgents.Count - 1];
             ShowNightPanel(currentMark);
             UpdateText();
-            UpdateTicks();
         }
     }
 
@@ -512,7 +509,6 @@ public class AgentMenu : MonoBehaviour
                     currentAgent = game.dayAgents[i];
                     ShowDayPanel(currentMark);
                     UpdateText();
-                    UpdateTicks();
                     return;
                 }
             }
@@ -520,7 +516,6 @@ public class AgentMenu : MonoBehaviour
             currentAgent = game.dayAgents[0];
             ShowDayPanel(currentMark);
             UpdateText();
-            UpdateTicks();
         }
         else
         {
@@ -531,7 +526,6 @@ public class AgentMenu : MonoBehaviour
                     currentAgent = game.nightAgents[i];
                     ShowNightPanel(currentMark);
                     UpdateText();
-                    UpdateTicks();
                     return;
                 }
             }
@@ -539,7 +533,6 @@ public class AgentMenu : MonoBehaviour
             currentAgent = game.nightAgents[0];
             ShowNightPanel(currentMark);
             UpdateText();
-            UpdateTicks();
         }
     }
 
