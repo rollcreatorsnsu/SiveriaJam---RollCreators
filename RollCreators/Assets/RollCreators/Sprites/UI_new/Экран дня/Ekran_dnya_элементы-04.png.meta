@@ -1,0 +1,391 @@
+fileFormatVersion: 2
+guid: 1fa498e9d237473488f6582fdcabdd73
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1930757353566254147
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_0"
+  - first:
+      213: 2528096411318967503
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_1"
+  - first:
+      213: 4516792570131105927
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_2"
+  - first:
+      213: 1479390848701419723
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_3"
+  - first:
+      213: 1273586216718327939
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_4"
+  - first:
+      213: 6565383984955936589
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_5"
+  - first:
+      213: -4028239439837677581
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_6"
+  - first:
+      213: 5358291142452129028
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_7"
+  - first:
+      213: -131502142037912274
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_8"
+  - first:
+      213: -4371962514532696231
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_9"
+  - first:
+      213: 1287639647015008495
+    second: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_10"
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 173
+        width: 308
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3443ace559d6bca10800000000000000
+      internalID: 1930757353566254147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_1"
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 238
+        width: 73
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcc5b9aaa4a951320800000000000000
+      internalID: 2528096411318967503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_2"
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 203
+        width: 116
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 788c9ca59eedeae30800000000000000
+      internalID: 4516792570131105927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_3"
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 35
+        width: 175
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc0dfc4832ad78410800000000000000
+      internalID: 1479390848701419723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_4"
+      rect:
+        serializedVersion: 2
+        x: 879
+        y: 275
+        width: 146
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38064569aefaca110800000000000000
+      internalID: 1273586216718327939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_5"
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 267
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4f465d03fdec1b50800000000000000
+      internalID: 6565383984955936589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_6"
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 243
+        width: 168
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f7b14e6291d818c0800000000000000
+      internalID: -4028239439837677581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_7"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 99
+        width: 244
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40d2bf497697c5a40800000000000000
+      internalID: 5358291142452129028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_8"
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 90
+        width: 138
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2590a0af7fcc2ef0800000000000000
+      internalID: -131502142037912274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_9"
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 32
+        width: 237
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95f74f5b14ba353c0800000000000000
+      internalID: -4371962514532696231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B-04_10"
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 0
+        width: 371
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe8f90fcf6d9ed110800000000000000
+      internalID: 1287639647015008495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

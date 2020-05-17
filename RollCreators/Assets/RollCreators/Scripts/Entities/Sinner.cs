@@ -32,6 +32,8 @@ public class Sinner
     public bool wealthOpened = false;
     public bool sinsOpened = false;
     private SocialStatus status;
+    private int maxWealth;
+    private int maxStrength;
 
     public Sinner(SocialStatus status)
     {
@@ -49,6 +51,8 @@ public class Sinner
                 fearOfGod = 10;
                 wealth = 2;
                 strength = 100;
+                maxWealth = 5;
+                maxStrength = 300;
                 break;
             case SocialStatus.CITIZEN:
                 sins.Add(Sins.VANITY, 20);
@@ -61,6 +65,8 @@ public class Sinner
                 fearOfGod = 20;
                 wealth = 0.25f;
                 strength = 400;
+                maxWealth = 2;
+                maxStrength = 1000;
                 break;
             case SocialStatus.PEASANT:
                 sins.Add(Sins.VANITY, 10);
@@ -73,6 +79,8 @@ public class Sinner
                 fearOfGod = 35;
                 wealth = 1;
                 strength = 1200;
+                maxWealth = 2;
+                maxStrength = 2500;
                 break;
             case SocialStatus.GARBAGE:
                 sins.Add(Sins.VANITY, 5);
@@ -85,15 +93,10 @@ public class Sinner
                 fearOfGod = 35;
                 wealth = 0.5f;
                 strength = 2000;
+                maxWealth = 1;
+                maxStrength = 5000;
                 break;
         }
-    }
-
-    public void Hide()
-    {
-        fearOfGodOpened = false;
-        wealthOpened = false;
-        sinsOpened = false;
     }
 
     public void MorningUpdate()
@@ -160,8 +163,8 @@ public class Sinner
         }
 
         fearOfGod = Mathf.Clamp(fearOfGod, 0, 100);
-        wealth = Mathf.Clamp(wealth, 0, Int32.MaxValue);
-        strength = Mathf.Clamp(strength, 0, Int32.MaxValue);
+        wealth = Mathf.Clamp(wealth, 0, maxWealth);
+        strength = Mathf.Clamp(strength, 0, maxStrength);
     }
 
     public void Reset()

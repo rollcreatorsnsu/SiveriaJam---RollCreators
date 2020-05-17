@@ -7,6 +7,7 @@ public class SettingsMenu : MonoBehaviour
     public string menuSceneName = "Menu";
     public ConfirmationMenu confirmationMenu;
     public Text muteText;
+    public Tutorial tutorial;
 
     public void Mute()
     {
@@ -56,4 +57,11 @@ public class SettingsMenu : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
+    
+    public void BeginTutorial()
+    {
+        ReturnToGame();
+        tutorial._Start();
+    }
+
 }

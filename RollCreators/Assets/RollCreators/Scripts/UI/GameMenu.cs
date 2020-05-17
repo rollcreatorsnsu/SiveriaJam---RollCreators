@@ -31,13 +31,12 @@ public class GameMenu : MonoBehaviour
     public Game game;
     public SettingsMenu settingsPanel;
     public AgentMenu agentMenu;
-    public AgentsMenu agentsMenu;
     public SinnersMenu sinnersMenu;
     public Results results;
-    public Text changeDayText;
     public List<Text> agentTexts;
     public Text goldText;
     public Text attentionText;
+    public Slider attentionSlider;
     public Text daysRemainedText;
     public List<Button> agentButtons;
     public Sprite dayButtonSprite;
@@ -51,6 +50,9 @@ public class GameMenu : MonoBehaviour
     public Tutorial tutorial;
     public Text aimText;
     public Slider progressSlider;
+    public List<Image> ticks;
+    public Sprite dayTick;
+    public Sprite nightTick;
 
     void Start()
     {
@@ -58,6 +60,8 @@ public class GameMenu : MonoBehaviour
         {
             BeginTutorial();
         }
+
+        UpdateAgentButtons();
     }
     
     public void ShowSettings()
@@ -70,11 +74,6 @@ public class GameMenu : MonoBehaviour
         agentMenu.Show(game.dayTime == Game.DayTime.DAY ? (Agent)game.dayAgents[index] : (Agent)game.nightAgents[index]);
     }
 
-    public void ShowAgentsMenu()
-    {
-        agentsMenu.Show();
-    }
-
     public void ShowSinnerMenu()
     {
         sinnersMenu.Show();
@@ -83,14 +82,6 @@ public class GameMenu : MonoBehaviour
     public void ChangeDayTime()
     {
         game.ChangeDayTime();
-        if (game.dayTime == Game.DayTime.DAY)
-        {
-            changeDayText.text = "Завершить день";
-        }
-        else
-        {
-            changeDayText.text = "Завершить ночь";
-        }
         UpdateAgentButtons();
     }
 
@@ -100,14 +91,18 @@ public class GameMenu : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                agentTexts[i].text = $"Агент {i + 1} - {DAY_TASKS[game.dayAgents[i].task]}";
+                agentTexts[i].text = $"{game.dayAgents[i].name}";
+                ticks[i].gameObject.SetActive(game.dayAgents[i].task != DayAgent.DayTask.IDLE);
+                ticks[i].sprite = dayTick;
             }
         }
         else
         {
             for (int i = 0; i < 4; i++)
             {
-                agentTexts[i].text = $"Агент {i + 1} - {NIGHT_TASKS[game.nightAgents[i].task]}";
+                agentTexts[i].text = $"{game.nightAgents[i].name}";
+                ticks[i].gameObject.SetActive(game.nightAgents[i].task != NightAgent.NightTask.IDLE);
+                ticks[i].sprite = nightTick;
             }
         }
     }
