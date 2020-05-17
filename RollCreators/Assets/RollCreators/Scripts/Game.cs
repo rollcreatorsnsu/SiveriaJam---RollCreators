@@ -124,10 +124,6 @@ public class Game : MonoBehaviour
         }
         else
         {
-            foreach (Sinner sinner in sinners.Values)
-            {
-                sinner.Hide();
-            }
             foreach (NightAgent agent in nightAgents)
             {
                 agent.DoTask(this);

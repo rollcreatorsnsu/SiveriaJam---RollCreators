@@ -99,13 +99,6 @@ public class Sinner
         }
     }
 
-    public void Hide()
-    {
-        fearOfGodOpened = false;
-        wealthOpened = false;
-        sinsOpened = false;
-    }
-
     public void MorningUpdate()
     {
         switch (status)
