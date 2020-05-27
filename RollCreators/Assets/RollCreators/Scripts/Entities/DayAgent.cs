@@ -7,17 +7,18 @@ public class DayAgent : Agent
     public enum DayTask
     {
         IDLE,
-        CONDUCT_A_SERVICE,
-        GIVE_ALMS,
-        CONFESS_SINNERS,
-        INTERPRETING_SACRED_TEXTS,
         LISTEN_TO_GOSSIP,
-        PREACH_IN_THE_CITY,
-        SELL_INDULGENCE
+        GIVE_ALMS,
+        SELL_MIRACULOUS_BALMS,
+        SELL_INDULGENCES,
+        SKILL_5,
+        SKILL_6,
+        PREACHING,
+        SKILL_8,
+        SKILL_9
     }
     public DayTask task = DayTask.IDLE;
     public Sinner.SocialStatus tempSocialStatus;
-    public int tempInt;
 
     public override void DoTask(Game game)
     {
@@ -26,95 +27,104 @@ public class DayAgent : Agent
             case DayTask.IDLE:
                 lastResult = Int32.MaxValue;
                 break;
-            case (DayTask.CONDUCT_A_SERVICE):
-            {
-                int oldValue = game.sinners[tempSocialStatus].fearOfGod;
-                game.sinners[tempSocialStatus].fearOfGod += Random.Range(-20, 0) + 5 * skills[Skills.ELOQUENCE];
-                game.sinners[tempSocialStatus].Clamp();
-                int newValue = game.sinners[tempSocialStatus].fearOfGod;
-                lastResult = newValue - oldValue;
+            case DayTask.LISTEN_TO_GOSSIP:
+                game.sinners[tempSocialStatus].daysOpened = skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING);
+                lastResult = game.sinners[tempSocialStatus].daysOpened;
                 break;
-            }
-            case (DayTask.GIVE_ALMS):
-            {
-                if (game.gold < 10 * tempInt)
+            case DayTask.GIVE_ALMS:
+                if (game.gold < 100 * (1f + (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 10f))
                 {
                     lastResult = Int32.MinValue;
-                    return;
+                    break;
                 }
-                game.gold -= 10 * tempInt;
-                int oldValue = game.attention;
-                game.attention += Random.Range(0, 10) - 3 * skills[Skills.CUNNING];
-                game.attention = Mathf.Clamp(game.attention, 0, 100);
-                int newValue = game.attention;
-                lastResult = newValue - oldValue;
+                game.gold -= 100 * (1f + (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 10f);
+                lastResult = game.attention * 5 * (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 100f;
+                game.attention -= lastResult;
                 break;
-            }
-            case (DayTask.CONFESS_SINNERS):
-            {
-                if (Random.Range(0, 100) <= game.sinners[tempSocialStatus].fearOfGod + 40 + 5 * skills[Skills.INSIGHT])
-                {
-                    game.sinners[tempSocialStatus].sinsOpened = true;
-                    lastResult = Int32.MaxValue;
-                }
-                else
+            case DayTask.SELL_MIRACULOUS_BALMS:
+                if (game.sinners[tempSocialStatus].faith < 5 * (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 10f)
                 {
                     lastResult = Int32.MinValue;
+                    break;
                 }
-                break;
-            }
-            case (DayTask.INTERPRETING_SACRED_TEXTS):
-            {
-                if (Random.Range(0, 100) <= 40 + 5 * skills[Skills.WISDOM])
+                game.sinners[tempSocialStatus].faith -= 5 * (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 10f;
+                lastResult = game.sinners[tempSocialStatus].wealth * game.sinners[tempSocialStatus].strength * 5 *
+                    (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 10f;
+                if (perks.Contains(Perks.PERK_1))
                 {
-                    game.sinners[tempSocialStatus].fearOfGodOpened = true;
-                    lastResult = Int32.MaxValue;
+                    lastResult *= 1.1f;
                 }
-                else
+                game.gold += lastResult;
+                break;
+            case DayTask.SELL_INDULGENCES:
+                lastResult = game.sinners[tempSocialStatus].wealth * game.sinners[tempSocialStatus].sins *
+                    game.sinners[tempSocialStatus].faith * game.sinners[tempSocialStatus].strength / 10000;
+                if (perks.Contains(Perks.PERK_1))
+                {
+                    lastResult *= 1.1f;
+                }
+                game.gold += lastResult;
+                game.sinners[tempSocialStatus].strength =
+                    (1 - game.sinners[tempSocialStatus].faith) * game.sinners[tempSocialStatus].strength;
+                game.sinners[tempSocialStatus].Reset();
+                break;
+            case DayTask.SKILL_5:
+                game.sinners[tempSocialStatus].daysBrokenSpecial = (skills[Skills.MIND] + AddSkillByPerk(Skills.MIND)) / 2 + AddDays();
+                lastResult = game.sinners[tempSocialStatus].daysBrokenSpecial;
+                break;
+            case DayTask.SKILL_6:
+                game.daysLowAttention = (skills[Skills.MIND] + AddSkillByPerk(Skills.MIND)) / 3 + AddDays();
+                game.lowAttentionLevel = 5 * (skills[Skills.MIND] + AddSkillByPerk(Skills.MIND));
+                lastResult = game.lowAttentionLevel;
+                break;
+            case DayTask.PREACHING:
+                lastResult = 5 * (skills[Skills.SPIRIT] + AddSkillByPerk(Skills.SPIRIT)) / 10f + AdditionalSinner();
+                game.sinners[tempSocialStatus].faith += lastResult;
+                game.sinners[tempSocialStatus].wealth += lastResult;
+                break;
+            case DayTask.SKILL_8:
+                game.sinners[tempSocialStatus].daysHighFaith = (skills[Skills.SPIRIT] + AddSkillByPerk(Skills.SPIRIT)) / 3 + AddDays();
+                game.sinners[tempSocialStatus].levelHighFaith = 5 * (skills[Skills.SPIRIT] + AddSkillByPerk(Skills.SPIRIT));
+                lastResult = game.sinners[tempSocialStatus].levelHighFaith;
+                break;
+            case DayTask.SKILL_9:
+                if (game.sinners[tempSocialStatus].sins < 5 * (skills[Skills.SPIRIT] + AddSkillByPerk(Skills.SPIRIT)) / 10f)
                 {
                     lastResult = Int32.MinValue;
+                    break;
                 }
-                break;
-            }
-            case (DayTask.LISTEN_TO_GOSSIP):
-            {
-                if (Random.Range(0, 100) <= 40 + 5 * skills[Skills.CHARM])
+                lastResult = game.sinners[tempSocialStatus].strength * game.sinners[tempSocialStatus].wealth * 5 * (skills[Skills.SPIRIT] + AddSkillByPerk(Skills.SPIRIT)) / 10f;
+                if (perks.Contains(Perks.PERK_1))
                 {
-                    game.sinners[tempSocialStatus].wealthOpened = true;
-                    lastResult = Int32.MaxValue;
+                    lastResult *= 1.1f;
                 }
-                else
-                {
-                    lastResult = Int32.MinValue;
-                }
+                game.gold += lastResult;
+                game.sinners[tempSocialStatus].sins -= 5 * (skills[Skills.SPIRIT] + AddSkillByPerk(Skills.SPIRIT)) / 10f;
                 break;
-            }
-            case (DayTask.PREACH_IN_THE_CITY):
-            {
-                lastResult = game.sinners[tempSocialStatus].strength * 15 * skills[Skills.PERSUASIVENESS] / 100;
-                game.sinners[tempSocialStatus].strength += lastResult;
-                break;
-            }
-            case (DayTask.SELL_INDULGENCE):
-            {
-                float sum = 0;
-                foreach (Sinner sinner in game.sinners.Values)
-                {
-                    int sins = 0;
-                    foreach (int sin in sinner.sins.Values)
-                    {
-                        sins += sin;
-                    }
-                    sum += sinner.wealth * sinner.strength * sinner.fearOfGod * sins * skills[Skills.PRESSURE] / 700000;
-                    sinner.strength -= sinner.strength * sinner.fearOfGod / 100;
-                    sinner.Clamp();
-                    sinner.Reset();
-                }
-
-                lastResult = (int)sum;
-                game.gold += sum;
-                break;
-            }
         }
+        if (perks.Contains(Perks.PERK_7))
+        {
+            game.attention -= 5;
+        }
+    }
+
+    public bool IsSkillAvailable(DayTask skill)
+    {
+        switch (skill)
+        {
+            case DayTask.GIVE_ALMS:
+                return skills[Skills.CUNNING] >= 7;
+            case DayTask.SELL_MIRACULOUS_BALMS:
+                return skills[Skills.CUNNING] >= 9;
+            case DayTask.SKILL_5:
+                return skills[Skills.MIND] >= 7;
+            case DayTask.SKILL_6:
+                return skills[Skills.MIND] >= 9;
+            case DayTask.SKILL_8:
+                return skills[Skills.SPIRIT] >= 7;
+            case DayTask.SKILL_9:
+                return skills[Skills.SPIRIT] >= 9;
+        }
+        return true;
     }
 }

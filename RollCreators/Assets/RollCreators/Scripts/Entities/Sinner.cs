@@ -13,84 +13,143 @@ public class Sinner
         GARBAGE
     };
 
-    public enum Sins
+    private float _faith;
+    public float faith
     {
-        VANITY,
-        ENVY,
-        ANGER,
-        GLOOM,
-        GREED,
-        GLUTTONY,
-        FORNICATION
-    }
+        get => _faith;
+        set
+        {
+            float delta = value - _faith;
+            if (daysBrokenSpecial == 0)
+            {
+                if (status == SocialStatus.NOBLEMAN)
+                {
+                    delta /= 3;
+                }
 
-    public int fearOfGod;
-    public float wealth;
-    public Dictionary<Sins, int> sins = new Dictionary<Sins, int>();
-    public int strength;
-    public bool fearOfGodOpened = false;
-    public bool wealthOpened = false;
-    public bool sinsOpened = false;
+                if (status == SocialStatus.CITIZEN)
+                {
+                    foreach (SocialStatus status in Enum.GetValues(typeof(SocialStatus)))
+                    {
+                        if (status != SocialStatus.CITIZEN && game.sinners[status].sins > 70)
+                        {
+                            delta *= 1.5f;
+                            break;
+                        }
+                    }
+
+                    foreach (SocialStatus status in Enum.GetValues(typeof(SocialStatus)))
+                    {
+                        if (status != SocialStatus.CITIZEN && game.sinners[status].sins < 20)
+                        {
+                            delta *= 0.5f;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (daysHighFaith > 0)
+            {
+                delta += delta * levelHighFaith;
+            }
+            _faith += delta;
+            Clamp();
+        }
+    }
+    private float _wealth;
+
+    public float wealth
+    {
+        get => _wealth;
+        set
+        {
+            float delta = value - _wealth;
+            if (daysHighWealth > 0)
+            {
+                delta += delta * levelHighWealth;
+            }
+            _wealth += delta;
+        }
+    }
+    
+    private float _sins;
+
+    public float sins
+    {
+        get => _sins;
+        set
+        {
+            float delta = value - _sins;
+            if (daysBrokenSpecial == 0)
+            {
+                if (status == SocialStatus.NOBLEMAN)
+                {
+                    delta *= 4;
+                }
+
+                if (status == SocialStatus.CITIZEN)
+                {
+                    if (wealth > game.sinners[SocialStatus.NOBLEMAN].wealth)
+                    {
+                        delta *= 2;
+                    }
+
+                    if (wealth < game.sinners[SocialStatus.CITIZEN].wealth)
+                    {
+                        delta /= 3;
+                    }
+                }
+            }
+            _sins += delta;
+            Clamp();
+        }
+    }
+    public float strength;
+    public int daysOpened = 0;
+    public int daysBrokenSpecial = 0;
+    public int daysHighFaith = 0;
+    public float levelHighFaith = 0;
+    public int daysHighWealth = 0;
+    public float levelHighWealth = 0;
     private SocialStatus status;
-    private int maxWealth;
+    private float maxWealth;
     private int maxStrength;
+    private Game game;
 
     public Sinner(SocialStatus status)
     {
+        game = GameObject.Find("Game").GetComponent<Game>();
         this.status = status;
         switch (status)
         {
             case SocialStatus.NOBLEMAN:
-                sins.Add(Sins.VANITY, 40);
-                sins.Add(Sins.ENVY, 30);
-                sins.Add(Sins.ANGER, 30);
-                sins.Add(Sins.GLOOM, 5);
-                sins.Add(Sins.GREED, 40);
-                sins.Add(Sins.GLUTTONY, 40);
-                sins.Add(Sins.FORNICATION, 30);
-                fearOfGod = 10;
+                sins = 40;
+                faith = 10;
                 wealth = 2;
                 strength = 100;
                 maxWealth = 5;
                 maxStrength = 300;
                 break;
             case SocialStatus.CITIZEN:
-                sins.Add(Sins.VANITY, 20);
-                sins.Add(Sins.ENVY, 40);
-                sins.Add(Sins.ANGER, 20);
-                sins.Add(Sins.GLOOM, 15);
-                sins.Add(Sins.GREED, 30);
-                sins.Add(Sins.GLUTTONY, 30);
-                sins.Add(Sins.FORNICATION, 40);
-                fearOfGod = 20;
-                wealth = 0.25f;
+                sins = 25;
+                faith = 20;
+                wealth = 1.25f;
                 strength = 400;
-                maxWealth = 2;
+                maxWealth = 2.25f;
                 maxStrength = 1000;
                 break;
             case SocialStatus.PEASANT:
-                sins.Add(Sins.VANITY, 10);
-                sins.Add(Sins.ENVY, 30);
-                sins.Add(Sins.ANGER, 20);
-                sins.Add(Sins.GLOOM, 30);
-                sins.Add(Sins.GREED, 40);
-                sins.Add(Sins.GLUTTONY, 20);
-                sins.Add(Sins.FORNICATION, 30);
-                fearOfGod = 35;
+                sins = 10;
+                faith = 35;
                 wealth = 1;
                 strength = 1200;
                 maxWealth = 2;
                 maxStrength = 2500;
                 break;
             case SocialStatus.GARBAGE:
-                sins.Add(Sins.VANITY, 5);
-                sins.Add(Sins.ENVY, 30);
-                sins.Add(Sins.ANGER, 30);
-                sins.Add(Sins.GLOOM, 40);
-                sins.Add(Sins.GREED, 20);
-                sins.Add(Sins.GLUTTONY, 10);
-                sins.Add(Sins.FORNICATION, 30);
-                fearOfGod = 35;
+                sins = 20;
+                faith = 35;
                 wealth = 0.5f;
                 strength = 2000;
                 maxWealth = 1;
@@ -101,68 +160,54 @@ public class Sinner
 
     public void MorningUpdate()
     {
-        switch (status)
+        if (status == SocialStatus.GARBAGE)
         {
-            case SocialStatus.NOBLEMAN:
-                sins[Sins.VANITY] += Random.Range(-5, 10);
-                sins[Sins.ENVY] += Random.Range(-5, 5);
-                sins[Sins.ANGER] += Random.Range(-5, 5);
-                sins[Sins.GLOOM] += Random.Range(-5, 5);
-                sins[Sins.GREED] += Random.Range(-5, 10);
-                sins[Sins.GLUTTONY] += Random.Range(-5, 5);
-                sins[Sins.FORNICATION] += Random.Range(-5, 5);
-                fearOfGod += Random.Range(-5, 5);
-                wealth += Random.Range(-0.5f, 0.5f);
-                strength += Random.Range(-10, 10);
-                break;
-            case SocialStatus.CITIZEN:
-                sins[Sins.VANITY] += Random.Range(-5, 10);
-                sins[Sins.ENVY] += Random.Range(-5, 10);
-                sins[Sins.ANGER] += Random.Range(-5, 5);
-                sins[Sins.GLOOM] += Random.Range(-5, 5);
-                sins[Sins.GREED] += Random.Range(-5, 5);
-                sins[Sins.GLUTTONY] += Random.Range(-5, 10);
-                sins[Sins.FORNICATION] += Random.Range(-5, 5);
-                fearOfGod += Random.Range(-5, 5);
-                wealth += Random.Range(-0.25f, 0.25f);
-                strength += Random.Range(-30, 30);
-                break;
-            case SocialStatus.PEASANT:
-                sins[Sins.VANITY] += Random.Range(-5, 5);
-                sins[Sins.ENVY] += Random.Range(-5, 10);
-                sins[Sins.ANGER] += Random.Range(-5, 5);
-                sins[Sins.GLOOM] += Random.Range(-5, 10);
-                sins[Sins.GREED] += Random.Range(-5, 10);
-                sins[Sins.GLUTTONY] += Random.Range(-5, 5);
-                sins[Sins.FORNICATION] += Random.Range(-5, 5);
-                fearOfGod += Random.Range(-5, 10);
-                wealth += Random.Range(-0.25f, 0.25f);
-                strength += Random.Range(-50, 50);
-                break;
-            case SocialStatus.GARBAGE:
-                sins[Sins.VANITY] += Random.Range(-5, 5);
-                sins[Sins.ENVY] += Random.Range(-5, 10);
-                sins[Sins.ANGER] += Random.Range(-5, 5);
-                sins[Sins.GLOOM] += Random.Range(-5, 10);
-                sins[Sins.GREED] += Random.Range(-5, 5);
-                sins[Sins.GLUTTONY] += Random.Range(-5, 5);
-                sins[Sins.FORNICATION] += Random.Range(-5, 10);
-                fearOfGod += Random.Range(-5, 10);
-                wealth += Random.Range(-0.25f, 0.25f);
-                strength += Random.Range(-100, 100);
-                break;
+            if (Random.value < 0.5)
+            {
+                faith += 5;
+            }
+            else
+            {
+                faith -= 7;
+            }
+
+            if (Random.value < 0.5)
+            {
+                sins += 5;
+            }
+            else
+            {
+                sins -= 7;
+            }
         }
+
+        if (daysOpened > 0)
+        {
+            daysOpened--;
+        }
+
+        if (daysBrokenSpecial > 0)
+        {
+            daysBrokenSpecial--;
+        }
+
+        if (daysHighFaith > 0)
+        {
+            daysHighFaith--;
+        }
+
+        if (daysHighWealth > 0)
+        {
+            daysHighWealth--;
+        }
+
         Clamp();
     }
 
     public void Clamp()
     {
-        foreach (Sins sin in Enum.GetValues(typeof(Sins)))
-        {
-            sins[sin] = Mathf.Clamp(sins[sin], 0, 100);
-        }
-
-        fearOfGod = Mathf.Clamp(fearOfGod, 0, 100);
+        sins = Mathf.Clamp(sins, 0, 100);
+        faith = Mathf.Clamp(faith, 0, 100);
         wealth = Mathf.Clamp(wealth, 0, maxWealth);
         strength = Mathf.Clamp(strength, 0, maxStrength);
     }
@@ -172,46 +217,27 @@ public class Sinner
         switch (status)
         {
             case SocialStatus.NOBLEMAN:
-                sins[Sins.VANITY] = 40;
-                sins[Sins.ENVY] = 30;
-                sins[Sins.ANGER] = 30;
-                sins[Sins.GLOOM] = 5;
-                sins[Sins.GREED] = 40;
-                sins[Sins.GLUTTONY] = 40;
-                sins[Sins.FORNICATION] = 30;
-                fearOfGod = 10;
+                sins = 40;
+                faith = 10;
                 break;
             case SocialStatus.CITIZEN:
-                sins[Sins.VANITY] = 20;
-                sins[Sins.ENVY] = 40;
-                sins[Sins.ANGER] = 20;
-                sins[Sins.GLOOM] = 15;
-                sins[Sins.GREED] = 30;
-                sins[Sins.GLUTTONY] = 30;
-                sins[Sins.FORNICATION] = 40;
-                fearOfGod = 20;
+                sins = 25;
+                faith = 20;
                 break;
             case SocialStatus.PEASANT:
-                sins[Sins.VANITY] = 10;
-                sins[Sins.ENVY] = 30;
-                sins[Sins.ANGER] = 20;
-                sins[Sins.GLOOM] = 30;
-                sins[Sins.GREED] = 40;
-                sins[Sins.GLUTTONY] = 20;
-                sins[Sins.FORNICATION] = 30;
-                fearOfGod = 35;
+                sins = 10;
+                faith = 35;
                 break;
             case SocialStatus.GARBAGE:
-                sins[Sins.VANITY] = 5;
-                sins[Sins.ENVY] = 30;
-                sins[Sins.ANGER] = 30;
-                sins[Sins.GLOOM] = 40;
-                sins[Sins.GREED] = 20;
-                sins[Sins.GLUTTONY] = 10;
-                sins[Sins.FORNICATION] = 30;
-                fearOfGod = 35;
+                sins = 20;
+                faith = 35;
                 break;
         }
+    }
+
+    public float GetUntwisted()
+    {
+        return (sins * wealth * strength) / (maxStrength * maxWealth * 100);
     }
 
 }

@@ -23,16 +23,21 @@ public class Game : MonoBehaviour
         }
     }
     
-    private int _attention;
+    private float _attention;
 
-    public int attention
+    public float attention
     {
         get => _attention;
         set
         {
-            gameMenu.attentionText.text = $"{value}%";
-            gameMenu.attentionSlider.value = value / 100f;
-            _attention = value;
+            float delta = value - _attention;
+            if (daysLowAttention > 0)
+            {
+                delta -= delta * lowAttentionLevel;
+            }
+            gameMenu.attentionText.text = $"{_attention + delta}%";
+            gameMenu.attentionSlider.value = (_attention + delta) / 100f;
+            _attention += delta;
         }
     }
 
@@ -50,8 +55,11 @@ public class Game : MonoBehaviour
             }
             gameMenu.daysRemainedText.text = $"Осталось {value} дней";
             _daysRemained = value;
-        }
+       }
     }
+
+    public int daysLowAttention = 0;
+    public float lowAttentionLevel = 0;
 
     [HideInInspector] public Dictionary<Sinner.SocialStatus, Sinner> sinners = new Dictionary<Sinner.SocialStatus, Sinner>();
     [HideInInspector] public List<DayAgent> dayAgents = new List<DayAgent>();
@@ -132,11 +140,33 @@ public class Game : MonoBehaviour
             foreach (NightAgent agent in nightAgents)
             {
                 agent.task = NightAgent.NightTask.IDLE;
+                if (agent.daysHighSkill > 0)
+                {
+                    agent.daysHighSkill--;
+                }
+
+                if (agent.perks.Contains(Agent.Perks.PERK_6))
+                {
+                    agent.experience++;
+                }
+            }
+
+            foreach (DayAgent agent in dayAgents)
+            {
+                if (agent.perks.Contains(Agent.Perks.PERK_6))
+                {
+                    agent.experience++;
+                }
             }
             dayTime = DayTime.DAY;
             foreach (Sinner sinner in sinners.Values)
             {
                 sinner.MorningUpdate();
+            }
+
+            if (daysLowAttention > 0)
+            {
+                daysLowAttention--;
             }
 
             daysRemained--;

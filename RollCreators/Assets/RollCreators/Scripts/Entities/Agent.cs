@@ -31,23 +31,32 @@ public abstract class Agent
 
     public enum Skills
     {
-        ELOQUENCE,
         CUNNING,
-        WISDOM,
-        INSIGHT,
-        CHARM,
-        PERSUASIVENESS,
-        PRESSURE
+        MIND,
+        SPIRIT
     }
 
-    private int _experience;
+    public enum Perks
+    {
+        PERK_1,
+        PERK_2,
+        PERK_3,
+        PERK_4,
+        PERK_5,
+        PERK_6,
+        PERK_7,
+        PERK_8,
+        PERK_9
+    }
+
+    private float _experience;
     public string name;
-    public int lastResult = Int32.MinValue;
-    public int experience { 
+    public float lastResult = Int32.MinValue;
+    public float experience { 
         get => _experience; 
         set
         {
-            int tmp = value;
+            float tmp = value;
             while (tmp >= EXPERIENCE[level] && level <= 3)
             {
                 level++;
@@ -61,6 +70,7 @@ public abstract class Agent
     public int level;
     public Dictionary<Skills, int> skills = new Dictionary<Skills, int>();
     public int skillPoints = 0;
+    public HashSet<Perks> perks = new HashSet<Perks>();
 
     public Agent()
     {
@@ -71,6 +81,9 @@ public abstract class Agent
 
     public void SetNewAgent()
     {
+        perks.Clear();
+        Perks[] allPerks = (Perks[])Enum.GetValues(typeof(Perks));
+        perks.Add(allPerks[Random.Range(0, allPerks.Length)]);
         string newName = __pullNames[Random.Range(0, __pullNames.Length)];
         while (__busyNames.Contains(newName))
         {
@@ -81,19 +94,21 @@ public abstract class Agent
         name = newName;
         __busyNames.Add(name);
         level = 1;
-        skills[Skills.ELOQUENCE] = 4 + Random.Range(-2, 2);
-        skills[Skills.CUNNING] = 4 + Random.Range(-2, 2);
-        skills[Skills.WISDOM] = 4 + Random.Range(-2, 2);
-        skills[Skills.INSIGHT] = 4 + Random.Range(-2, 2);
-        skills[Skills.CHARM] = 4 + Random.Range(-2, 2);
-        skills[Skills.PERSUASIVENESS] = 4 + Random.Range(-2, 2);
-        skills[Skills.PRESSURE] = 4 + Random.Range(-2, 2);
+        skills[Skills.CUNNING] = 5 + Random.Range(-1, 1);
+        skills[Skills.MIND] = 5 + Random.Range(-1, 1);
+        skills[Skills.SPIRIT] = 5 + Random.Range(-1, 1);
+    }
+
+    public float NeedGold(int exp)
+    {
+        return perks.Contains(Perks.PERK_9) ? exp * 35 : exp * 50;
     }
 
     public void TrainAgent(Game game, int tempInt)
     {
-        if (game.gold < 50 * tempInt) return;
-        game.gold -= 50 * tempInt;
+        float needGold = NeedGold(tempInt);
+        if (game.gold < needGold) return;
+        game.gold -= needGold;
         experience += tempInt;
     }
 
@@ -102,6 +117,30 @@ public abstract class Agent
         if (game.gold < 200) return;
         game.gold -= 200;
         SetNewAgent();
+    }
+    
+    protected int AddDays()
+    {
+        return perks.Contains(Perks.PERK_2) ? 1 : 0;
+    }
+
+    protected int AddSkillByPerk(Skills skill)
+    {
+        switch (skill)
+        {
+            case Skills.CUNNING:
+                return perks.Contains(Perks.PERK_3) ? 1 : 0;
+            case Skills.MIND:
+                return perks.Contains(Perks.PERK_4) ? 1 : 0;
+            case Skills.SPIRIT:
+                return perks.Contains(Perks.PERK_5) ? 1 : 0;
+        }
+        return 0;
+    }
+
+    protected float AdditionalSinner()
+    {
+        return perks.Contains(Perks.PERK_8) ? 5 : 0;
     }
 
 }
