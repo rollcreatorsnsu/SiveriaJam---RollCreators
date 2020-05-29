@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Management.Instrumentation;
-using JetBrains.Annotations;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AgentMenu : MonoBehaviour

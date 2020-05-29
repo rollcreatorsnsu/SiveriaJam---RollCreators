@@ -1,8 +1,4 @@
-﻿using System;
-using UnityEngine;
-using Random = UnityEngine.Random;
-
-public class DayAgent : Agent
+﻿public class DayAgent : Agent
 {
     public enum DayTask
     {
