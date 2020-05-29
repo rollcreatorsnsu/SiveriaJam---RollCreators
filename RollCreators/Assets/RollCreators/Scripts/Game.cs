@@ -18,21 +18,28 @@ public class Game : MonoBehaviour
         get => _gold;
         set
         {
-            gameMenu.goldText.text = $"{Mathf.FloorToInt(value)}/{(currentAim == 0 ? 1000 : 2000)}";
-            _gold = value;
+            float delta = value - _gold;
+            if (daysHighGold > 0)
+            {
+                delta += delta * highGoldLevel;
+            }
+            _gold += delta;
         }
     }
-    
-    private int _attention;
 
-    public int attention
+    private float _attention;
+
+    public float attention
     {
         get => _attention;
         set
         {
-            gameMenu.attentionText.text = $"{value}%";
-            gameMenu.attentionSlider.value = value / 100f;
-            _attention = value;
+            float delta = value - _attention;
+            if (daysLowAttention > 0)
+            {
+                delta -= delta * lowAttentionLevel;
+            }
+            _attention += delta;
         }
     }
 
@@ -48,14 +55,21 @@ public class Game : MonoBehaviour
                 SceneManager.LoadScene(badOutroSceneName);
                 return;
             }
-            gameMenu.daysRemainedText.text = $"Осталось {value} дней";
             _daysRemained = value;
-        }
+       }
     }
+    
+    [HideInInspector] public int daysLowAttention = 0;
+    [HideInInspector] public float lowAttentionLevel = 0;
+    [HideInInspector] public int daysHighGold = 0;
+    [HideInInspector] public float highGoldLevel = 0;
 
     [HideInInspector] public Dictionary<Sinner.SocialStatus, Sinner> sinners = new Dictionary<Sinner.SocialStatus, Sinner>();
     [HideInInspector] public List<DayAgent> dayAgents = new List<DayAgent>();
     [HideInInspector] public List<NightAgent> nightAgents = new List<NightAgent>();
+
+    [SerializeField] private GameObject dayPrefabs;
+    [SerializeField] private GameObject nightPrefabs;
 
     [SerializeField] private GameMenu gameMenu;
     [SerializeField] private IndulgenceMenu indulgenceMenu;
@@ -64,20 +78,14 @@ public class Game : MonoBehaviour
     public DayTime dayTime = DayTime.DAY;
     public string badOutroSceneName = "Outro_bad_2";
     public string goodOutoSceneName = "Outro_good";
-    private delegate float Aim();
+    public delegate float Aim();
 
-    private string[] aimsTexts =
-    {
-        "накопить 1000 золота",
-        "накопить 2000 золота"
-    };
-    private List<Aim> aims = new List<Aim>();
-    private int currentAim = 0;
+    public List<Aim> currentAims = new List<Aim>();
 
     void Start()
     {
-        aims.Add(Aim1);
-        aims.Add(Aim2);
+        currentAims.Add(Aim1);
+        currentAims.Add(Aim2);
         Agent.ClearBusyNames();
         for (int i = 0; i < 4; i++)
         {
@@ -93,6 +101,7 @@ public class Game : MonoBehaviour
         attention = 0;
         gold = 0;
         daysRemained = 14;
+        gameMenu.UpdateData();
     }
 
     void Update()
@@ -100,10 +109,6 @@ public class Game : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             gameMenu.ShowSettings();
-        }
-        if (currentAim < aims.Count)
-        {
-            UpdateAim();
         }
     }
 
@@ -115,12 +120,13 @@ public class Game : MonoBehaviour
             {
                 agent.DoTask(this);
             }
-            gameMenu.ShowResults();
             foreach (DayAgent agent in dayAgents)
             {
                 agent.task = DayAgent.DayTask.IDLE;
             }
             dayTime = DayTime.NIGHT;
+            dayPrefabs.SetActive(false);
+            nightPrefabs.SetActive(true);
         }
         else
         {
@@ -128,15 +134,36 @@ public class Game : MonoBehaviour
             {
                 agent.DoTask(this);
             }
-            gameMenu.ShowResults();
             foreach (NightAgent agent in nightAgents)
             {
                 agent.task = NightAgent.NightTask.IDLE;
+                if (agent.daysHighSkill > 0)
+                {
+                    agent.daysHighSkill--;
+                }
+
+                if (agent.perks.Contains(Agent.Perks.PERK_6))
+                {
+                    agent.experience++;
+                }
+            }
+
+            foreach (DayAgent agent in dayAgents)
+            {
+                if (agent.perks.Contains(Agent.Perks.PERK_6))
+                {
+                    agent.experience++;
+                }
             }
             dayTime = DayTime.DAY;
             foreach (Sinner sinner in sinners.Values)
             {
                 sinner.MorningUpdate();
+            }
+
+            if (daysLowAttention > 0)
+            {
+                daysLowAttention--;
             }
 
             daysRemained--;
@@ -145,35 +172,25 @@ public class Game : MonoBehaviour
                 attention = 100;
                 indulgenceMenu.ShowIndulgenceDropDown();
             }
+            dayPrefabs.SetActive(true);
+            nightPrefabs.SetActive(false);
         }
-        gameMenu.UpdateDayTime();
+        gameMenu.UpdateData();
         audioSource.Play();
-    }
-
-    private void UpdateAim()
-    {
-        float progress = aims[currentAim]();
-        if (progress >= 1f)
+        if (gold >= Aim2())
         {
-            currentAim++;
-            if (currentAim == aims.Count)
-            {
-                SceneManager.LoadScene(goodOutoSceneName);
-                return;
-            }
-            gameMenu.UpdateAimText(aimsTexts[currentAim]);
+            SceneManager.LoadScene(goodOutoSceneName);
         }
-        gameMenu.UpdateAimBar(aims[currentAim]());
     }
 
     private float Aim1()
     {
-        return gold / 1000f;
+        return 1000;
     }
 
     private float Aim2()
     {
-        return gold / 2000f;
+        return 2000;
     }
     
 }

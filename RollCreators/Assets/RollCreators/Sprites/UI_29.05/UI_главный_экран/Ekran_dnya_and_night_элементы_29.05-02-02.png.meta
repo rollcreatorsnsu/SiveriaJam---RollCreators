@@ -1,0 +1,751 @@
+fileFormatVersion: 2
+guid: 0c667456cc9161f4286a790a272a7c30
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3601226538605936123
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_0"
+  - first:
+      213: -1839454104629278615
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_1"
+  - first:
+      213: -6210004501983185383
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_2"
+  - first:
+      213: -7535768550044038659
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_3"
+  - first:
+      213: -4433971177824223250
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_4"
+  - first:
+      213: -3592713400901510814
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_5"
+  - first:
+      213: 180531280915519426
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_6"
+  - first:
+      213: -1194994973403919949
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_7"
+  - first:
+      213: 4295787879185132192
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_8"
+  - first:
+      213: -531418028769939757
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_9"
+  - first:
+      213: 5544172959358172890
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_10"
+  - first:
+      213: -1236077258567183592
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_11"
+  - first:
+      213: -2115121439510356127
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_12"
+  - first:
+      213: 1693617154290043048
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_13"
+  - first:
+      213: -2287357966709383005
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_14"
+  - first:
+      213: 907243047908712634
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_15"
+  - first:
+      213: 7907585727844881654
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_16"
+  - first:
+      213: 744578593333439161
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_17"
+  - first:
+      213: 2049540359965823549
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_18"
+  - first:
+      213: 2144427495115928881
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_19"
+  - first:
+      213: -5817135172698365934
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_20"
+  - first:
+      213: -3099228682119345909
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_21"
+  - first:
+      213: -416997337120797993
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_22"
+  - first:
+      213: 755791913381761223
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_23"
+  - first:
+      213: 8064684076402631076
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_24"
+  - first:
+      213: 486196360026565092
+    second: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_25"
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_0"
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 464
+        width: 102
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfdf05de4702af130800000000000000
+      internalID: 3601226538605936123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_1"
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 463
+        width: 102
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96800f8dc32f876e0800000000000000
+      internalID: -1839454104629278615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_2"
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 463
+        width: 103
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91637b5bec1a1d9a0800000000000000
+      internalID: -6210004501983185383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_3"
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 464
+        width: 102
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df980111e629b6790800000000000000
+      internalID: -7535768550044038659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_4"
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 467
+        width: 95
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef7779b4be5772c0800000000000000
+      internalID: -4433971177824223250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_5"
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 405
+        width: 370
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 269da77623e142ec0800000000000000
+      internalID: -3592713400901510814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_6"
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 183
+        width: 175
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c7d0d55e30618200800000000000000
+      internalID: 180531280915519426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_7"
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 394
+        width: 151
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b9c1ed27668a6fe0800000000000000
+      internalID: -1194994973403919949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_8"
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 397
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aa2249e054bd9b30800000000000000
+      internalID: 4295787879185132192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_9"
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 396
+        width: 133
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3deedef4e1600a8f0800000000000000
+      internalID: -531418028769939757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_10"
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 403
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adebed7aeebd0fc40800000000000000
+      internalID: 5544172959358172890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_11"
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 339
+        width: 153
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8131a28484298dee0800000000000000
+      internalID: -1236077258567183592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_12"
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 179
+        width: 348
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16f1c25d14495a2e0800000000000000
+      internalID: -2115121439510356127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_13"
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 177
+        width: 347
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a847f224dfe08710800000000000000
+      internalID: 1693617154290043048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_14"
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 229
+        width: 94
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a0a0285c0ca140e0800000000000000
+      internalID: -2287357966709383005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_15"
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 233
+        width: 67
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab0aa8bcebc279c00800000000000000
+      internalID: 907243047908712634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_16"
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 185
+        width: 127
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f49423c2536dbd60800000000000000
+      internalID: 7907585727844881654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_17"
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 185
+        width: 38
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9baeff22946455a00800000000000000
+      internalID: 744578593333439161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_18"
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 114
+        width: 337
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d32d694391e617c10800000000000000
+      internalID: 2049540359965823549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_19"
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 96
+        width: 166
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13537f4f17982cd10800000000000000
+      internalID: 2144427495115928881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_20"
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 140
+        width: 168
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21022e48162654fa0800000000000000
+      internalID: -5817135172698365934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_21"
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 38
+        width: 117
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b09039c1fe35df4d0800000000000000
+      internalID: -3099228682119345909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_22"
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 99
+        width: 147
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7da81a89127863af0800000000000000
+      internalID: -416997337120797993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_23"
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 35
+        width: 237
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c09b39adbc1d7a00800000000000000
+      internalID: 755791913381761223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_24"
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 24
+        width: 158
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a16abf50738bef60800000000000000
+      internalID: 8064684076402631076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Ekran_dnya_and_night_\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B_29.05-02-02_25"
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 31
+        width: 244
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e9a87273015fb600800000000000000
+      internalID: 486196360026565092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

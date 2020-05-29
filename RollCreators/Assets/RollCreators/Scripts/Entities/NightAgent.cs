@@ -7,116 +7,148 @@ public class NightAgent : Agent
     public enum NightTask
     {
         IDLE,
-        OPEN_FLAT,
-        MUCHLY_PRAISE,
-        PROVOKE_TO_FIGHT,
-        COMPLAINT_ON_JUSTICE,
-        DICE,
-        TAKE_A_BREAK,
-        DEVELOP
+        MANIPULATION,
+        SLANDER,
+        ROBBERY,
+        CORRUPTION,
+        TRAINING,
+        TEMPT,
+        TEMPERING_OF_SPIRIT,
+        THE_FALL,
+        PROPAGANDA
     }
     public NightTask task = NightTask.IDLE;
     public Sinner.SocialStatus tempSocialStatus;
+    public int daysHighSkill = 0;
 
     public override void DoTask(Game game)
     {
         switch (task)
         {
             case NightTask.IDLE:
-                lastResult = Int32.MaxValue;
                 break;
-            case (NightTask.OPEN_FLAT):
-            {
-                int oldValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.VANITY];
-                game.sinners[tempSocialStatus].sins[Sinner.Sins.VANITY] += Random.Range(-30, 10) + 2 * (skills[Skills.ELOQUENCE] + game.sinners[tempSocialStatus].sins[Sinner.Sins.VANITY] / 10);
-                game.attention += Mathf.RoundToInt(Random.Range(5, 15) / 5f);
-                game.sinners[tempSocialStatus].Clamp();
-                int newValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.VANITY];
-                lastResult = newValue - oldValue;
+            case NightTask.MANIPULATION:
+                game.sinners[tempSocialStatus].sins += GetFirstResult(game, tempSocialStatus, task);
+                game.attention += GetSecondResult(game, tempSocialStatus, task);
                 break;
-            }
-            case (NightTask.MUCHLY_PRAISE):
-            {
-                int oldValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.ENVY];
-                game.sinners[tempSocialStatus].sins[Sinner.Sins.ENVY] += Random.Range(-30, 10) + 2 * (skills[Skills.WISDOM] + game.sinners[tempSocialStatus].sins[Sinner.Sins.ENVY] / 10);
-                game.attention += Mathf.RoundToInt(Random.Range(5, 15) / 5f);
-                game.sinners[tempSocialStatus].Clamp();
-                int newValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.ENVY];
-                lastResult = newValue - oldValue;
+            case NightTask.SLANDER:
+                game.sinners[tempSocialStatus].strength += GetFirstResult(game, tempSocialStatus, task);
+                game.attention += GetSecondResult(game, tempSocialStatus, task);
                 break;
-            }
-            case (NightTask.PROVOKE_TO_FIGHT):
-            {
-                int oldValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.ANGER];
-                game.sinners[tempSocialStatus].sins[Sinner.Sins.ANGER] += Random.Range(-30, 10) + 2 * (skills[Skills.PRESSURE] + game.sinners[tempSocialStatus].sins[Sinner.Sins.ANGER] / 10);
-                game.attention += Mathf.RoundToInt(Random.Range(10, 20) / 5f);
-                game.sinners[tempSocialStatus].Clamp();
-                int newValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.ANGER];
-                lastResult = newValue - oldValue;
+            case NightTask.ROBBERY:
+                game.gold += GetFirstResult(game, tempSocialStatus, task);
+                game.attention += GetSecondResult(game, tempSocialStatus, task);
                 break;
-            }
-            case (NightTask.COMPLAINT_ON_JUSTICE):
-            {
-                int oldValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.GLOOM];
-                game.sinners[tempSocialStatus].sins[Sinner.Sins.GLOOM] += Random.Range(-30, 10) + 2 * (skills[Skills.PERSUASIVENESS] + game.sinners[tempSocialStatus].sins[Sinner.Sins.GLOOM] / 10);
-                game.attention += Mathf.RoundToInt(Random.Range(5, 15) / 5f);
-                game.sinners[tempSocialStatus].Clamp();
-                int newValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.GLOOM];
-                lastResult = newValue - oldValue;
+            case NightTask.CORRUPTION:
+                game.sinners[tempSocialStatus].wealth += GetFirstResult(game, tempSocialStatus, task);
+                game.attention += GetSecondResult(game, tempSocialStatus, task);
                 break;
-            }
-            case (NightTask.DICE):
-            {
-                if (game.gold < 25)
+            case NightTask.TRAINING:
+                experience += (int)GetFirstResult(game, tempSocialStatus, task);
+                break;
+            case NightTask.TEMPT:
+                if (game.gold < -GetSecondResult(game, tempSocialStatus, task))
                 {
-                    lastResult = Int32.MinValue;
-                    return;
+                    break;
                 }
-
-                int oldValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.GREED];
-                game.sinners[tempSocialStatus].sins[Sinner.Sins.GREED] += Random.Range(-30, 10) + 2 * (skills[Skills.CUNNING] + game.sinners[tempSocialStatus].sins[Sinner.Sins.GREED] / 10);
-                game.attention += Mathf.RoundToInt(Random.Range(0, 15) / 5f);
-                game.gold -= 25;
-                game.sinners[tempSocialStatus].Clamp();
-                int newValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.GREED];
-                lastResult = newValue - oldValue;
+                game.sinners[tempSocialStatus].sins += GetFirstResult(game, tempSocialStatus, task);
+                game.gold += GetSecondResult(game, tempSocialStatus, task);
                 break;
-            }
-            case (NightTask.TAKE_A_BREAK):
-            {
-                if (game.gold < 50)
-                {
-                    lastResult = Int32.MinValue;
-                    return;
-                }
-
-                int oldValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.GLUTTONY];
-                game.sinners[tempSocialStatus].sins[Sinner.Sins.GLUTTONY] += Random.Range(-30, 10) + 2 * (skills[Skills.INSIGHT] + game.sinners[tempSocialStatus].sins[Sinner.Sins.GLUTTONY] / 10);
-                game.attention += Mathf.RoundToInt(Random.Range(0, 10) / 5f);
-                game.gold -= 50;
-                game.sinners[tempSocialStatus].Clamp();
-                int newValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.GLUTTONY];
-                lastResult = newValue - oldValue;
+            case NightTask.TEMPERING_OF_SPIRIT:
+                daysHighSkill = GetDaysResult(task);
                 break;
-            }
-            case (NightTask.DEVELOP):
-            {
-                if (game.gold < 50)
-                {
-                    lastResult = Int32.MinValue;
-                    return;
-                }
-
-                int oldValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.FORNICATION];
-                game.sinners[tempSocialStatus].sins[Sinner.Sins.FORNICATION] += Random.Range(-30, 10) + 2 * (skills[Skills.CHARM] + game.sinners[tempSocialStatus].sins[Sinner.Sins.FORNICATION] / 10);
-                game.attention += Mathf.RoundToInt(Random.Range(0, 10) / 5f);
-                game.gold -= 50;
-                game.sinners[tempSocialStatus].Clamp();
-                int newValue = game.sinners[tempSocialStatus].sins[Sinner.Sins.FORNICATION];
-                lastResult = newValue - oldValue;
+            case NightTask.THE_FALL:
+                game.sinners[tempSocialStatus].sins += GetFirstResult(game, tempSocialStatus, task);
+                game.sinners[tempSocialStatus].wealth += GetSecondResult(game, tempSocialStatus, task);
                 break;
-            }
+            case NightTask.PROPAGANDA:
+                game.daysHighGold = GetDaysResult(task);
+                game.highGoldLevel = GetFirstResult(game, tempSocialStatus, task);
+                break;
         }
+    }
+    
+    public bool IsSkillAvailable(NightTask skill)
+    {
+        switch (skill)
+        {
+            case NightTask.SLANDER:
+                return skills[Skills.CUNNING] >= 7;
+            case NightTask.ROBBERY:
+                return skills[Skills.CUNNING] >= 9;
+            case NightTask.TRAINING:
+                return skills[Skills.MIND] >= 7;
+            case NightTask.TEMPT:
+                return skills[Skills.MIND] >= 9;
+            case NightTask.THE_FALL:
+                return skills[Skills.SPIRIT] >= 7;
+            case NightTask.PROPAGANDA:
+                return skills[Skills.SPIRIT] >= 9;
+        }
+        return true;
+    }
+
+    private int AddSkill(Skills skill)
+    {
+        return (daysHighSkill > 0 ? 1 : 0) + AddSkillByPerk(skill);
+    }
+
+    public float GetFirstResult(Game game, Sinner.SocialStatus tempSocialStatus, NightTask task)
+    {
+        switch (task)
+        {
+            case NightTask.MANIPULATION:
+                return game.sinners[tempSocialStatus].sins * (0.05f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) + AdditionalSinner());
+            case NightTask.SLANDER:
+                return -game.sinners[tempSocialStatus].strength * (0.02f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) + AdditionalSinner());
+            case NightTask.ROBBERY:
+                return game.sinners[tempSocialStatus].wealth * game.sinners[tempSocialStatus].strength * 5 * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) / 10f * GoldMultiplier();
+            case NightTask.CORRUPTION:
+                return game.sinners[tempSocialStatus].wealth * (0.04f * (skills[Skills.MIND] + AddSkill(Skills.MIND)) + AdditionalSinner());
+            case NightTask.TRAINING:
+                return Mathf.FloorToInt((skills[Skills.MIND] + AddSkill(Skills.MIND)) / 2f);
+            case NightTask.TEMPT:
+                return game.sinners[tempSocialStatus].sins * (0.04f * (skills[Skills.MIND] + AddSkill(Skills.MIND)) + AdditionalSinner());
+            case NightTask.THE_FALL:
+                return game.sinners[tempSocialStatus].sins * (0.07f * (skills[Skills.SPIRIT] + AddSkill(Skills.SPIRIT)) + AdditionalSinner());
+            case NightTask.PROPAGANDA:
+                return 0.02f * (skills[Skills.SPIRIT] + AddSkill(Skills.SPIRIT));
+            case NightTask.TEMPERING_OF_SPIRIT:
+                return 1;
+        }
+        return 0;
+    }
+
+    public float GetSecondResult(Game game, Sinner.SocialStatus tempSocialStatus, NightTask task)
+    {
+        switch (task)
+        {
+            case NightTask.MANIPULATION:
+                return game.attention * 0.02f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
+            case NightTask.SLANDER:
+                return game.attention * 0.04f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
+            case NightTask.ROBBERY:
+                return game.attention * 0.05f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
+            case NightTask.CORRUPTION:
+                return game.attention * 0.03f * (skills[Skills.CUNNING] + AddSkill(Skills.MIND)) * AttentionMultiplier();
+            case NightTask.TEMPT:
+                return 50 * (skills[Skills.MIND] + AddSkill(Skills.MIND));
+            case NightTask.THE_FALL:
+                return -game.sinners[tempSocialStatus].wealth * 0.05f * (skills[Skills.SPIRIT] + AddSkill(Skills.SPIRIT));
+        }
+        return 0;
+    }
+
+    public int GetDaysResult(NightTask task)
+    {
+        switch (task)
+        {
+            case NightTask.TEMPERING_OF_SPIRIT:
+                return (skills[Skills.SPIRIT] + AddSkill(Skills.SPIRIT)) / 3 + AddDays();
+            case NightTask.PROPAGANDA:
+                return (skills[Skills.SPIRIT] + AddSkill(Skills.SPIRIT)) / 3;
+        }
+        return 0;
     }
     
 }

@@ -1,348 +1,405 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Management.Instrumentation;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AgentMenu : MonoBehaviour
 {
-    private static string[] DAY_TASK_NAMES =
+    private static Agent.Skills[] SKILLS =
     {
-        "Проводить службу", "Раздавать милостыню", "Исповедовать грешников", "Толковать священные тексты", "Слушать сплетни", "Проповедовать в городе", "Продавать индульгенцию"
+        Agent.Skills.CUNNING,
+        Agent.Skills.MIND,
+        Agent.Skills.SPIRIT
     };
 
-    private static string[] NIGHT_TASK_NAMES =
+    private static string[] DAY_LEVELS =
     {
-        "Неприкрыто льстить", "Ехидно похваляться", "Провоцировать на драку", "Жаловаться на несправедливость", "Играть в кости", "Закатывать пирушку", "Разватничать"
+        "клирик",
+        "диакон",
+        "священник"
     };
 
-    private static DayAgent.DayTask[] DAY_TASKS =
+    private static string[] NIGHT_LEVELS =
     {
-        DayAgent.DayTask.CONDUCT_A_SERVICE,
-        DayAgent.DayTask.GIVE_ALMS,
-        DayAgent.DayTask.CONFESS_SINNERS,
-        DayAgent.DayTask.INTERPRETING_SACRED_TEXTS,
-        DayAgent.DayTask.LISTEN_TO_GOSSIP,
-        DayAgent.DayTask.PREACH_IN_THE_CITY,
-        DayAgent.DayTask.SELL_INDULGENCE
-    };
-
-    private static NightAgent.NightTask[] NIGHT_TASKS =
-    {
-        NightAgent.NightTask.OPEN_FLAT,
-        NightAgent.NightTask.MUCHLY_PRAISE,
-        NightAgent.NightTask.PROVOKE_TO_FIGHT,
-        NightAgent.NightTask.COMPLAINT_ON_JUSTICE,
-        NightAgent.NightTask.DICE,
-        NightAgent.NightTask.TAKE_A_BREAK,
-        NightAgent.NightTask.DEVELOP
-    };
-
-    private static string[] DESCRIPTIONS1_DAY =
-    {
-        "\"Страх рождает в людях веру\"",
-        "\"Малая цена за спасение своей шкуры\"",
-        "\"Пусть поведают о своих пороках\"",
-        "\"Насколько сильна их вера?\"",
-        "\"Даже у стен храма есть уши\"",
-        "\"Больше паства, больше грешников\"",
-        "\"Кто же не жаждет искупления?\""
-    };
-
-    private static string[] DESCRIPTIONS2_DAY =
-    {
-        "Увеличить богобоязненность выбранной группы Грешников",
-        "Снизить подозрение инквизиции, потратив немного золота",
-        "Узнать величину грехов выбранной группы Грешников",
-        "Узнать о богобоязненности выбранной группы Грешников",
-        "Узнать о богатстве выбранной группы Грешников",
-        "Увеличить численность выбранной группы Грешников",
-        "Отпустить людям грехи в обмен на золото"
-    };
-
-    private static string[] DESCRIPTIONS1_NIGHT =
-    {
-        "\"Ох, я спутал вас с маркизом\"",
-        "\"Смотри что я прикупил на днях\"",
-        "\"А ну иди сюда, ублюдок!\"",
-        "\"Опять долгоносик сожрал посевы!\"",
-        "\"Ещё партию и точно по домам!\"",
-        "\"Садись к столу, давай выпьем!\"",
-        "\"Девочки тебя уже заждались!\""
-    };
-
-    private static string[] DESCRIPTIONS2_NIGHT =
-    {
-        "Повысить тщеславие у выбранной группы Грешников",
-        "Повысить зависть у выбранной группы Грешников",
-        "Повысить гнев у выбранной группы Грешников",
-        "Повысить уныние у выбранной группы Грешников",
-        "Повысить алчность у выбранной группы Грешников\nЦена: 25 золота",
-        "Повысить чревоугодие у выбранной группы Грешников\nЦена: 50 золота",
-        "Повысить блуд у выбранной группы Грешников\nЦена: 50 золота"
+        "мошенник",
+        "скользкий тип",
+        "тайный агент"
     };
     
-    private static Agent.Skills[] SKILLS_INDEX =
+    private static Dictionary<Agent.Perks, string> PERKS = new Dictionary<Agent.Perks, string>();
+
+    private static string[] D1 =
     {
-        Agent.Skills.ELOQUENCE, Agent.Skills.CUNNING, Agent.Skills.WISDOM, Agent.Skills.INSIGHT, Agent.Skills.CHARM, Agent.Skills.PERSUASIVENESS, Agent.Skills.PRESSURE
+        "Привлекать приследователей",
+        "Раздавать милостыню",
+        "Продавать чудодейственные бальзамы"
     };
 
-    private static string[] __socialStatus =
+    private static string[] D2 =
     {
-        "Дворяне", "Горожане", "Крестьяне", "Отбросы"
+        "Продавать индульгенции",
+        "Провести службу",
+        "Отвлечь инквизицию"
     };
 
-    private static Sinner.SocialStatus[] __statusMap =
+    private static string[] D3 =
     {
-        Sinner.SocialStatus.NOBLEMAN, Sinner.SocialStatus.CITIZEN, Sinner.SocialStatus.PEASANT, Sinner.SocialStatus.GARBAGE
+        "Проповедь",
+        "Совместные воспевания",
+        "Принятие избранных"
+    };
+    
+    private static string[] N1 =
+    {
+        "Манипулирование",
+        "Клевета",
+        "Грабёж"
     };
 
-    private static string[] __dayParameter =
+    private static string[] N2 =
     {
-        "Богобоязненность", "", "Вероятность открытия грехов", "Вероятность открытия богобоязнености", "Вероятность открытия богатства", "Численность", ""
+        "Коррупция",
+        "Тренировка",
+        "Придать искушению"
     };
 
-    private static string[] __nightParameter =
+    private static string[] N3 =
     {
-        "Тщеславие", "Зависть", "Гнев", "Уныние", "Алчность", "Чревоугодие", "Блуд"
+        "Закалка духа",
+        "Грехопадение",
+        "Пропаганда"
+    };
+    
+    private static DayAgent.DayTask[] DD1 =
+    {
+        DayAgent.DayTask.ATTRACT_FOLLOWERS,
+        DayAgent.DayTask.GIVE_ALMS,
+        DayAgent.DayTask.SELL_MIRACULOUS_BALMS
     };
 
-    [HideInInspector] public Agent currentAgent;
-    public GameObject dayMenu;
-    public GameObject nightMenu;
+    private static DayAgent.DayTask[] DD2 =
+    {
+        DayAgent.DayTask.SELL_INDULGENCES,
+        DayAgent.DayTask.CONDUCT_A_SERVICE,
+        DayAgent.DayTask.DISTRACT_THE_INQUISITION
+    };
+
+    private static DayAgent.DayTask[] DD3 =
+    {
+        DayAgent.DayTask.PREACHING,
+        DayAgent.DayTask.JOINT_CHANTING,
+        DayAgent.DayTask.ACCEPTANCE_OF_THE_ELECT
+    };
+    
+    private static NightAgent.NightTask[] NN1 =
+    {
+        NightAgent.NightTask.MANIPULATION,
+        NightAgent.NightTask.SLANDER,
+        NightAgent.NightTask.ROBBERY
+    };
+
+    private static NightAgent.NightTask[] NN2 =
+    {
+        NightAgent.NightTask.CORRUPTION,
+        NightAgent.NightTask.TRAINING,
+        NightAgent.NightTask.TEMPT
+    };
+
+    private static NightAgent.NightTask[] NN3 =
+    {
+        NightAgent.NightTask.TEMPERING_OF_SPIRIT,
+        NightAgent.NightTask.THE_FALL,
+        NightAgent.NightTask.PROPAGANDA
+    };
+
+    private static string[][] DAY_TASKS_TEXTS = {D1, D2, D3};
+    private static string[][] NIGHT_TASKS_TEXTS = {N1, N2, N3};
+    private static DayAgent.DayTask[][] DAY_TASKS = {DD1, DD2, DD3};
+    private static NightAgent.NightTask[][] NIGHT_TASKS = {NN1, NN2, NN3};
+
+    private static Sinner.SocialStatus[] SOCIALS =
+    {
+        Sinner.SocialStatus.NOBLEMAN,
+        Sinner.SocialStatus.CITIZEN,
+        Sinner.SocialStatus.PEASANT,
+        Sinner.SocialStatus.GARBAGE
+    };
+
+    static AgentMenu()
+    {
+        PERKS.Add(Agent.Perks.PERK_1, "Кадый раз когда этот агент получает монеты, увеличивайте их количество на 10%");
+        PERKS.Add(Agent.Perks.PERK_2, "Все лительные эфекты налженые этим агнтом длятся на 1 день больше");
+        PERKS.Add(Agent.Perks.PERK_3, "Если агнет использует стандартное действие Хитрости, добавьте +1 к его Хитрости");
+        PERKS.Add(Agent.Perks.PERK_4, "Если агнет использует стандартное действие Разума, добавьте +1 к его Разуму");
+        PERKS.Add(Agent.Perks.PERK_5, "Если агнет использует стандартное действие Воли, добавьте +1 к его Воли");
+        PERKS.Add(Agent.Perks.PERK_6, "В начаел каждого дня агент получает 1 опыт");
+        PERKS.Add(Agent.Perks.PERK_7, "Любое действие агета в дополнение к эффекту снижает Внимание инквииции на 5%");
+        PERKS.Add(Agent.Perks.PERK_8, "Кадый раз когда этот агент увеличивает какой-либо параметр Греников, дполнтельо увеличьте его на 5%");
+        PERKS.Add(Agent.Perks.PERK_9, "Стоимость покупи опыа для агента ниже на 30%");
+    }
+
+    private string[] TASKS_SKILL =
+    {
+        "Действия хитрости",
+        "Действия разума",
+        "Действия духа"
+    };
+
     public Game game;
-    [HideInInspector] public DayAgent.DayTask dayTask;
-    [HideInInspector] public NightAgent.NightTask nightTask;
-    public Text nameText;
-    public Text nameText2;
-    public Text eloquenceText;
-    public Text cunningText;
-    public Text wisdomText;
-    public Text insightText;
-    public Text charmText;
-    public Text persuasivenessText;
-    public Text pressureText;
-    public Text taskText;
-    public Text description1;
     public GameMenu gameMenu;
-
-    public List<Button> dayButtons;
-    public Sprite activeDayButton;
-    public Sprite inactiveDayButton;
-    public List<Button> nightButtons;
-    public Sprite activeNightButton;
-    public Sprite inactiveNightButton;
-
-    public GameObject agentPanel;
-    public GameObject agentsPanel;
-
-    public Text trainButtonText;
     public ConfirmationMenu confirmationMenu;
     public SinnersMenu sinnersMenu;
-    public List<Image> sinnersTicks;
-    public Sprite dayTick;
-    public Sprite nightTick;
-    public List<Text> buttonsTexts;
-    public GameObject sinnersPanel;
-    public Slider slider;
-    public Text sliderButtonText;
-    public Image sliderTick;
-    public GameObject sliderPanel;
-    public Image applyTick;
-    public GameObject applyPanel;
+    public List<GameObject> activeButtons;
+    public List<GameObject> inactiveButtons;
+    public List<Text> buttonsSkillsTexts;
+    public Text name;
+    public GameObject firstPageLeftPage;
+    public GameObject firstPageRightPage;
+    public GameObject mainLeftPage;
+    public GameObject mainRightPage;
+    public GameObject agentsRightPage;
+    public GameObject inquisitionRightPage;
+    public GameObject moneyRightPage;
+    public GameObject firstPageRightButton;
+    public GameObject mainRightButton;
+    public Text trainButtonText;
+    public Text agentInfoText;
+    public List<Text> perksTexts;
+    public Text tasksSkillText;
+    public List<Text> buttonsTasksText;
+    public List<GameObject> buttonsTasksLocks;
+    public List<Image> buttonsTasksImages;
+    public List<Button> buttonsTasks;
+    public List<GameObject> buttonsTasksTicks;
+    public Sprite activeButton;
+    public Sprite inactiveButton;
+    public Sprite lockedButton;
+    public Sprite activeDayBookmark;
+    public Sprite inactiveDayBookmark;
+    public Sprite activeNightBookmark;
+    public Sprite inactiveNightBookmark;
+    public List<GameObject> socialsTicks;
+    public List<Text> leftTexts;
+    public List<Text> rightTexts;
+    public List<Text> topTexts;
+    public List<Image> addImages;
+    public List<Image> leftImages;
+    public List<Image> rightImages;
+    public List<Image> topImages;
+    public List<Sprite> wealthSprites;
+    public List<Sprite> faithSprites;
+    public List<Sprite> sinsSprites;
+    public List<Sprite> strengthSprites;
+    public List<Sprite> goldSprites;
+    public Sprite attentionSprite;
+    public Sprite dayAgentSprite;
+    public Sprite nightAgentSprite;
+    public Sprite lockSprite;
     
-    private Dictionary<DayAgent.DayTask, Agent.Skills> daySkills = new Dictionary<DayAgent.DayTask, Agent.Skills>();
-    private Dictionary<NightAgent.NightTask, Agent.Skills> nightSkills = new Dictionary<NightAgent.NightTask, Agent.Skills>();
-    private int currentMark = 0;
+    private int currentAgentIndex;
+    private int currentPanelIndex;
+    private Agent agent;
 
-    void Awake()
+    public void Show(int currentAgent)
     {
-        daySkills.Add(DayAgent.DayTask.CONDUCT_A_SERVICE, Agent.Skills.ELOQUENCE);
-        daySkills.Add(DayAgent.DayTask.GIVE_ALMS, Agent.Skills.CUNNING);
-        daySkills.Add(DayAgent.DayTask.CONFESS_SINNERS, Agent.Skills.INSIGHT);
-        daySkills.Add(DayAgent.DayTask.INTERPRETING_SACRED_TEXTS, Agent.Skills.WISDOM);
-        daySkills.Add(DayAgent.DayTask.LISTEN_TO_GOSSIP, Agent.Skills.CHARM);
-        daySkills.Add(DayAgent.DayTask.PREACH_IN_THE_CITY, Agent.Skills.PERSUASIVENESS);
-        daySkills.Add(DayAgent.DayTask.SELL_INDULGENCE, Agent.Skills.PRESSURE);
-        nightSkills.Add(NightAgent.NightTask.OPEN_FLAT, Agent.Skills.ELOQUENCE);
-        nightSkills.Add(NightAgent.NightTask.MUCHLY_PRAISE, Agent.Skills.WISDOM);
-        nightSkills.Add(NightAgent.NightTask.PROVOKE_TO_FIGHT, Agent.Skills.PRESSURE);
-        nightSkills.Add(NightAgent.NightTask.COMPLAINT_ON_JUSTICE, Agent.Skills.PERSUASIVENESS);
-        nightSkills.Add(NightAgent.NightTask.DICE, Agent.Skills.CUNNING);
-        nightSkills.Add(NightAgent.NightTask.TAKE_A_BREAK, Agent.Skills.INSIGHT);
-        nightSkills.Add(NightAgent.NightTask.DEVELOP, Agent.Skills.CHARM);
+        gameObject.SetActive(true);
+        currentAgentIndex = currentAgent;
+        bool isDay = game.dayTime == Game.DayTime.DAY;
+        for (int i = 0; i < 4; i++)
+        {
+            activeButtons[i].GetComponent<Image>().sprite = isDay ? activeDayBookmark : activeNightBookmark;
+            inactiveButtons[i].GetComponent<Image>().sprite = isDay ? inactiveDayBookmark : inactiveNightBookmark;
+        }
+        ShowPanel(0);
+    }
+
+    public void ShowPanel(int currentPanel)
+    {
+        if (game.dayTime == Game.DayTime.DAY)
+        {
+            agent = game.dayAgents[currentAgentIndex];
+        }
+        else
+        {
+            agent = game.nightAgents[currentAgentIndex];
+        }
+        currentPanelIndex = currentPanel;
+        for (int i = 0; i < 4; i++)
+        {
+            activeButtons[i].SetActive(i == currentPanel);
+            inactiveButtons[i].SetActive(i != currentPanel);
+        }
+        buttonsSkillsTexts[0].text = $"Хитрость {agent.skills[Agent.Skills.CUNNING]}";
+        buttonsSkillsTexts[1].text = $"Разум {agent.skills[Agent.Skills.MIND]}";
+        buttonsSkillsTexts[2].text = $"Дух {agent.skills[Agent.Skills.SPIRIT]}";
+        buttonsSkillsTexts[3].text = $"Хитрость {agent.skills[Agent.Skills.CUNNING]}";
+        buttonsSkillsTexts[4].text = $"Разум {agent.skills[Agent.Skills.MIND]}";
+        buttonsSkillsTexts[5].text = $"Дух {agent.skills[Agent.Skills.SPIRIT]}";
+        name.text = $"{agent.name}";
+        firstPageLeftPage.SetActive(false);
+        firstPageRightPage.SetActive(false);
+        firstPageRightButton.SetActive(false);
+        mainLeftPage.SetActive(false);
+        mainRightPage.SetActive(false);
+        mainRightButton.SetActive(false);
+        agentsRightPage.SetActive(false);
+        inquisitionRightPage.SetActive(false);
+        moneyRightPage.SetActive(false);
+        if (currentPanel == 0)
+        {
+            firstPageLeftPage.SetActive(true);
+            firstPageRightPage.SetActive(true);
+            firstPageRightButton.SetActive(true);
+            trainButtonText.text = $"Повысить уровень {agent.NeedGold(agent.RemainExp())} золота";
+            agentInfoText.text =
+                $"Доступно очков навыка: {agent.skillPoints}\nХитрость: {agent.skills[Agent.Skills.CUNNING]}\nРазум: {agent.skills[Agent.Skills.MIND]}\nДух: {agent.skills[Agent.Skills.SPIRIT]}\nОпыт: {agent.experience}/{Agent.EXPERIENCE[agent.level]}\nУровень: {(game.dayTime == Game.DayTime.DAY ? DAY_LEVELS[agent.level - 1] : NIGHT_LEVELS[agent.level - 1])}";
+            for (int i = 0; i < 4; i++)
+            {
+                perksTexts[i].text = "";
+            }
+            int index = 0;
+            foreach (Agent.Perks perks in agent.perks)
+            {
+                perksTexts[index].text = PERKS[perks];
+            }
+        }
+        else
+        {
+            mainLeftPage.SetActive(true);
+            mainRightButton.SetActive(true);
+            tasksSkillText.text = TASKS_SKILL[currentPanel - 1];
+            for (int i = 0; i < 3; i++)
+            {
+                buttonsTasks[i].onClick.RemoveAllListeners();
+                buttonsTasksTicks[i].SetActive(false);
+                if (game.dayTime == Game.DayTime.DAY)
+                {
+                    DayAgent dayAgent = (DayAgent) agent;
+                    DayAgent.DayTask dayTask = DAY_TASKS[currentPanel - 1][i];
+                    buttonsTasksText[i].text = DAY_TASKS_TEXTS[currentPanel - 1][i];
+                    if (dayAgent.IsSkillAvailable(dayTask))
+                    {
+                        buttonsTasksLocks[i].SetActive(false);
+                        if (i == 0)
+                        {
+                            buttonsTasks[i].onClick.AddListener(delegate { GoTask(0); });
+                        }
+                        else if (i == 1)
+                        {
+                            buttonsTasks[i].onClick.AddListener(delegate { GoTask(1); });
+                        }
+                        else if (i == 2)
+                        {
+                            buttonsTasks[i].onClick.AddListener(delegate { GoTask(2); });
+                        }
+                        if (dayAgent.task == dayTask)
+                        {
+                            buttonsTasksTicks[i].SetActive(true);
+                            buttonsTasksImages[i].sprite = activeButton;
+                            mainRightPage.SetActive(true);
+                        }
+                        else
+                        {
+                            buttonsTasksImages[i].sprite = inactiveButton;
+                        }
+                    }
+                    else
+                    {
+                        buttonsTasksLocks[i].SetActive(true);
+                        buttonsTasksImages[i].sprite = lockedButton;
+                    }
+                }
+                else
+                {
+                    NightAgent nightAgent = (NightAgent) agent;
+                    NightAgent.NightTask nightTask = NIGHT_TASKS[currentPanel - 1][i];
+                    buttonsTasksText[i].text = NIGHT_TASKS_TEXTS[currentPanel - 1][i];
+                    if (nightAgent.IsSkillAvailable(nightTask))
+                    {
+                        buttonsTasksLocks[i].SetActive(false);
+                        if (i == 0)
+                        {
+                            buttonsTasks[i].onClick.AddListener(delegate { GoTask(0); });
+                        }
+                        else if (i == 1)
+                        {
+                            buttonsTasks[i].onClick.AddListener(delegate { GoTask(1); });
+                        }
+                        else if (i == 2)
+                        {
+                            buttonsTasks[i].onClick.AddListener(delegate { GoTask(2); });
+                        }
+                        if (nightAgent.task == nightTask)
+                        {
+                            buttonsTasksTicks[i].SetActive(true);
+                            buttonsTasksImages[i].sprite = activeButton;
+                            mainRightPage.SetActive(true);
+                        }
+                        else
+                        {
+                            buttonsTasksImages[i].sprite = inactiveButton;
+                        }
+                    }
+                    else
+                    {
+                        buttonsTasksLocks[i].SetActive(true);
+                        buttonsTasksImages[i].sprite = lockedButton;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            if (game.dayTime == Game.DayTime.DAY)
+            {
+                socialsTicks[i].SetActive(((DayAgent)agent).tempSocialStatus == SOCIALS[i]);
+            }
+            else
+            {
+                socialsTicks[i].SetActive(((NightAgent)agent).tempSocialStatus == SOCIALS[i]);
+            }
+        }
+    }
+
+    public void LeftAgent()
+    {
+        if (currentAgentIndex == 0)
+        {
+            currentAgentIndex = 3;
+        }
+        else
+        {
+            currentAgentIndex--;
+        }
+        ShowPanel(currentPanelIndex);
+    }
+
+    public void RightAgent()
+    {
+        if (currentAgentIndex == 3)
+        {
+            currentAgentIndex = 0;
+        }
+        else
+        {
+            currentAgentIndex++;
+        }
+        ShowPanel(currentPanelIndex);
     }
 
     public void Close()
     {
+        gameMenu.UpdateData();
         gameObject.SetActive(false);
     }
 
-    public void Show()
-    {
-        Show(currentAgent);
-    }
-
-    public void Show(Agent agent)
-    {
-        currentAgent = agent;
-        gameObject.SetActive(true);
-        if (game.dayTime == Game.DayTime.DAY)
-        {
-            dayMenu.SetActive(true);
-            nightMenu.SetActive(false);
-            ShowDayPanel(0);
-        }
-        else
-        {
-            nightMenu.SetActive(true);
-            dayMenu.SetActive(false);
-            ShowNightPanel(0);
-        }
-        UpdateText();
-        UpdateSliderText();
-    }
-
-    public void Apply(int index)
-    {
-        if (game.dayTime == Game.DayTime.DAY)
-        {
-            DayAgent agent = (DayAgent) currentAgent;
-            agent.task = dayTask;
-            if (dayTask == DayAgent.DayTask.GIVE_ALMS)
-            {
-                agent.tempInt = (int)slider.value;
-            }
-            else if (dayTask != DayAgent.DayTask.SELL_INDULGENCE)
-            {
-                agent.tempSocialStatus = __statusMap[index];
-            }
-        }
-        else
-        {
-            NightAgent agent = (NightAgent) currentAgent;
-            agent.task = nightTask;
-            agent.tempSocialStatus = __statusMap[index];
-        }
-
-        UpdateTicks();
-        gameMenu.UpdateAgentButtons();
-    }
-
-    private string CheckDayValues(int index, Sinner.SocialStatus status)
-    {
-        switch (index)
-        {
-            case 0:
-                return
-                    $"{-20 + 5 * currentAgent.skills[Agent.Skills.ELOQUENCE]} - {5 * currentAgent.skills[Agent.Skills.ELOQUENCE]}";
-            case 2:
-                return game.sinners[status].fearOfGodOpened ? $"{game.sinners[status].fearOfGod + 40 + 5 * currentAgent.skills[Agent.Skills.INSIGHT]}%" : "???%";
-            case 3:
-                return $"{40 + 5 * currentAgent.skills[Agent.Skills.WISDOM]}%";
-            case 4:
-                return $"{40 + 5 * currentAgent.skills[Agent.Skills.CHARM]}%";
-            case 5:
-                return $"{game.sinners[status].strength * 5 * currentAgent.skills[Agent.Skills.PERSUASIVENESS]}";
-        }
-        return "";
-    }
-
-    private static Agent.Skills[] __nightAgentSkills =
-    {
-        Agent.Skills.ELOQUENCE, Agent.Skills.WISDOM, Agent.Skills.PRESSURE, Agent.Skills.PERSUASIVENESS, Agent.Skills.CUNNING, Agent.Skills.INSIGHT, Agent.Skills.CHARM
-    };
-
-    private static Sinner.Sins[] __nightSins =
-    {
-        Sinner.Sins.VANITY, Sinner.Sins.ENVY, Sinner.Sins.ANGER, Sinner.Sins.GLOOM, Sinner.Sins.GREED, Sinner.Sins.GLUTTONY, Sinner.Sins.FORNICATION
-    };
-
-    private string CheckNightValues(int index, Sinner.SocialStatus status)
-    {
-        return game.sinners[status].sinsOpened ? $"{-30 + 2 * (currentAgent.skills[__nightAgentSkills[index]] + game.sinners[status].sins[__nightSins[index]] / 10)} - {10 + 2 * (currentAgent.skills[__nightAgentSkills[index]] + game.sinners[status].sins[__nightSins[index]] / 10)}" : "???";
-    }
-
-    public void ShowDayPanel(int index)
-    {
-        currentMark = index;
-        for (var i = 0; i < dayButtons.Count; i++)
-        {
-            if (i == index)
-            {
-                dayButtons[i].image.sprite = activeDayButton;
-                dayButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1, 1);
-            }
-            else
-            {
-                dayButtons[i].image.sprite = inactiveDayButton;
-                dayButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-            }
-        }
-        if (index == 0)
-        {
-            agentsPanel.SetActive(true);
-            agentPanel.SetActive(false);
-            
-            trainButtonText.text = $"Повысить уровень {Agent.EXPERIENCE[currentAgent.level] * 50} золота";
-            return;
-        }
-        agentPanel.SetActive(true);
-        agentsPanel.SetActive(false);
-        if (index == 2)
-        {
-            sliderPanel.SetActive(true);
-            sinnersPanel.SetActive(false);
-            applyPanel.SetActive(false);
-        }
-        else if (index == 7)
-        {
-            applyPanel.SetActive(true);
-            sliderPanel.SetActive(false);
-            sinnersPanel.SetActive(false);
-        }
-        else
-        {
-            sinnersPanel.SetActive(true);
-            applyPanel.SetActive(false);
-            sliderPanel.SetActive(false);
-        }
-        description1.text = DESCRIPTIONS1_DAY[index - 1];
-        taskText.text = DAY_TASK_NAMES[index - 1];
-        dayTask = DAY_TASKS[index - 1];
-        for (int i = 0; i < buttonsTexts.Count; i++)
-        {
-            buttonsTexts[i].text = $"{__socialStatus[i]}\n{__dayParameter[index - 1]}: {CheckDayValues(index - 1, __statusMap[i])}";
-        }
-        UpdateTicks();
-    }
-
-    private void UpdateText()
-    {
-        nameText.text = $"{currentAgent.name}";
-        nameText2.text = $"{currentAgent.name}";
-        eloquenceText.text = $"Красноречие {currentAgent.skills[Agent.Skills.ELOQUENCE]}";
-        cunningText.text = $"Хитрость {currentAgent.skills[Agent.Skills.CUNNING]}";
-        wisdomText.text = $"Мудрость {currentAgent.skills[Agent.Skills.WISDOM]}";
-        insightText.text = $"Проницательность {currentAgent.skills[Agent.Skills.INSIGHT]}";
-        charmText.text = $"Обаяние {currentAgent.skills[Agent.Skills.CHARM]}";
-        persuasivenessText.text = $"Убедительность {currentAgent.skills[Agent.Skills.PERSUASIVENESS]}";
-        pressureText.text = $"Напор {currentAgent.skills[Agent.Skills.PRESSURE]}";
-    }
-    
-    public void ImproveSkill(int index)
-    {
-        if (currentAgent.skillPoints == 0 || currentAgent.skills[SKILLS_INDEX[index]] == 10) return;
-        currentAgent.skillPoints--;
-        currentAgent.skills[SKILLS_INDEX[index]]++;
-        UpdateText();
-    }
-    
     private void NewAgentCallback()
     {
-        currentAgent.NewAgent(game);
-        gameMenu.UpdateAgentButtons();
-        UpdateText();
+        agent.NewAgent(game);
+        ShowPanel(currentPanelIndex);
     }
 
     public void NewAgent()
@@ -352,192 +409,232 @@ public class AgentMenu : MonoBehaviour
 
     private void TrainAgentCallback()
     {
-        currentAgent.TrainAgent(game, Agent.EXPERIENCE[currentAgent.level]);
-        gameMenu.UpdateAgentButtons();
-        UpdateText();
+        agent.TrainAgent(game, agent.RemainExp());
+        ShowPanel(currentPanelIndex);
     }
 
     public void TrainAgent()
     {
-        confirmationMenu.Show($"Вы действительно хотите {trainButtonText.text}?", TrainAgentCallback);
+        confirmationMenu.Show($"Вы действительно хотите повысить уровень за {agent.NeedGold(agent.RemainExp())} золота?", TrainAgentCallback);
     }
 
-    public void ShowNightPanel(int index)
+    public void ImproveSkill(int skillIndex)
     {
-        sinnersPanel.SetActive(true);
-        sliderPanel.SetActive(false);
-        applyPanel.SetActive(false);
-        currentMark = index;
-        for (var i = 0; i < nightButtons.Count; i++)
+        if (agent.skillPoints > 0)
         {
-            if (i == index)
-            {
-                nightButtons[i].image.sprite = activeNightButton;
-                nightButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1, 1);
-            }
-            else
-            {
-                nightButtons[i].image.sprite = inactiveNightButton;
-                nightButtons[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-            }
+            agent.skills[SKILLS[skillIndex]]++;
+            ShowPanel(currentPanelIndex);
         }
-        if (index == 0)
-        {
-            agentsPanel.SetActive(true);
-            agentPanel.SetActive(false);
-            trainButtonText.text = $"Повысить уровень {Agent.EXPERIENCE[currentAgent.level] * 50} золота";
-            return;
-        }
-        agentPanel.SetActive(true);
-        agentsPanel.SetActive(false);
-        description1.text = DESCRIPTIONS1_NIGHT[index - 1];
-        taskText.text = NIGHT_TASK_NAMES[index - 1];
-        nightTask = NIGHT_TASKS[index - 1];
-        for (int i = 0; i < buttonsTexts.Count; i++)
-        {
-            buttonsTexts[i].text = $"{__socialStatus[i]}\n{__nightParameter[index - 1]}: {CheckNightValues(index - 1, __statusMap[i])}";
-        }
-        UpdateTicks();
     }
 
     public void ShowSinners()
     {
-        sinnersMenu.Show();
-        Close();
+        sinnersMenu.Show(0);
+        gameObject.SetActive(false);
     }
 
-    private void UpdateTicks()
+    public void GoTask(int buttonIndex)
     {
         if (game.dayTime == Game.DayTime.DAY)
         {
-            DayAgent agent = (DayAgent) currentAgent;
+            DayAgent.DayTask dayTask = DAY_TASKS[currentPanelIndex - 1][buttonIndex];
+            DayAgent dayAgent = (DayAgent) agent;
+            dayAgent.task = dayTask;
             for (int i = 0; i < 4; i++)
             {
-                if (agent.tempSocialStatus == __statusMap[i] && agent.task != DayAgent.DayTask.IDLE && agent.task != DayAgent.DayTask.GIVE_ALMS && agent.task != DayAgent.DayTask.SELL_INDULGENCE && agent.task == DAY_TASKS[currentMark - 1])
+                int needDays = dayAgent.GetDaysResult(dayTask);
+                if (needDays > 0)
                 {
-                    sinnersTicks[i].sprite = dayTick;
-                    sinnersTicks[i].gameObject.SetActive(true);
+                    topImages[i].gameObject.SetActive(true);
+                    topTexts[i].text = $"{needDays}";
+                    addImages[i].gameObject.SetActive(true);
                 }
                 else
                 {
-                    sinnersTicks[i].gameObject.SetActive(false);
+                    topImages[i].gameObject.SetActive(false);
+                    topTexts[i].text = "";
+                    addImages[i].gameObject.SetActive(false);
                 }
-            }
 
-            if (agent.task == DayAgent.DayTask.GIVE_ALMS)
-            {
-                sliderTick.gameObject.SetActive(true);
-            }
-            else
-            {
-                sliderTick.gameObject.SetActive(false);
-            }
-
-            if (agent.task == DayAgent.DayTask.SELL_INDULGENCE)
-            {
-                applyTick.gameObject.SetActive(true);
-            }
-            else
-            {
-                applyTick.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            NightAgent agent = (NightAgent) currentAgent;
-            for (int i = 0; i < 4; i++)
-            {
-                if (agent.tempSocialStatus == __statusMap[i] && agent.task != NightAgent.NightTask.IDLE && agent.task == NIGHT_TASKS[currentMark - 1])
+                float firstResult = dayAgent.GetFirstResult(game, SOCIALS[i], dayTask);
+                float secondResult = dayAgent.GetSecondResult(game, SOCIALS[i], dayTask);
+                if (firstResult == 0)
                 {
-                    sinnersTicks[i].sprite = nightTick;
-                    sinnersTicks[i].gameObject.SetActive(true);
+                    leftImages[i].gameObject.SetActive(false);
+                    leftTexts[i].text = "";
                 }
                 else
                 {
-                    sinnersTicks[i].gameObject.SetActive(false);
+                    leftTexts[i].text = $"{firstResult}";
+                    leftImages[i].gameObject.SetActive(true);
+                    switch (dayTask)
+                    {
+                        case DayAgent.DayTask.ATTRACT_FOLLOWERS:
+                            leftImages[i].sprite = strengthSprites[i];
+                            break;
+                        case DayAgent.DayTask.GIVE_ALMS:
+                            leftImages[i].sprite = goldSprites[i];
+                            break;
+                        case DayAgent.DayTask.SELL_MIRACULOUS_BALMS:
+                            leftImages[i].sprite = faithSprites[i];
+                            break;
+                        case DayAgent.DayTask.SELL_INDULGENCES:
+                            leftImages[i].sprite = goldSprites[i];
+                            break;
+                        case DayAgent.DayTask.DISTRACT_THE_INQUISITION:
+                            leftImages[i].sprite = attentionSprite;
+                            break;
+                        case DayAgent.DayTask.PREACHING:
+                            leftImages[i].sprite = faithSprites[i];
+                            break;
+                        case DayAgent.DayTask.JOINT_CHANTING:
+                            leftImages[i].sprite = faithSprites[i];
+                            break;
+                        case DayAgent.DayTask.ACCEPTANCE_OF_THE_ELECT:
+                            leftImages[i].sprite = goldSprites[i];
+                            break;
+                        case DayAgent.DayTask.CONDUCT_A_SERVICE:
+                            leftImages[i].sprite = lockSprite;
+                            break;
+                    }
                 }
-            }
-        }
-    }
-
-    public void SwapLeft()
-    {
-        if (game.dayTime == Game.DayTime.DAY)
-        {
-            for (int i = 0; i < game.dayAgents.Count - 1; i++)
-            {
-                if (game.dayAgents[i + 1] == currentAgent)
+                if (secondResult == 0)
                 {
-                    currentAgent = game.dayAgents[i];
-                    ShowDayPanel(currentMark);
-                    UpdateText();
-                    return;
+                    rightImages[i].gameObject.SetActive(false);
+                    rightTexts[i].text = "";
+                }
+                else
+                {
+                    rightTexts[i].text = $"{secondResult}";
+                    rightImages[i].gameObject.SetActive(true);
+                    switch (dayTask)
+                    {
+                        case DayAgent.DayTask.GIVE_ALMS:
+                            rightImages[i].sprite = attentionSprite;
+                            break;
+                        case DayAgent.DayTask.SELL_MIRACULOUS_BALMS:
+                            rightImages[i].sprite = goldSprites[i];
+                            break;
+                        case DayAgent.DayTask.SELL_INDULGENCES:
+                            rightImages[i].sprite = strengthSprites[i];
+                            break;
+                        case DayAgent.DayTask.ACCEPTANCE_OF_THE_ELECT:
+                            rightImages[i].sprite = sinsSprites[i];
+                            break;
+                    }
                 }
             }
-
-            currentAgent = game.dayAgents[game.dayAgents.Count - 1];
-            ShowDayPanel(currentMark);
-            UpdateText();
         }
         else
         {
-            for (int i = 0; i < game.nightAgents.Count - 1; i++)
+            NightAgent.NightTask nightTask = NIGHT_TASKS[currentPanelIndex - 1][buttonIndex];
+            NightAgent nightAgent = (NightAgent) agent;
+            nightAgent.task = nightTask;
+            for (int i = 0; i < 4; i++)
             {
-                if (game.nightAgents[i + 1] == currentAgent)
+                int needDays = nightAgent.GetDaysResult(nightTask);
+                if (needDays > 0)
                 {
-                    currentAgent = game.nightAgents[i];
-                    ShowNightPanel(currentMark);
-                    UpdateText();
-                    return;
+                    topImages[i].gameObject.SetActive(true);
+                    topTexts[i].text = $"{needDays}";
+                    addImages[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    topImages[i].gameObject.SetActive(false);
+                    topTexts[i].text = "";
+                    addImages[i].gameObject.SetActive(false);
+                }
+
+                float firstResult = nightAgent.GetFirstResult(game, SOCIALS[i], nightTask);
+                float secondResult = nightAgent.GetSecondResult(game, SOCIALS[i], nightTask);
+                if (firstResult == 0)
+                {
+                    leftImages[i].gameObject.SetActive(false);
+                    leftTexts[i].text = "";
+                }
+                else
+                {
+                    leftTexts[i].text = $"{firstResult}";
+                    leftImages[i].gameObject.SetActive(true);
+                    switch (nightTask)
+                    {
+                        case NightAgent.NightTask.MANIPULATION:
+                            leftImages[i].sprite = sinsSprites[i];
+                            break;
+                        case NightAgent.NightTask.SLANDER:
+                            leftImages[i].sprite = strengthSprites[i];
+                            break;
+                        case NightAgent.NightTask.ROBBERY:
+                            leftImages[i].sprite = goldSprites[i];
+                            break;
+                        case NightAgent.NightTask.CORRUPTION:
+                            leftImages[i].sprite = wealthSprites[i];
+                            break;
+                        case NightAgent.NightTask.TRAINING:
+                            leftImages[i].sprite = nightAgentSprite;
+                            break;
+                        case NightAgent.NightTask.TEMPT:
+                            leftImages[i].sprite = sinsSprites[i];
+                            break;
+                        case NightAgent.NightTask.THE_FALL:
+                            leftImages[i].sprite = sinsSprites[i];
+                            break;
+                        case NightAgent.NightTask.PROPAGANDA:
+                            leftImages[i].sprite = goldSprites[i];
+                            break;
+                        case NightAgent.NightTask.TEMPERING_OF_SPIRIT:
+                            leftImages[i].sprite = dayAgentSprite;
+                            break;
+                    }
+                }
+                if (secondResult == 0)
+                {
+                    rightImages[i].gameObject.SetActive(false);
+                    rightTexts[i].text = "";
+                }
+                else
+                {
+                    rightTexts[i].text = $"{secondResult}";
+                    rightImages[i].gameObject.SetActive(true);
+                    switch (nightTask)
+                    {
+                        case NightAgent.NightTask.MANIPULATION:
+                            rightImages[i].sprite = attentionSprite;
+                            break;
+                        case NightAgent.NightTask.SLANDER:
+                            rightImages[i].sprite = attentionSprite;
+                            break;
+                        case NightAgent.NightTask.ROBBERY:
+                            rightImages[i].sprite = attentionSprite;
+                            break;
+                        case NightAgent.NightTask.CORRUPTION:
+                            rightImages[i].sprite = attentionSprite;
+                            break;
+                        case NightAgent.NightTask.TEMPT:
+                            rightImages[i].sprite = goldSprites[i];
+                            break;
+                        case NightAgent.NightTask.THE_FALL:
+                            rightImages[i].sprite = wealthSprites[i];
+                            break;
+                    }
                 }
             }
-
-            currentAgent = game.nightAgents[game.nightAgents.Count - 1];
-            ShowNightPanel(currentMark);
-            UpdateText();
         }
+        ShowPanel(currentPanelIndex);
     }
 
-    public void SwapRight()
+    public void ChooseSocial(int buttonIndex)
     {
         if (game.dayTime == Game.DayTime.DAY)
         {
-            for (int i = game.dayAgents.Count - 1; i > 0; i--)
-            {
-                if (game.dayAgents[i - 1] == currentAgent)
-                {
-                    currentAgent = game.dayAgents[i];
-                    ShowDayPanel(currentMark);
-                    UpdateText();
-                    return;
-                }
-            }
-
-            currentAgent = game.dayAgents[0];
-            ShowDayPanel(currentMark);
-            UpdateText();
+            ((DayAgent) agent).tempSocialStatus = SOCIALS[buttonIndex];
         }
         else
         {
-            for (int i = game.nightAgents.Count - 1; i > 0; i--)
-            {
-                if (game.nightAgents[i - 1] == currentAgent)
-                {
-                    currentAgent = game.nightAgents[i];
-                    ShowNightPanel(currentMark);
-                    UpdateText();
-                    return;
-                }
-            }
-
-            currentAgent = game.nightAgents[0];
-            ShowNightPanel(currentMark);
-            UpdateText();
+            ((NightAgent) agent).tempSocialStatus = SOCIALS[buttonIndex];
         }
+        ShowPanel(currentPanelIndex);
     }
-
-    public void UpdateSliderText()
-    {
-        sliderButtonText.text = $"Раздавать милостыню\n{slider.value * 10} золота";
-    }
+    
 }
