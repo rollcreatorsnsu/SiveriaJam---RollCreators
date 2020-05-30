@@ -121,7 +121,7 @@
                 return game.sinners[tempSocialStatus].wealth * game.sinners[tempSocialStatus].strength * 5 *
                     (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 100f * GoldMultiplier();
             case DayTask.SELL_INDULGENCES:
-                return (1 - game.sinners[tempSocialStatus].faith) * game.sinners[tempSocialStatus].strength;
+                return (1 - game.sinners[tempSocialStatus].faith / 100) * game.sinners[tempSocialStatus].strength;
             case DayTask.ACCEPTANCE_OF_THE_ELECT:
                 return -game.sinners[tempSocialStatus].sins * 0.05f * (skills[Skills.SPIRIT] + AddSkillByPerk(Skills.SPIRIT));
         }
