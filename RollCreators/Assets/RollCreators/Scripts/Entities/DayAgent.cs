@@ -116,7 +116,7 @@
         switch (task)
         {
             case DayTask.GIVE_ALMS:
-                return -game.attention * 5 * (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 100f * AttentionMultiplier();
+                return -5 * (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 100f * AttentionMultiplier();
             case DayTask.SELL_MIRACULOUS_BALMS:
                 return game.sinners[tempSocialStatus].wealth * game.sinners[tempSocialStatus].strength * 5 *
                     (skills[Skills.CUNNING] + AddSkillByPerk(Skills.CUNNING)) / 100f * GoldMultiplier();

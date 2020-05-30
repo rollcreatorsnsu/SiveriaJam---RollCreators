@@ -30480,6 +30480,10 @@ MonoBehaviour:
   - {fileID: 393628353}
   - {fileID: 510263777}
   - {fileID: 533192422}
+  buttonsTasksTicksImages:
+  - {fileID: 393628355}
+  - {fileID: 510263779}
+  - {fileID: 533192424}
   activeButton: {fileID: 438436696913484108, guid: 8db43b3860c75684a9e0e60feec543cd,
     type: 3}
   inactiveButton: {fileID: 6211207743158759918, guid: 8db43b3860c75684a9e0e60feec543cd,
@@ -30566,6 +30570,9 @@ MonoBehaviour:
   nightAgentSprite: {fileID: -4811599928143079936, guid: 8db43b3860c75684a9e0e60feec543cd,
     type: 3}
   lockSprite: {fileID: -1550735226631070098, guid: 8db43b3860c75684a9e0e60feec543cd,
+    type: 3}
+  dayTick: {fileID: 7469743515327102736, guid: 8db43b3860c75684a9e0e60feec543cd, type: 3}
+  nightTick: {fileID: -574075550233089141, guid: 8db43b3860c75684a9e0e60feec543cd,
     type: 3}
 --- !u!114 &1961063790
 MonoBehaviour:

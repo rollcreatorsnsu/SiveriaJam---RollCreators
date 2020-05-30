@@ -170,6 +170,7 @@ public class AgentMenu : MonoBehaviour
     public List<Image> buttonsTasksImages;
     public List<Button> buttonsTasks;
     public List<GameObject> buttonsTasksTicks;
+    public List<Image> buttonsTasksTicksImages;
     public Sprite activeButton;
     public Sprite inactiveButton;
     public Sprite lockedButton;
@@ -194,7 +195,9 @@ public class AgentMenu : MonoBehaviour
     public Sprite dayAgentSprite;
     public Sprite nightAgentSprite;
     public Sprite lockSprite;
-    
+    public Sprite dayTick;
+    public Sprite nightTick;
+
     private int currentAgentIndex;
     private int currentPanelIndex;
     private Agent agent;
@@ -273,6 +276,7 @@ public class AgentMenu : MonoBehaviour
                 buttonsTasksTicks[i].SetActive(false);
                 if (game.dayTime == Game.DayTime.DAY)
                 {
+                    buttonsTasksTicksImages[i].sprite = dayTick;
                     DayAgent dayAgent = (DayAgent) agent;
                     DayAgent.DayTask dayTask = DAY_TASKS[currentPanel - 1][i];
                     buttonsTasksText[i].text = DAY_TASKS_TEXTS[currentPanel - 1][i];
@@ -310,6 +314,7 @@ public class AgentMenu : MonoBehaviour
                 }
                 else
                 {
+                    buttonsTasksTicksImages[i].sprite = nightTick;
                     NightAgent nightAgent = (NightAgent) agent;
                     NightAgent.NightTask nightTask = NIGHT_TASKS[currentPanel - 1][i];
                     buttonsTasksText[i].text = NIGHT_TASKS_TEXTS[currentPanel - 1][i];

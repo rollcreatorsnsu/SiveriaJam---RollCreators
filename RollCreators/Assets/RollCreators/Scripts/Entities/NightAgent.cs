@@ -122,13 +122,13 @@ public class NightAgent : Agent
         switch (task)
         {
             case NightTask.MANIPULATION:
-                return game.attention * 0.02f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
+                return 2f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
             case NightTask.SLANDER:
-                return game.attention * 0.04f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
+                return 4f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
             case NightTask.ROBBERY:
-                return game.attention * 0.05f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
+                return 5f * (skills[Skills.CUNNING] + AddSkill(Skills.CUNNING)) * AttentionMultiplier();
             case NightTask.CORRUPTION:
-                return game.attention * 0.03f * (skills[Skills.CUNNING] + AddSkill(Skills.MIND)) * AttentionMultiplier();
+                return 3f * (skills[Skills.CUNNING] + AddSkill(Skills.MIND)) * AttentionMultiplier();
             case NightTask.TEMPT:
                 return 50 * (skills[Skills.MIND] + AddSkill(Skills.MIND));
             case NightTask.THE_FALL:

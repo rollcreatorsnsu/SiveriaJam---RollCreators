@@ -100,7 +100,7 @@ public class GameMenu : MonoBehaviour
         if (game.daysLowAttention > 0)
         {
             longAttentionDebuff.SetActive(true);
-            longAttentionDebuffLevel.text = $"{game.lowAttentionLevel * 100f}%";
+            longAttentionDebuffLevel.text = $"-{Mathf.FloorToInt(game.lowAttentionLevel * 100f)}%";
             longAttentionDebuffDays.text = $"{game.daysLowAttention}";
         }
         else
